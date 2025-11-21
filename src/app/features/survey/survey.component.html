@@ -1,0 +1,119 @@
+<div class="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50">
+  <!-- Navigation -->
+  <nav class="container-custom py-6 border-b border-gray-200 bg-white/80 backdrop-blur-sm">
+    <div class="flex justify-between items-center">
+      <a routerLink="/" class="text-2xl font-bold text-primary-600">Vera</a>
+      <div class="space-x-4">
+        <a routerLink="/" class="text-gray-600 hover:text-primary-600 transition-colors">Accueil</a>
+        <a routerLink="/login" class="btn-primary">Admin</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container-custom py-12">
+    <div class="max-w-3xl mx-auto">
+      <!-- Success State -->
+      @if (success()) {
+        <div class="card bg-green-50 border border-green-500 text-center py-12 animate-fadeIn">
+          <h2 class="text-2xl font-bold text-green-700 mb-3">Merci pour votre participation !</h2>
+          <p class="text-green-600">Votre réponse a été enregistrée avec succès.</p>
+          <p class="text-sm text-green-600 mt-2">Redirection vers l'accueil...</p>
+        </div>
+      } @else {
+        <!-- Header -->
+        <div class="text-center mb-8">
+          <h1 class="section-title">Sondage de satisfaction</h1>
+          <p class="section-subtitle">Votre avis nous aide à nous améliorer</p>
+        </div>
+
+        <!-- Error Message -->
+        @if (error()) {
+          <div class="card bg-red-50 border border-red-500 text-red-700 mb-6">
+            <p>{{ error() }}</p>
+          </div>
+        }
+
+        <!-- Survey Form -->
+        <form [formGroup]="surveyForm" (ngSubmit)="onSubmit()" class="card">
+          <!-- Question Loop -->
+          @for (question of questions; track question.id) {
+            <div class="mb-8 last:mb-0">
+              <label class="label">
+                {{ question.text }}
+                @if (question.required) {
+                  <span class="text-red-500 ml-1">*</span>
+                }
+              </label>
+
+              <!-- Rating Type -->
+              @if (question.type === 'rating') {
+                <div class="flex gap-2 mt-3">
+                  @for (rating of [1, 2, 3, 4, 5]; track rating) {
+                    <button
+                      type="button"
+                      (click)="surveyForm.get(question.id)?.setValue(rating)"
+                      [class]="surveyForm.get(question.id)?.value === rating
+                        ? 'px-6 py-3 rounded-lg font-medium transition-all duration-200 bg-primary-500 text-white shadow-md'
+                        : 'px-6 py-3 rounded-lg font-medium transition-all duration-200 bg-gray-100 text-gray-700 hover:bg-gray-200'"
+                      class="flex-1">
+                      {{ rating }}
+                    </button>
+                  }
+                </div>
+              }
+
+              <!-- Select Type -->
+              @if (question.type === 'select') {
+                <select [formControlName]="question.id" class="input-field">
+                  <option value="">Sélectionnez une option</option>
+                  @for (option of question.options; track option) {
+                    <option [value]="option">{{ option }}</option>
+                  }
+                </select>
+              }
+
+              <!-- Textarea Type -->
+              @if (question.type === 'textarea') {
+                <textarea
+                  [formControlName]="question.id"
+                  class="input-field resize-none"
+                  rows="5"
+                  placeholder="Partagez vos suggestions...">
+                </textarea>
+              }
+
+              <!-- Error Message -->
+              @if (getErrorMessage(question.id)) {
+                <p class="error-message">{{ getErrorMessage(question.id) }}</p>
+              }
+            </div>
+          }
+
+          <!-- Submit Button -->
+          <div class="mt-8 pt-6 border-t border-gray-200">
+            <button
+              type="submit"
+              [disabled]="loading()"
+              class="btn-primary w-full text-lg">
+              @if (loading()) {
+                <span class="flex items-center justify-center gap-2">
+                  <span class="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></span>
+                  Envoi en cours...
+                </span>
+              } @else {
+                Envoyer mes réponses
+              }
+            </button>
+          </div>
+        </form>
+
+        <!-- Info Box -->
+        <div class="mt-8 card bg-primary-50 border border-primary-200">
+          <h3 class="font-bold text-gray-900 mb-1">Vos données sont protégées</h3>
+          <p class="text-sm text-gray-600">Vos réponses sont anonymes et stockées en toute sécurité.</p>
+        </div>
+      }
+    </div>
+  </main>
+</div>

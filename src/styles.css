@@ -1,3 +1,251 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import "tailwindcss";
+
+/* ============================================
+   THEME TAILWIND - Configuration des couleurs
+   ============================================ */
+
+@theme {
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
+  --color-primary-950: #172554;
+
+  --color-secondary-50: #fdf4ff;
+  --color-secondary-100: #fae8ff;
+  --color-secondary-200: #f5d0fe;
+  --color-secondary-300: #f0abfc;
+  --color-secondary-400: #e879f9;
+  --color-secondary-500: #d946ef;
+  --color-secondary-600: #c026d3;
+  --color-secondary-700: #a21caf;
+  --color-secondary-800: #86198f;
+  --color-secondary-900: #701a75;
+  --color-secondary-950: #4a044e;
+
+  --color-accent-50: #fef2f2;
+  --color-accent-100: #fee2e2;
+  --color-accent-200: #fecaca;
+  --color-accent-300: #fca5a5;
+  --color-accent-400: #f87171;
+  --color-accent-500: #ef4444;
+  --color-accent-600: #dc2626;
+  --color-accent-700: #b91c1c;
+  --color-accent-800: #991b1b;
+  --color-accent-900: #7f1d1d;
+  --color-accent-950: #450a0a;
+
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #0ea5e9;
+}
+
+/* ============================================
+   VARIABLES CSS PERSONNALISABLES
+   Modifiez ces valeurs pour changer la charte graphique
+   ============================================ */
+
+:root {
+  /* Couleurs principales */
+  --color-primary: 59 130 246;        /* RGB de primary-500 */
+  --color-primary-dark: 29 78 216;    /* RGB de primary-700 */
+  --color-primary-light: 147 197 253; /* RGB de primary-300 */
+
+  /* Couleurs secondaires */
+  --color-secondary: 217 70 239;      /* RGB de secondary-500 */
+  --color-secondary-dark: 162 28 175; /* RGB de secondary-700 */
+  --color-secondary-light: 240 171 252; /* RGB de secondary-300 */
+
+  /* Couleurs d'accent */
+  --color-accent: 239 68 68;          /* RGB de accent-500 */
+  --color-accent-dark: 185 28 28;     /* RGB de accent-700 */
+  --color-accent-light: 252 165 165;  /* RGB de accent-300 */
+
+  /* Couleurs de texte */
+  --color-text-primary: 24 24 27;     /* RGB de neutral-900 */
+  --color-text-secondary: 113 113 122; /* RGB de neutral-500 */
+  --color-text-muted: 161 161 170;    /* RGB de neutral-400 */
+
+  /* Couleurs de fond */
+  --color-background: 255 255 255;    /* Blanc */
+  --color-background-alt: 244 244 245; /* RGB de neutral-100 */
+  --color-background-dark: 39 39 42;  /* RGB de neutral-800 */
+
+  /* Bordures */
+  --color-border: 228 228 231;        /* RGB de neutral-200 */
+  --color-border-dark: 63 63 70;      /* RGB de neutral-700 */
+
+  /* Ombres */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+  /* Rayons de bordure */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+
+  /* Transitions */
+  --transition-base: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================
+   STYLES GLOBAUX
+   ============================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: rgb(var(--color-text-primary));
+  background-color: rgb(var(--color-background));
+  line-height: 1.5;
+}
+
+/* ============================================
+   CLASSES UTILITAIRES PERSONNALISÉES
+   ============================================ */
+
+.btn-primary {
+  @apply px-6 py-3 bg-primary-500 text-white rounded-lg font-medium
+         hover:bg-primary-600 active:bg-primary-700
+         transition-all duration-200 shadow-md hover:shadow-lg
+         disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.btn-secondary {
+  @apply px-6 py-3 bg-secondary-500 text-white rounded-lg font-medium
+         hover:bg-secondary-600 active:bg-secondary-700
+         transition-all duration-200 shadow-md hover:shadow-lg
+         disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.btn-outline {
+  @apply px-6 py-3 border-2 border-primary-500 text-primary-500 rounded-lg font-medium
+         hover:bg-primary-50 active:bg-primary-100
+         transition-all duration-200
+         disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.card {
+  @apply bg-white rounded-xl shadow-md p-6
+         transition-shadow duration-200 hover:shadow-lg;
+}
+
+.input-field {
+  @apply w-full px-4 py-3 border border-gray-200 rounded-lg
+         focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent
+         transition-all duration-200
+         disabled:bg-gray-100 disabled:cursor-not-allowed;
+}
+
+.label {
+  @apply block text-sm font-medium text-gray-700 mb-2;
+}
+
+.error-message {
+  @apply text-sm text-red-600 mt-1;
+}
+
+.success-message {
+  @apply text-sm text-green-600 mt-1;
+}
+
+.container-custom {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.section-title {
+  @apply text-3xl md:text-4xl font-bold text-gray-900 mb-4;
+}
+
+.section-subtitle {
+  @apply text-lg text-gray-600 mb-8;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn var(--transition-base) ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slideIn {
+  animation: slideIn var(--transition-slow) ease-out;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+
+  .section-title {
+    @apply text-2xl;
+  }
+}
+
+/* ============================================
+   SCROLLBAR PERSONNALISÉE
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(var(--color-background-alt));
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--color-border));
+  border-radius: var(--radius-md);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--color-text-secondary));
+}
