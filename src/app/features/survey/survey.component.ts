@@ -1,103 +1,120 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink, Router } from '@angular/router';
-import { SurveyService } from '../../core/services/survey.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+
+interface Question {
+  id: string;
+  survey_id: string;
+  question_text: string;
+  question_type: string;
+  options: string[] | null;
+  is_required: boolean;
+  order_index: number;
+}
+
+interface Survey {
+  id: string;
+  title: string;
+  description: string;
+  is_active: boolean;
+}
 
 @Component({
   selector: 'app-survey',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './survey.component.html',
   styleUrl: './survey.component.css'
 })
 export class SurveyComponent implements OnInit {
-  private fb = inject(FormBuilder);
-  private surveyService = inject(SurveyService);
-  private router = inject(Router);
-
+  survey = signal<Survey | null>(null);
+  questions = signal<Question[]>([]);
   surveyForm!: FormGroup;
-  loading = signal(false);
+  loading = signal(true);
+  submitting = signal(false);
   error = signal<string | null>(null);
   success = signal(false);
 
-  // Questions du sondage (à personnaliser)
-  questions = [
-    {
-      id: 'q1',
-      text: 'Comment évaluez-vous notre service ?',
-      type: 'rating',
-      required: true
-    },
-    {
-      id: 'q2',
-      text: 'Quelle est votre fonction ?',
-      type: 'select',
-      options: ['Étudiant', 'Enseignant', 'Personnel administratif', 'Autre'],
-      required: true
-    },
-    {
-      id: 'q3',
-      text: 'Quelles améliorations souhaiteriez-vous voir ?',
-      type: 'textarea',
-      required: false
-    }
-  ];
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private router: Router
+  ) {}
 
-  ngOnInit(): void {
-    this.initForm();
+  async ngOnInit() {
+    await this.loadActiveSurvey();
   }
 
-  initForm(): void {
-    const formGroup: any = {};
+  async loadActiveSurvey() {
+    try {
+      this.loading.set(true);
+      const response: any = await this.http.get(`${environment.apiUrl}/surveys/active`).toPromise();
 
-    this.questions.forEach(q => {
-      formGroup[q.id] = [
-        '',
-        q.required ? [Validators.required] : []
-      ];
+      this.survey.set(response.survey);
+      this.questions.set(response.questions);
+
+      this.buildForm();
+    } catch (err: any) {
+      this.error.set(err.error?.message || 'Erreur lors du chargement du sondage');
+    } finally {
+      this.loading.set(false);
+    }
+  }
+
+  buildForm() {
+    const formControls: any = {};
+
+    this.questions().forEach(question => {
+      const validators = question.is_required ? [Validators.required] : [];
+      formControls[question.id] = ['', validators];
     });
 
-    this.surveyForm = this.fb.group(formGroup);
+    this.surveyForm = this.fb.group(formControls);
   }
 
-  onSubmit(): void {
+  getErrorMessage(questionId: string): string | null {
+    const control = this.surveyForm.get(questionId);
+    if (control?.hasError('required') && control.touched) {
+      return 'Ce champ est requis';
+    }
+    return null;
+  }
+
+  async onSubmit() {
     if (this.surveyForm.invalid) {
       Object.keys(this.surveyForm.controls).forEach(key => {
         this.surveyForm.get(key)?.markAsTouched();
       });
-      this.error.set('Veuillez remplir tous les champs obligatoires');
       return;
     }
 
-    this.loading.set(true);
-    this.error.set(null);
+    try {
+      this.submitting.set(true);
+      this.error.set(null);
 
-    // TODO: Remplacer par l'ID réel du sondage depuis la base de données
-    const surveyId = 1;
+      const formValues = this.surveyForm.value;
+      const responses = Object.keys(formValues).map(questionId => ({
+        questionId,
+        answer: String(formValues[questionId])
+      }));
 
-    this.surveyService.submitResponse(surveyId, {
-      surveyId,
-      responses: this.surveyForm.value
-    }).subscribe({
-      next: () => {
-        this.loading.set(false);
-        this.success.set(true);
-        setTimeout(() => {
-          this.router.navigate(['/']);
-        }, 3000);
-      },
-      error: (err) => {
-        this.loading.set(false);
-        this.error.set(err.error?.message || 'Erreur lors de l\'envoi de votre réponse');
-      }
-    });
-  }
+      await this.http.post(`${environment.apiUrl}/surveys/public-response`, {
+        surveyId: this.survey()!.id,
+        responses
+      }).toPromise();
 
-  getErrorMessage(field: string): string {
-    const control = this.surveyForm.get(field);
-    if (!control || !control.errors || !control.touched) return '';
-    if (control.errors['required']) return 'Ce champ est requis';
-    return '';
+      this.success.set(true);
+
+      setTimeout(() => {
+        this.router.navigate(['/']);
+      }, 3000);
+    } catch (err: any) {
+      this.error.set(err.error?.message || 'Erreur lors de la soumission du sondage');
+    } finally {
+      this.submitting.set(false);
+    }
   }
 }
