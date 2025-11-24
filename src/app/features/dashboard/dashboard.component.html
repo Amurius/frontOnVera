@@ -1,39 +1,4 @@
 <div class="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50">
-  <!-- Navigation -->
-  <nav class="bg-white border-b border-gray-200 shadow-sm">
-    <div class="container-custom py-4">
-      <div class="flex justify-between items-center">
-        <div class="flex items-center gap-8">
-          <a routerLink="/" class="text-2xl font-bold text-primary-600">Vera</a>
-          <div class="hidden md:flex gap-6">
-            <a routerLink="/dashboard" class="text-primary-600 font-medium border-b-2 border-primary-600 pb-1">
-              Statistiques
-            </a>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-4">
-          @if (currentUser()) {
-            <div class="hidden sm:flex items-center gap-2">
-              @if (currentUser()) {
-                <div class="w-10 h-10 bg-primary-500 rounded-full flex items-center justify-center text-white font-medium">
-                  {{ currentUser()!.name.charAt(0).toUpperCase() }}
-                </div>
-                <div class="text-sm">
-                  <p class="font-medium text-gray-900">{{ currentUser()!.name }}</p>
-                  <p class="text-gray-500 text-xs">{{ currentUser()!.email }}</p>
-                </div>
-              }
-            </div>
-          }
-          <button (click)="logout()" class="btn-outline">
-            Déconnexion
-          </button>
-        </div>
-      </div>
-    </div>
-  </nav>
-
   <!-- Main Content -->
   <main class="container-custom py-12">
     <!-- Header -->
@@ -83,41 +48,90 @@
       </div>
 
       <!-- Survey Details -->
-      <div class="card mb-8">
-        <div class="flex items-center justify-between mb-6">
-          <h2 class="text-2xl font-bold text-gray-900">Détails du sondage</h2>
-          <span class="bg-green-50 text-green-700 px-4 py-2 rounded-full text-sm font-medium">
-            Actif
-          </span>
-        </div>
-
-        <div class="space-y-4">
-          <div class="flex items-start gap-3">
-            <div class="text-2xl">📋</div>
-            <div>
-              <h3 class="font-bold text-gray-900 mb-1">Sondage de satisfaction</h3>
-              <p class="text-gray-600 text-sm">
-                Ce sondage permet de recueillir l'avis des participants sur notre service
-              </p>
-            </div>
+      @if (stats()?.survey) {
+        <div class="card mb-8">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-bold text-gray-900">Détails du sondage</h2>
+            <span class="px-4 py-2 rounded-full text-sm font-medium"
+                  [ngClass]="stats()?.survey?.is_active ? 'bg-green-50 text-green-700' : 'bg-gray-50 text-gray-700'">
+              {{ stats()?.survey?.is_active ? 'Actif' : 'Inactif' }}
+            </span>
           </div>
 
-          <div class="grid md:grid-cols-3 gap-4 pt-4 border-t border-gray-200">
-            <div class="flex items-center gap-2 text-sm text-gray-600">
-              <span class="text-lg">📊</span>
-              <span>3 questions</span>
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <div class="text-2xl">📋</div>
+              <div>
+                <h3 class="font-bold text-gray-900 mb-1">{{ stats()?.survey?.title }}</h3>
+                <p class="text-gray-600 text-sm">
+                  {{ stats()?.survey?.description }}
+                </p>
+              </div>
             </div>
-            <div class="flex items-center gap-2 text-sm text-gray-600">
-              <span class="text-lg">💬</span>
-              <span>{{ stats()?.totalResponses || 0 }} réponses</span>
-            </div>
-            <div class="flex items-center gap-2 text-sm text-gray-600">
-              <span class="text-lg">🔓</span>
-              <span>Accès public</span>
+
+            <div class="grid md:grid-cols-3 gap-4 pt-4 border-t border-gray-200">
+              <div class="flex items-center gap-2 text-sm text-gray-600">
+                <span class="text-lg">📊</span>
+                <span>{{ stats()?.questions?.length || 0 }} question{{ (stats()?.questions?.length || 0) > 1 ? 's' : '' }}</span>
+              </div>
+              <div class="flex items-center gap-2 text-sm text-gray-600">
+                <span class="text-lg">💬</span>
+                <span>{{ stats()?.totalResponses || 0 }} réponse{{ (stats()?.totalResponses || 0) > 1 ? 's' : '' }}</span>
+              </div>
+              <div class="flex items-center gap-2 text-sm text-gray-600">
+                <span class="text-lg">🔓</span>
+                <span>Accès {{ stats()?.survey?.is_active ? 'public' : 'fermé' }}</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      }
+
+      <!-- Questions List -->
+      @if (stats()?.questions && stats()?.questions!.length > 0) {
+        <div class="card mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Questions du sondage</h2>
+
+          <div class="space-y-6">
+            @for (question of stats()?.questions; track question.id; let i = $index) {
+              <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                <div class="flex items-start gap-3 mb-3">
+                  <span class="bg-primary-500 text-white text-sm font-bold rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0">
+                    {{ i + 1 }}
+                  </span>
+                  <div class="flex-1">
+                    <h3 class="font-bold text-gray-900 mb-2">
+                      {{ question.question_text }}
+                      @if (question.is_required) {
+                        <span class="text-red-500 ml-1">*</span>
+                      }
+                    </h3>
+                    <div class="flex items-center gap-2 text-xs text-gray-500 mb-2">
+                      <span class="bg-gray-200 px-2 py-1 rounded">
+                        {{ question.question_type === 'multiple_choice' ? 'Choix multiple' :
+                           question.question_type === 'text' ? 'Texte libre' : 'Notation' }}
+                      </span>
+                      @if (question.is_required) {
+                        <span class="bg-red-100 text-red-700 px-2 py-1 rounded">Obligatoire</span>
+                      }
+                    </div>
+                    @if (question.options && question.options.length > 0) {
+                      <div class="mt-3 space-y-2">
+                        @for (option of question.options; track option) {
+                          <div class="flex items-center gap-2 text-sm text-gray-700">
+                            <span class="w-4 h-4 border-2 border-gray-400 rounded-full flex-shrink-0"></span>
+                            <span>{{ option }}</span>
+                          </div>
+                        }
+                      </div>
+                    }
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      }
 
       <!-- Response Distribution -->
       <div class="card mb-8">

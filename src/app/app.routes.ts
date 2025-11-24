@@ -18,6 +18,11 @@ export const routes: Routes = [
       .then(m => m.Verify)
   },
   {
+    path: 'survey',
+    loadComponent: () => import('./features/survey/survey.component')
+      .then(m => m.SurveyComponent)
+  },
+  {
     path: 'dashboard',
     loadComponent: () => import('./features/dashboard/dashboard.component')
       .then(m => m.DashboardComponent),

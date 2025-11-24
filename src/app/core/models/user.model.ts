@@ -1,7 +1,9 @@
 export interface User {
-  id: number;
+  id: string;
   email: string;
-  name: string;
+  firstName?: string;
+  lastName?: string;
+  role?: string;
   createdAt?: Date;
 }
 
@@ -13,7 +15,8 @@ export interface LoginRequest {
 export interface RegisterRequest {
   email: string;
   password: string;
-  name: string;
+  firstName?: string;
+  lastName?: string;
 }
 
 export interface AuthResponse {
