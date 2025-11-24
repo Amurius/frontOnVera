@@ -12,7 +12,7 @@ export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
   private platformId = inject(PLATFORM_ID);
-  private readonly API_URL = `{environment.apiUrl}/auth`;
+  private readonly API_URL = `${environment.apiUrl}/auth`;
 
   currentUser = signal<User | null>(null);
   isAuthenticated = signal(false);
