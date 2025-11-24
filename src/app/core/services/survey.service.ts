@@ -2,14 +2,14 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Survey, SurveyDetail, SurveyResponse, DashboardStats } from '../models/survey.model';
-
+import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class SurveyService {
   private http = inject(HttpClient);
-  private readonly API_URL = 'http://localhost:3000/api/surveys';
-  private readonly DASHBOARD_URL = 'http://localhost:3000/api/dashboard';
+  private readonly API_URL = `${environment.apiUrl}/surveys`;
+  private readonly DASHBOARD_URL = `${environment.apiUrl}/dashboard`;
 
   getSurveys(): Observable<{ surveys: Survey[] }> {
     return this.http.get<{ surveys: Survey[] }>(this.API_URL);
