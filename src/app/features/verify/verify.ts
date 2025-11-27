@@ -15,7 +15,7 @@ export class Verify {
   textInput = signal('');
   selectedFile = signal<File | null>(null);
   loading = signal(false);
-  result = signal<{analysis: string, transcription?: string} | null>(null);
+  result = signal<{analysis: string, extractedText?: string, transcription?: string} | null>(null);
   error = signal<string | null>(null);
 
   constructor(private http: HttpClient) {}
@@ -41,8 +41,6 @@ export class Verify {
     this.result.set(null);
 
     try {
-      let response: any;
-
       if (this.verifyType() === 'text') {
         if (!this.textInput()) {
           this.error.set('Veuillez saisir un texte à vérifier');
@@ -50,9 +48,13 @@ export class Verify {
           return;
         }
 
-        response = await this.http.post(`${environment.apiUrl}/fact-check/text`, {
+        const response: any = await this.http.post(`${environment.apiUrl}/fact-check/text`, {
           text: this.textInput()
         }).toPromise();
+
+        this.result.set({
+          analysis: response.veraAnalysis
+        });
       } else {
         if (!this.selectedFile()) {
           this.error.set('Veuillez sélectionner un fichier');
@@ -63,14 +65,28 @@ export class Verify {
         const formData = new FormData();
         formData.append(this.verifyType(), this.selectedFile()!);
 
-        const endpoint = this.verifyType() === 'image' ? 'image' : 'video';
-        response = await this.http.post(`${environment.apiUrl}/fact-check/${endpoint}`, formData).toPromise();
-      }
+        let extractedText: string;
 
-      this.result.set({
-        analysis: response.analysis,
-        transcription: response.transcription
-      });
+        if (this.verifyType() === 'image') {
+          // Etape 1 : Analyse OCR de l'image
+          const ocrResponse: any = await this.http.post(`${environment.apiUrl}/fact-check/ocr`, formData).toPromise();
+          extractedText = ocrResponse.extractedText;
+        } else {
+          // Etape 1 : Analyse de la video
+          const videoResponse: any = await this.http.post(`${environment.apiUrl}/fact-check/video`, formData).toPromise();
+          extractedText = videoResponse.videoAnalysis;
+        }
+
+        // Etape 2 : Verification des informations extraites
+        const verifyResponse: any = await this.http.post(`${environment.apiUrl}/fact-check/text`, {
+          text: extractedText
+        }).toPromise();
+
+        this.result.set({
+          extractedText: extractedText,
+          analysis: verifyResponse.veraAnalysis
+        });
+      }
     } catch (err: any) {
       this.error.set(err.error?.message || 'Une erreur est survenue lors de la vérification');
     } finally {
