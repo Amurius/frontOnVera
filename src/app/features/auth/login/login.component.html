@@ -1,82 +1,90 @@
-<div class="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50 flex items-center justify-center p-4">
-  <div class="w-full max-w-md">
-    <!-- Logo -->
-    <div class="text-center mb-8">
-      <h1 class="text-3xl font-bold text-primary-600 mb-2">Vera Admin</h1>
-      <p class="text-gray-600">Accédez au tableau de bord des statistiques</p>
-    </div>
+<div class="page-container">
+  <app-navbar></app-navbar>
 
-    <!-- Card -->
-    <div class="card animate-fadeIn">
-      <!-- Messages -->
-      @if (error()) {
-        <div class="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
-          {{ error() }}
+  <div class="main-content">
+    <div class="page-wrapper login-wrapper">
+      <div class="login-container">
+        <!-- Header -->
+        <div class="login-header">
+          <h1 class="page-title">Vera Admin</h1>
+          <p class="page-subtitle">Accedez au tableau de bord des statistiques</p>
         </div>
-      }
 
-      @if (success()) {
-        <div class="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm">
-          {{ success() }}
-        </div>
-      }
-
-      <!-- Login Form -->
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <div class="mb-4">
-          <label class="label">Email administrateur</label>
-          <input
-            type="email"
-            formControlName="email"
-            class="input-field"
-            placeholder="admin@vera.fr"
-            [class.border-red-500]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-          @if (getErrorMessage('email')) {
-            <p class="error-message">{{ getErrorMessage('email') }}</p>
+        <!-- Card -->
+        <div class="page-card">
+          <!-- Messages -->
+          @if (error()) {
+            <div class="error-box" style="margin-bottom: 1rem;">
+              <p class="error-box-text">{{ error() }}</p>
+            </div>
           }
+
+          @if (success()) {
+            <div class="success-box" style="margin-bottom: 1rem;">
+              <p class="success-box-text">{{ success() }}</p>
+            </div>
+          }
+
+          <!-- Login Form -->
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div style="margin-bottom: 1rem;">
+              <label class="form-label">Email administrateur</label>
+              <input
+                type="email"
+                formControlName="email"
+                class="form-input"
+                placeholder="admin@vera.fr">
+              @if (getErrorMessage('email')) {
+                <p class="form-error">{{ getErrorMessage('email') }}</p>
+              }
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+              <label class="form-label">Mot de passe</label>
+              <input
+                type="password"
+                formControlName="password"
+                class="form-input"
+                placeholder="Votre mot de passe">
+              @if (getErrorMessage('password')) {
+                <p class="form-error">{{ getErrorMessage('password') }}</p>
+              }
+            </div>
+
+            <button
+              type="submit"
+              [disabled]="loading() || loginForm.invalid"
+              class="btn-action btn-action-primary"
+              style="width: 100%; justify-content: center;">
+              @if (loading()) {
+                <span class="btn-loading">
+                  <span class="loading-spinner" style="width: 1.25rem; height: 1.25rem;"></span>
+                  Connexion en cours...
+                </span>
+              } @else {
+                Se connecter
+              }
+            </button>
+          </form>
+
+          <!-- Info -->
+          <div class="info-box" style="margin-top: 1.5rem;">
+            <p class="info-box-text" style="text-align: center;">
+              Reserve aux administrateurs uniquement
+            </p>
+          </div>
         </div>
 
-        <div class="mb-6">
-          <label class="label">Mot de passe</label>
-          <input
-            type="password"
-            formControlName="password"
-            class="input-field"
-            placeholder="••••••••"
-            [class.border-red-500]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-          @if (getErrorMessage('password')) {
-            <p class="error-message">{{ getErrorMessage('password') }}</p>
-          }
+        <!-- Back to home -->
+        <div class="login-back">
+          <a routerLink="/" class="back-link">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 1rem; height: 1rem;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+            </svg>
+            Retour a l'accueil
+          </a>
         </div>
-
-        <button
-          type="submit"
-          [disabled]="loading() || loginForm.invalid"
-          class="btn-primary w-full">
-          @if (loading()) {
-            <span class="flex items-center justify-center gap-2">
-              <span class="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></span>
-              Connexion en cours...
-            </span>
-          } @else {
-            Se connecter
-          }
-        </button>
-      </form>
-
-      <!-- Info -->
-      <div class="mt-6 p-4 bg-primary-50 border border-primary-200 rounded-lg">
-        <p class="text-sm text-gray-700 text-center">
-          Réservé aux administrateurs uniquement
-        </p>
       </div>
-    </div>
-
-    <!-- Back to home -->
-    <div class="text-center mt-6">
-      <a routerLink="/" class="text-gray-600 hover:text-primary-600 transition-colors">
-        ← Retour à l'accueil
-      </a>
     </div>
   </div>
 </div>
