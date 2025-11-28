@@ -14,8 +14,8 @@ export const routes: Routes = [
   },
   {
     path: 'verify',
-    loadComponent: () => import('./features/verify/verify')
-      .then(m => m.Verify)
+    loadComponent: () => import('./features/chat/chat.component')
+      .then(m => m.ChatComponent)
   },
   {
     path: 'survey',
@@ -26,6 +26,18 @@ export const routes: Routes = [
     path: 'dashboard',
     loadComponent: () => import('./features/dashboard/dashboard.component')
       .then(m => m.DashboardComponent),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'surveys',
+    loadComponent: () => import('./features/surveys-list/surveys-list.component')
+      .then(m => m.SurveysListComponent),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'surveys/create',
+    loadComponent: () => import('./features/survey-create/survey-create.component')
+      .then(m => m.SurveyCreateComponent),
     canActivate: [authGuard]
   },
   {

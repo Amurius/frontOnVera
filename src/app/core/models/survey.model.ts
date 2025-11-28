@@ -1,12 +1,29 @@
 export interface Survey {
-  id: number;
+  id: string;
   title: string;
   description: string;
-  userId: number;
-  createdAt: Date;
-  isActive: boolean;
+  userId?: string;
+  created_by?: string;
+  createdAt?: Date;
+  created_at?: string;
+  isActive?: boolean;
+  is_active?: boolean;
   creatorName?: string;
+  creator_email?: string;
   responseCount?: number;
+  response_count?: number;
+}
+
+export interface SurveyListItem {
+  id: string;
+  title: string;
+  description: string;
+  created_by: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+  creator_email: string;
+  response_count: number;
 }
 
 export interface SurveyQuestion {
