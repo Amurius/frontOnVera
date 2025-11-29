@@ -1,6 +1,4 @@
 <div class="page-container">
-  <app-navbar></app-navbar>
-
   <div class="main-content">
     <div class="page-wrapper">
       <!-- Hero Section -->
@@ -9,9 +7,14 @@
         <p class="page-subtitle" style="font-size: 1.125rem; max-width: 600px; margin: 0 auto 2rem;">
           Soumettez une affirmation, une image ou une video et obtenez une verification factuelle instantanee grace a l'intelligence artificielle.
         </p>
-        <a routerLink="/verify" class="btn-action btn-action-primary" style="padding: 1rem 2rem; font-size: 1rem;">
-          Verifier un fait
-        </a>
+        <div class="landing-buttons">
+          <a routerLink="/verify" class="btn-action btn-action-primary" style="padding: 1rem 2rem; font-size: 1rem;">
+            Verifier un fait
+          </a>
+          <a routerLink="/login" class="btn-action btn-action-secondary" style="padding: 1rem 2rem; font-size: 1rem;">
+            Connexion
+          </a>
+        </div>
       </div>
 
       <!-- Features Section -->

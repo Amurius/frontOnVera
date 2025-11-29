@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://amuspam.work/api',
+  apiUrl: 'https://backonvera.onrender.com/api',
 };
