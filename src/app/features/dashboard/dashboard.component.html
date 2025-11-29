@@ -204,8 +204,71 @@
         }
       }
 
-      <!-- ==================== VUE CLUSTERING ==================== -->
+      <!-- ==================== VUE CLUSTERING (AVEC FILTRES) ==================== -->
       @if (currentView() === 'clustering') {
+        
+        <!-- --- SECTION FILTRES AJOUTÉE --- -->
+        <div class="page-card filters-container">
+          <div class="filters-header">
+            <h3 class="card-title" style="font-size: 1rem; margin-bottom: 0;">Filtrer les resultats</h3>
+          </div>
+          
+          <div class="filters-grid">
+            <!-- Filtre Période -->
+            <div class="filter-group">
+              <label class="filter-label">Periode</label>
+              <select (change)="onFilterChange('period', $any($event.target).value)" class="form-select">
+                <option value="7d" selected>7 derniers jours</option>
+                <option value="30d">30 derniers jours</option>
+                <option value="1y">Cette annee</option>
+                <option value="custom">Date personnalisee</option>
+              </select>
+            </div>
+
+            <!-- Date de début (Visible seulement si 'custom') -->
+            @if (currentFilters.period === 'custom') {
+              <div class="filter-group">
+                <label class="filter-label">Du</label>
+                <input type="date" (change)="onFilterChange('startDate', $any($event.target).value)" class="form-input">
+              </div>
+              <div class="filter-group">
+                <label class="filter-label">Au</label>
+                <input type="date" (change)="onFilterChange('endDate', $any($event.target).value)" class="form-input">
+              </div>
+            }
+
+            <!-- Filtre Pays -->
+            <div class="filter-group">
+              <label class="filter-label">Pays</label>
+              <select (change)="onFilterChange('country', $any($event.target).value)" class="form-select">
+                <option value="">Tous les pays</option>
+                <option value="FR">France</option>
+                <option value="US">Etats-Unis</option>
+                <option value="BE">Belgique</option>
+                <option value="CA">Canada</option>
+              </select>
+            </div>
+
+            <!-- Filtre Langue -->
+            <div class="filter-group">
+              <label class="filter-label">Langue</label>
+              <select (change)="onFilterChange('lang', $any($event.target).value)" class="form-select">
+                <option value="">Toutes les langues</option>
+                <option value="fr">Francais</option>
+                <option value="en">Anglais</option>
+                <option value="es">Espagnol</option>
+              </select>
+            </div>
+            
+            <div class="filter-actions">
+              <button (click)="loadClusteringStats()" class="btn-action btn-action-primary" style="height: 42px; margin-top: auto;">
+                Actualiser
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- --- FIN SECTION FILTRES --- -->
+
         <!-- Loading State -->
         @if (clusteringLoading()) {
           <div class="loading-container">
