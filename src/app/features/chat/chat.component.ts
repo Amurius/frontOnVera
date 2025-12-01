@@ -46,12 +46,9 @@ export class ChatComponent implements AfterViewInit, OnInit {
   }
 
   constructor() {
-    // Scroll automatique a chaque changement de messages ou de streaming
     effect(() => {
       const messages = this.chatService.messages();
       const streamingContent = this.chatService.currentStreamingMessage();
-
-      // Declenche le scroll a chaque mise a jour
       if (this.isViewReady && (messages.length > 0 || streamingContent)) {
         setTimeout(() => this.scrollToBottom(), 0);
       }
@@ -64,6 +61,18 @@ export class ChatComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit(): void {
     this.isViewReady = true;
+  }
+
+  //  FONCTION POUR DÉTECTER LE PAYS 
+  private getBrowserInfo() {
+    // Récupère la config du navigateur (ex: "fr-FR", "en-US", "fr-BE")
+    const browserLocale = navigator.language || 'fr-FR';
+    
+    const parts = browserLocale.split('-'); 
+    return {
+      lang: parts[0] || 'fr',        
+      country: parts[1] || 'FR'      
+    };
   }
 
   private loadTrendingQuestions(): void {
@@ -87,7 +96,6 @@ export class ChatComponent implements AfterViewInit, OnInit {
   }
 
   toggleTheme(): void {
-    // TODO: Implementer le changement de theme dark/light
     console.log('Toggle theme');
   }
 
@@ -117,7 +125,6 @@ export class ChatComponent implements AfterViewInit, OnInit {
 
     if (file) {
       this.selectedFile.set(file);
-
       if (file.type.startsWith('image/') || file.type.startsWith('video/')) {
         this.previewUrl.set(URL.createObjectURL(file));
       } else {
@@ -154,10 +161,12 @@ export class ChatComponent implements AfterViewInit, OnInit {
     this.textMessage.set('');
     this.isYouTubeLink.set(false);
 
+    const { country, lang } = this.getBrowserInfo();
+
     if (this.isYouTubeUrl(text)) {
       await this.chatService.sendYouTubeMessage(text);
     } else {
-      await this.chatService.sendTextMessage(text);
+      await this.chatService.sendTextMessage(text, country, lang);
     }
   }
 
