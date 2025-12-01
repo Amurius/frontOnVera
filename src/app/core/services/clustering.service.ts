@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
@@ -65,6 +65,8 @@ export interface TopCluster {
 export class ClusteringService {
   private http = inject(HttpClient);
   private readonly API_URL = `${environment.apiUrl}/clustering`;
+  // Ajout de l'URL pour le dashboard (là où on a créé la route avec filtres)
+  private readonly DASHBOARD_API_URL = `${environment.apiUrl}/dashboard`;
 
   getTrendingClusters(days: number = 7, limit: number = 3): Observable<TrendingResponse> {
     return this.http.get<TrendingResponse>(
@@ -86,10 +88,21 @@ export class ClusteringService {
     );
   }
 
-  getTopClusters(limit: number = 10): Observable<{ success: boolean; count: number; clusters: TopCluster[] }> {
-    return this.http.get<{ success: boolean; count: number; clusters: TopCluster[] }>(
-      `${this.API_URL}/clusters/top`,
-      { params: { limit: limit.toString() } }
+   
+  getTopClusters(limit: number = 10, filters?: any): Observable<any> {
+    let params = new HttpParams().set('limit', limit.toString());
+
+    if (filters) {
+      if (filters.period) params = params.set('period', filters.period);
+      if (filters.startDate) params = params.set('startDate', filters.startDate);
+      if (filters.endDate) params = params.set('endDate', filters.endDate);
+      if (filters.country) params = params.set('country', filters.country);
+      if (filters.lang) params = params.set('lang', filters.lang);
+    }
+
+    return this.http.get<any>(
+      `${this.DASHBOARD_API_URL}/top-questions`,
+      { params }
     );
   }
 }
