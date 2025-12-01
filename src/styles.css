@@ -5,6 +5,7 @@
    ============================================ */
 
 @theme {
+  /* Couleurs primaires */
   --color-primary-50: #eff6ff;
   --color-primary-100: #dbeafe;
   --color-primary-200: #bfdbfe;
@@ -17,6 +18,7 @@
   --color-primary-900: #1e3a8a;
   --color-primary-950: #172554;
 
+  /* Couleurs secondaires */
   --color-secondary-50: #fdf4ff;
   --color-secondary-100: #fae8ff;
   --color-secondary-200: #f5d0fe;
@@ -29,6 +31,7 @@
   --color-secondary-900: #701a75;
   --color-secondary-950: #4a044e;
 
+  /* Couleurs accent */
   --color-accent-50: #fef2f2;
   --color-accent-100: #fee2e2;
   --color-accent-200: #fecaca;
@@ -41,10 +44,113 @@
   --color-accent-900: #7f1d1d;
   --color-accent-950: #450a0a;
 
+  /* Couleurs utilitaires */
   --color-success: #22c55e;
   --color-warning: #f59e0b;
   --color-error: #ef4444;
   --color-info: #0ea5e9;
+
+  /* ============================================
+     COULEURS VERA - Landing Page
+     ============================================ */
+  --color-vera-green: #DBF9BE;
+  --color-vera-sugar: #FEF2E4;
+  --color-vera-dark: #1A1A1A;
+  --color-vera-text: #414651;
+  --color-vera-text-light: #717680;
+  --color-vera-text-tertiary: #535862;
+  --color-vera-heading: #181D27;
+  --color-vera-body: #535862;
+  --color-vera-gray: #A0A0A0;
+  --color-vera-footer: #2E2E2E;
+  --color-vera-cream: #F5ECDE;
+  --color-vera-label: #2E3626;
+  --color-vera-banner: #FECDCA;
+  --color-vera-highlight: #C5F19E;
+  --color-vera-bg-dark: #2E2E2E;
+
+  /* ============================================
+     FONTS VERA
+     ============================================ */
+  --font-heading: 'Lastik', Georgia, serif;
+  --font-body: 'Fustat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* ============================================
+     BREAKPOINTS DESKTOP-FIRST
+     ============================================ */
+  --breakpoint-lg: 1024px;
+  --breakpoint-md: 768px;
+  --breakpoint-sm: 480px;
+
+  /* ============================================
+     BORDER RADIUS VERA
+     ============================================ */
+  --radius-4xl: 24px;
+  --radius-5xl: 32px;
+  --radius-full-btn: 64px;
+
+  /* ============================================
+     SHADOWS VERA
+     ============================================ */
+  --shadow-xl-custom: 0 20px 24px -4px rgba(10, 13, 18, 0.08), 0 8px 8px -4px rgba(10, 13, 18, 0.03), 0 3px 3px -1.5px rgba(10, 13, 18, 0.04);
+  --shadow-notification: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-image-green: 10px 4px 0 0 #DBF9BE, 10px 12px 0 0 #DBF9BE;
+
+  /* ============================================
+     SPACING VERA
+     ============================================ */
+  --spacing-18: 4.5rem;
+  --spacing-22: 5.5rem;
+
+  /* ============================================
+     MAX WIDTH
+     ============================================ */
+  --width-container: 1280px;
+}
+
+/* ============================================
+   UTILITAIRES VERA - Classes custom
+   ============================================ */
+
+/* Background newspaper */
+.bg-newspaper {
+  background-image: url('/assets/images/fondBeigePapierJournal.png');
+}
+
+/* Gradient CTA */
+.bg-cta-gradient {
+  background: linear-gradient(92deg, #DBF9BE 1.85%, #FFD5D8 103.13%);
+}
+
+/* Max width container */
+.max-w-container {
+  max-width: 1280px;
+}
+
+/* Border radius custom */
+.rounded-full-btn {
+  border-radius: 64px;
+}
+
+.rounded-4xl {
+  border-radius: 24px;
+}
+
+.rounded-5xl {
+  border-radius: 32px;
+}
+
+/* Shadow custom */
+.shadow-xl-custom {
+  box-shadow: 0 20px 24px -4px rgba(10, 13, 18, 0.08), 0 8px 8px -4px rgba(10, 13, 18, 0.03), 0 3px 3px -1.5px rgba(10, 13, 18, 0.04);
+}
+
+.shadow-image-green {
+  box-shadow: 10px 4px 0 0 #DBF9BE, 10px 12px 0 0 #DBF9BE;
+}
+
+.shadow-notification {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 /* ============================================
@@ -102,11 +208,6 @@
    STYLES GLOBAUX
    ============================================ */
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
 html {
   font-size: 16px;
