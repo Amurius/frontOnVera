@@ -1,21 +1,23 @@
 <div class="flex min-h-screen bg-newspaper bg-cover bg-center">
-  <!-- Sidebar gauche (uniquement si connecte) -->
-  @if (authService.isAuthenticated()) {
-    <div class="w-[60px] bg-vera-sugar flex flex-col justify-between py-6 px-2 fixed left-3 top-3 h-[calc(100vh-24px)] z-50 rounded-[12px]" style="border: 0.5px solid rgba(10, 13, 18, 0.12);">
-      <!-- Logo en haut -->
-      <div class="flex flex-col items-center">
-        <a routerLink="/" class="mb-6 p-2 rounded-md bg-vera-sugar" style="border: 0.2px solid rgba(10, 13, 18, 0.12); box-shadow: 0 -0.5px 0.5px 0 rgba(10, 13, 18, 0.10) inset, 0 1px 1px -0.5px rgba(10, 13, 18, 0.13), 0 1px 3px 0 rgba(10, 13, 18, 0.10), 0 1px 2px 0 rgba(10, 13, 18, 0.06);">
-          <img src="assets/icons/Logo/Mini.svg" alt="VERA" class="w-6 h-6">
-        </a>
+  <!-- Sidebar gauche -->
+  <div class="w-[60px] bg-vera-sugar flex flex-col justify-between py-6 px-2 fixed left-3 top-3 h-[calc(100vh-24px)] z-50 rounded-[12px]" style="border: 0.5px solid rgba(10, 13, 18, 0.12);">
+    <!-- Logo en haut -->
+    <div class="flex flex-col items-center">
+      <a routerLink="/" class="mb-6 p-2 rounded-md bg-vera-sugar" style="border: 0.2px solid rgba(10, 13, 18, 0.12); box-shadow: 0 -0.5px 0.5px 0 rgba(10, 13, 18, 0.10) inset, 0 1px 1px -0.5px rgba(10, 13, 18, 0.13), 0 1px 3px 0 rgba(10, 13, 18, 0.10), 0 1px 2px 0 rgba(10, 13, 18, 0.06);">
+        <img src="assets/icons/Logo/Mini.svg" alt="VERA" class="w-6 h-6">
+      </a>
+      @if (authService.isAuthenticated()) {
         <a routerLink="/dashboard" class="w-10 h-10 flex items-center justify-center rounded-lg text-vera-text-light hover:bg-gray-100 hover:text-vera-dark transition-colors" title="Dashboard">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
           </svg>
         </a>
-      </div>
+      }
+    </div>
 
-      <!-- Icones en bas -->
-      <div class="flex flex-col items-center gap-2">
+    <!-- Icones en bas -->
+    <div class="flex flex-col items-center gap-2">
+      @if (authService.isAuthenticated()) {
         <button class="w-10 h-10 flex items-center justify-center rounded-lg text-vera-text-light hover:bg-gray-100 hover:text-vera-dark transition-colors" title="Parametres">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
@@ -27,12 +29,18 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
           </svg>
         </button>
-      </div>
+      } @else {
+        <a routerLink="/login" class="w-10 h-10 flex items-center justify-center rounded-lg text-vera-text-light hover:bg-gray-100 hover:text-vera-dark transition-colors" title="Connexion">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+          </svg>
+        </a>
+      }
     </div>
-  }
+  </div>
 
   <!-- Contenu principal -->
-  <div class="flex-1 flex flex-col min-h-screen" [class.ml-[84px]]="authService.isAuthenticated()">
+  <div class="flex-1 flex flex-col min-h-screen ml-[84px]">
     <!-- Header -->
     <div class="flex justify-end items-center gap-3 p-6">
       <a routerLink="/" class="px-5 py-2.5 bg-vera-dark rounded-full text-[14px] text-white font-medium hover:opacity-90 transition-opacity">Comment ca marche ?</a>
@@ -51,57 +59,68 @@
 
       } @else {
         <!-- Messages -->
-        <div class="max-w-[800px] mx-auto py-8">
+        <div class="max-w-[1280px] w-full mx-auto py-8 px-6">
           @for (message of messages(); track message.id) {
-            <div class="mb-6" [class.flex]="true" [class.justify-end]="message.type === 'user'" [class.justify-start]="message.type === 'assistant'">
-              <div
-                class="max-w-[80%] rounded-2xl px-5 py-3"
-                [class.bg-vera-dark]="message.type === 'user'"
-                [class.text-white]="message.type === 'user'"
-                [class.bg-white]="message.type === 'assistant'"
-                [class.text-vera-dark]="message.type === 'assistant'"
-                [class.border]="message.type === 'assistant'"
-                [class.border-gray-100]="message.type === 'assistant'">
-
-                <!-- Media Content -->
-                @if (message.contentType === 'file' && message.fileUrl) {
-                  <div class="mb-2">
-                    <img [src]="message.fileUrl" [alt]="message.fileName" class="max-w-full rounded-lg">
-                    <p class="text-[12px] mt-1 opacity-70">{{ message.fileName }}</p>
+            <div class="mb-8 relative" [class.flex]="true" [class.justify-end]="message.type === 'user'" [class.justify-start]="message.type === 'assistant'">
+              <!-- Message utilisateur -->
+              @if (message.type === 'user') {
+                <div class="max-w-[60%] bg-white rounded-2xl px-5 py-3 border border-gray-100" style="box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);">
+                  <!-- Media Content -->
+                  @if (message.contentType === 'file' && message.fileUrl) {
+                    <div class="mb-2">
+                      <img [src]="message.fileUrl" [alt]="message.fileName" class="max-w-full rounded-lg">
+                      <p class="text-[12px] mt-1 text-vera-text-light">{{ message.fileName }}</p>
+                    </div>
+                  }
+                  @if (message.contentType === 'video' && message.fileUrl) {
+                    <div class="mb-2">
+                      <video [src]="message.fileUrl" controls class="max-w-full rounded-lg"></video>
+                      <p class="text-[12px] mt-1 text-vera-text-light">{{ message.fileName }}</p>
+                    </div>
+                  }
+                  @if (message.contentType === 'youtube') {
+                    <div class="flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-red-500">
+                        <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                      </svg>
+                      <a [href]="message.content" target="_blank" class="underline text-vera-dark">{{ message.content }}</a>
+                    </div>
+                  }
+                  @if (message.contentType === 'text') {
+                    <p class="text-[16px] text-vera-dark leading-relaxed">{{ message.content }}</p>
+                  }
+                  <!-- Bouton copier -->
+                  <div class="flex justify-end mt-2">
+                    <button (click)="copyToClipboard(message.content)" class="opacity-60 hover:opacity-100 transition-opacity" title="Copier">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.16 1.33325H7.56389C6.38773 1.33324 5.45612 1.33323 4.72703 1.43165C3.97668 1.53294 3.36935 1.74635 2.8904 2.22722C2.41144 2.7081 2.19889 3.31787 2.09801 4.07123C1.99998 4.80325 1.99999 5.7386 2 6.91948V10.8112C2 11.8166 2.6133 12.6782 3.48478 13.0394C3.43992 12.4331 3.43996 11.5824 3.44 10.8746L3.44 7.59831L3.44 7.53486C3.43995 6.68042 3.43991 5.94421 3.51886 5.35466C3.60346 4.72284 3.79426 4.1172 4.28353 3.62596C4.77281 3.13472 5.37603 2.94315 6.00532 2.85821C6.59251 2.77894 7.32578 2.77899 8.1768 2.77903L8.24 2.77904H10.16L10.2232 2.77903C11.0742 2.77899 11.8059 2.77894 12.3931 2.85821C12.0418 1.96511 11.1744 1.33325 10.16 1.33325Z" fill="#6B7280"/>
+                        <path d="M4.40015 7.59834C4.40015 5.78088 4.40015 4.87215 4.9625 4.30753C5.52486 3.74292 6.42995 3.74292 8.24015 3.74292H10.1601C11.9703 3.74292 12.8754 3.74292 13.4378 4.30753C14.0001 4.87215 14.0001 5.78088 14.0001 7.59834V10.8112C14.0001 12.6287 14.0001 13.5374 13.4378 14.102C12.8754 14.6666 11.9703 14.6666 10.1601 14.6666H8.24015C6.42995 14.6666 5.52486 14.6666 4.9625 14.102C4.40015 13.5374 4.40015 12.6287 4.40015 10.8112V7.59834Z" fill="#6B7280"/>
+                      </svg>
+                    </button>
                   </div>
-                }
+                </div>
+              }
 
-                @if (message.contentType === 'video' && message.fileUrl) {
-                  <div class="mb-2">
-                    <video [src]="message.fileUrl" controls class="max-w-full rounded-lg"></video>
-                    <p class="text-[12px] mt-1 opacity-70">{{ message.fileName }}</p>
-                  </div>
-                }
-
-                <!-- YouTube Content -->
-                @if (message.contentType === 'youtube' && message.type === 'user') {
-                  <div class="flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-red-500">
-                      <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
-                    </svg>
-                    <a [href]="message.content" target="_blank" class="underline">{{ message.content }}</a>
-                  </div>
-                }
-
-                <!-- Text Content -->
-                @if (message.contentType === 'text' || (message.type === 'assistant' && message.content)) {
-                  <div class="text-[15px] leading-relaxed" [class.whitespace-pre-wrap]="message.type === 'assistant'">
+              <!-- Message assistant (VERA) -->
+              @if (message.type === 'assistant') {
+                <div class="w-full">
+                  <div class="text-[16px] text-[#6B7280] leading-relaxed whitespace-pre-wrap">
                     {{ message.content }}
                     @if (message.isStreaming) {
-                      <span class="inline-block w-2 h-4 bg-current ml-1 animate-pulse"></span>
+                      <span class="inline-block w-2 h-4 bg-vera-dark ml-1 animate-pulse"></span>
                     }
                   </div>
-                }
-
-                <span class="text-[11px] opacity-50 mt-2 block">
-                  {{ message.timestamp | date:'HH:mm' }}
-                </span>
-              </div>
+                  <!-- Bouton copier -->
+                  <div class="flex justify-start mt-2">
+                    <button (click)="copyToClipboard(message.content)" class="opacity-60 hover:opacity-100 transition-opacity" title="Copier">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.16 1.33325H7.56389C6.38773 1.33324 5.45612 1.33323 4.72703 1.43165C3.97668 1.53294 3.36935 1.74635 2.8904 2.22722C2.41144 2.7081 2.19889 3.31787 2.09801 4.07123C1.99998 4.80325 1.99999 5.7386 2 6.91948V10.8112C2 11.8166 2.6133 12.6782 3.48478 13.0394C3.43992 12.4331 3.43996 11.5824 3.44 10.8746L3.44 7.59831L3.44 7.53486C3.43995 6.68042 3.43991 5.94421 3.51886 5.35466C3.60346 4.72284 3.79426 4.1172 4.28353 3.62596C4.77281 3.13472 5.37603 2.94315 6.00532 2.85821C6.59251 2.77894 7.32578 2.77899 8.1768 2.77903L8.24 2.77904H10.16L10.2232 2.77903C11.0742 2.77899 11.8059 2.77894 12.3931 2.85821C12.0418 1.96511 11.1744 1.33325 10.16 1.33325Z" fill="#6B7280"/>
+                        <path d="M4.40015 7.59834C4.40015 5.78088 4.40015 4.87215 4.9625 4.30753C5.52486 3.74292 6.42995 3.74292 8.24015 3.74292H10.1601C11.9703 3.74292 12.8754 3.74292 13.4378 4.30753C14.0001 4.87215 14.0001 5.78088 14.0001 7.59834V10.8112C14.0001 12.6287 14.0001 13.5374 13.4378 14.102C12.8754 14.6666 11.9703 14.6666 10.1601 14.6666H8.24015C6.42995 14.6666 5.52486 14.6666 4.9625 14.102C4.40015 13.5374 4.40015 12.6287 4.40015 10.8112V7.59834Z" fill="#6B7280"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              }
             </div>
           }
 
