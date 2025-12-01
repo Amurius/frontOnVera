@@ -1,18 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, TranslateModule],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.css',
   host: { 'class': 'block' }
 })
 export class LandingComponent {
+  private translate = inject(TranslateService);
+
   showBanner = true;
   menuOpen = false;
+  currentLang = 'fr';
+
+  constructor() {
+    this.translate.setDefaultLang('fr');
+    this.translate.use('fr');
+  }
 
   closeBanner(): void {
     this.showBanner = false;
@@ -20,5 +29,10 @@ export class LandingComponent {
 
   toggleMenu(): void {
     this.menuOpen = !this.menuOpen;
+  }
+
+  switchLanguage(lang: string): void {
+    this.currentLang = lang;
+    this.translate.use(lang);
   }
 }

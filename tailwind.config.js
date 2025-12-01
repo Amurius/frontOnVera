@@ -5,7 +5,7 @@ module.exports = {
   ],
   theme: {
     screens: {
-      'lg': { max: '1024px' },
+      'lg': { max: '1100px' },
       'md': { max: '768px' },
       'sm': { max: '480px' },
     },
@@ -33,7 +33,7 @@ module.exports = {
         'body': ['Fustat', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
       },
       maxWidth: {
-        'container': '1280px',
+        'container': '1440px',
       },
       borderRadius: {
         '4xl': '24px',
