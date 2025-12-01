@@ -1,209 +1,205 @@
-<div class="min-h-screen bg-gray-50">
+<div class="fixed inset-0 bg-newspaper bg-cover bg-center -z-10"></div>
+<div class="min-h-screen">
   <app-navbar></app-navbar>
 
-  <div class="ml-[84px] min-h-screen">
-    <div class="page-wrapper">
-      <!-- Header -->
-      <div class="create-header">
-        <div>
-          <h1 class="page-title">Creer un sondage</h1>
-          <p class="page-subtitle">Configurez votre nouveau sondage</p>
+  <div class="ml-[84px] min-h-screen p-8">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h1 class="text-[28px] font-heading font-medium text-vera-dark">Creer un sondage</h1>
+        <p class="text-[14px] text-gray-500 mt-1">Configurez votre nouveau sondage</p>
+      </div>
+      <a routerLink="/surveys" class="px-4 py-2 rounded-[8px] border border-gray-200 text-[14px] font-medium text-vera-dark hover:bg-gray-50 transition-colors">
+        Annuler
+      </a>
+    </div>
+
+    <!-- Error Message -->
+    @if (error()) {
+      <div class="bg-red-50 border border-red-200 rounded-[12px] p-4 mb-6">
+        <p class="text-[14px] text-red-700">{{ error() }}</p>
+      </div>
+    }
+
+    <!-- Form -->
+    <form (ngSubmit)="submit()" class="space-y-6">
+      <!-- Survey Info -->
+      <div class="bg-white rounded-[16px] p-6" style="border: 1px solid #E5E7EB;">
+        <h2 class="text-[18px] font-medium text-vera-dark mb-6">Informations generales</h2>
+
+        <div class="mb-4">
+          <label class="block text-[14px] font-medium text-vera-dark mb-2">
+            Titre du sondage *
+          </label>
+          <input
+            type="text"
+            [ngModel]="title()"
+            (ngModelChange)="title.set($event)"
+            name="title"
+            class="w-full h-[44px] px-4 rounded-[8px] border border-gray-200 text-[14px] text-vera-dark placeholder-gray-400 focus:outline-none focus:border-orange-400 focus:ring-1 focus:ring-orange-400"
+            placeholder="Ex: Sondage sur la desinformation"
+            required>
         </div>
-        <div class="header-actions">
-          <a routerLink="/surveys" class="btn-action btn-action-secondary">
-            Annuler
-          </a>
+
+        <div>
+          <label class="block text-[14px] font-medium text-vera-dark mb-2">
+            Description
+          </label>
+          <textarea
+            [ngModel]="description()"
+            (ngModelChange)="description.set($event)"
+            name="description"
+            rows="3"
+            class="w-full px-4 py-3 rounded-[8px] border border-gray-200 text-[14px] text-vera-dark placeholder-gray-400 focus:outline-none focus:border-orange-400 focus:ring-1 focus:ring-orange-400 resize-none"
+            placeholder="Decrivez brievement l'objectif du sondage...">
+          </textarea>
         </div>
       </div>
 
-      <!-- Error Message -->
-      @if (error()) {
-        <div class="error-box" style="margin-bottom: 1.5rem;">
-          <p class="error-box-text">{{ error() }}</p>
-        </div>
-      }
-
-      <!-- Form -->
-      <form (ngSubmit)="submit()" class="create-form">
-        <!-- Survey Info -->
-        <div class="page-card">
-          <h2 class="card-title">Informations generales</h2>
-
-          <div class="form-group">
-            <label class="form-label">
-              Titre du sondage *
-            </label>
-            <input
-              type="text"
-              [ngModel]="title()"
-              (ngModelChange)="title.set($event)"
-              name="title"
-              class="form-input"
-              placeholder="Ex: Sondage sur la desinformation"
-              required>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">
-              Description
-            </label>
-            <textarea
-              [ngModel]="description()"
-              (ngModelChange)="description.set($event)"
-              name="description"
-              rows="3"
-              class="form-input"
-              style="resize: none;"
-              placeholder="Decrivez brievement l'objectif du sondage...">
-            </textarea>
-          </div>
-        </div>
-
-        <!-- Questions -->
-        <div class="page-card">
-          <div class="card-header">
-            <h2 class="card-title">Questions</h2>
-            <button
-              type="button"
-              (click)="addQuestion()"
-              class="btn-action btn-action-primary">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 1rem; height: 1rem;">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-              </svg>
-              Ajouter une question
-            </button>
-          </div>
-
-          <div class="questions-list">
-            @for (question of questions(); track question.id; let i = $index) {
-              <div class="question-card">
-                <div class="question-header">
-                  <span class="question-number">{{ i + 1 }}</span>
-                  @if (questions().length > 1) {
-                    <button
-                      type="button"
-                      (click)="removeQuestion(question.id)"
-                      class="remove-btn">
-                      Supprimer
-                    </button>
-                  }
-                </div>
-
-                <div class="question-form">
-                  <!-- Question Text -->
-                  <div class="form-group">
-                    <label class="form-label">
-                      Question *
-                    </label>
-                    <input
-                      type="text"
-                      [ngModel]="question.text"
-                      (ngModelChange)="updateQuestionText(question.id, $event)"
-                      [name]="'question_' + question.id"
-                      class="form-input"
-                      placeholder="Ex: Que pensez-vous de... ?"
-                      required>
-                  </div>
-
-                  <!-- Question Type -->
-                  <div class="form-row">
-                    <div class="form-group">
-                      <label class="form-label">
-                        Type de question
-                      </label>
-                      <select
-                        [ngModel]="question.type"
-                        (ngModelChange)="updateQuestionType(question.id, $event)"
-                        [name]="'type_' + question.id"
-                        class="form-input">
-                        <option value="multiple_choice">Choix multiple</option>
-                        <option value="text">Texte libre</option>
-                        <option value="rating">Notation</option>
-                      </select>
-                    </div>
-
-                    <div class="form-group checkbox-group">
-                      <label class="checkbox-label">
-                        <input
-                          type="checkbox"
-                          [ngModel]="question.isRequired"
-                          (ngModelChange)="updateQuestionRequired(question.id, $event)"
-                          [name]="'required_' + question.id"
-                          class="checkbox-input">
-                        <span>Question obligatoire</span>
-                      </label>
-                    </div>
-                  </div>
-
-                  <!-- Options (for multiple choice) -->
-                  @if (question.type === 'multiple_choice') {
-                    <div class="form-group">
-                      <label class="form-label">
-                        Options de reponse *
-                      </label>
-                      <div class="options-list">
-                        @for (option of question.options; track $index; let j = $index) {
-                          <div class="option-row">
-                            <span class="option-bullet"></span>
-                            <input
-                              type="text"
-                              [ngModel]="option"
-                              (ngModelChange)="updateOption(question.id, j, $event)"
-                              [name]="'option_' + question.id + '_' + j"
-                              class="form-input"
-                              placeholder="Option {{ j + 1 }}">
-                            @if (question.options.length > 2) {
-                              <button
-                                type="button"
-                                (click)="removeOption(question.id, j)"
-                                class="option-remove-btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 1rem; height: 1rem;">
-                                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                              </button>
-                            }
-                          </div>
-                        }
-                      </div>
-                      @if (question.options.length < 6) {
-                        <button
-                          type="button"
-                          (click)="addOption(question.id)"
-                          class="add-option-btn">
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 0.875rem; height: 0.875rem;">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                          </svg>
-                          Ajouter une option
-                        </button>
-                      }
-                    </div>
-                  }
-                </div>
-              </div>
-            }
-          </div>
-        </div>
-
-        <!-- Submit -->
-        <div class="submit-row">
-          <a routerLink="/surveys" class="btn-action btn-action-secondary">
-            Annuler
-          </a>
+      <!-- Questions -->
+      <div class="bg-white rounded-[16px] p-6" style="border: 1px solid #E5E7EB;">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-[18px] font-medium text-vera-dark">Questions</h2>
           <button
-            type="submit"
-            [disabled]="loading() || !isValid()"
-            class="btn-action btn-action-primary">
-            @if (loading()) {
-              <span class="btn-loading">
-                <span class="loading-spinner" style="width: 1rem; height: 1rem;"></span>
-                Creation...
-              </span>
-            } @else {
-              Creer le sondage
-            }
+            type="button"
+            (click)="addQuestion()"
+            class="flex items-center gap-2 px-4 py-2 rounded-[8px] bg-orange-500 text-[14px] font-medium text-white hover:bg-orange-600 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+            Ajouter une question
           </button>
         </div>
-      </form>
-    </div>
+
+        <div class="space-y-6">
+          @for (question of questions(); track question.id; let i = $index) {
+            <div class="bg-gray-50 rounded-[12px] p-5" style="border: 1px solid #E5E7EB;">
+              <div class="flex items-center justify-between mb-4">
+                <span class="w-8 h-8 flex items-center justify-center rounded-full bg-orange-500 text-white text-[14px] font-semibold">{{ i + 1 }}</span>
+                @if (questions().length > 1) {
+                  <button
+                    type="button"
+                    (click)="removeQuestion(question.id)"
+                    class="text-[13px] font-medium text-red-500 hover:text-red-600">
+                    Supprimer
+                  </button>
+                }
+              </div>
+
+              <div class="space-y-4">
+                <!-- Question Text -->
+                <div>
+                  <label class="block text-[14px] font-medium text-vera-dark mb-2">
+                    Question *
+                  </label>
+                  <input
+                    type="text"
+                    [ngModel]="question.text"
+                    (ngModelChange)="updateQuestionText(question.id, $event)"
+                    [name]="'question_' + question.id"
+                    class="w-full h-[44px] px-4 rounded-[8px] border border-gray-200 text-[14px] text-vera-dark placeholder-gray-400 focus:outline-none focus:border-orange-400 focus:ring-1 focus:ring-orange-400 bg-white"
+                    placeholder="Ex: Que pensez-vous de... ?"
+                    required>
+                </div>
+
+                <!-- Question Type -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-[14px] font-medium text-vera-dark mb-2">
+                      Type de question
+                    </label>
+                    <select
+                      [ngModel]="question.type"
+                      (ngModelChange)="updateQuestionType(question.id, $event)"
+                      [name]="'type_' + question.id"
+                      class="w-full h-[44px] px-4 rounded-[8px] border border-gray-200 text-[14px] text-vera-dark focus:outline-none focus:border-orange-400 focus:ring-1 focus:ring-orange-400 bg-white">
+                      <option value="multiple_choice">Choix multiple</option>
+                      <option value="text">Texte libre</option>
+                      <option value="rating">Notation</option>
+                    </select>
+                  </div>
+
+                  <div class="flex items-center">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        [ngModel]="question.isRequired"
+                        (ngModelChange)="updateQuestionRequired(question.id, $event)"
+                        [name]="'required_' + question.id"
+                        class="w-5 h-5 rounded border-gray-300 text-orange-500 focus:ring-orange-400">
+                      <span class="text-[14px] text-vera-dark">Question obligatoire</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Options (for multiple choice) -->
+                @if (question.type === 'multiple_choice') {
+                  <div>
+                    <label class="block text-[14px] font-medium text-vera-dark mb-2">
+                      Options de reponse *
+                    </label>
+                    <div class="space-y-2">
+                      @for (option of question.options; track $index; let j = $index) {
+                        <div class="flex items-center gap-2">
+                          <span class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0"></span>
+                          <input
+                            type="text"
+                            [ngModel]="option"
+                            (ngModelChange)="updateOption(question.id, j, $event)"
+                            [name]="'option_' + question.id + '_' + j"
+                            class="flex-1 h-[40px] px-4 rounded-[8px] border border-gray-200 text-[14px] text-vera-dark placeholder-gray-400 focus:outline-none focus:border-orange-400 focus:ring-1 focus:ring-orange-400 bg-white"
+                            placeholder="Option {{ j + 1 }}">
+                          @if (question.options.length > 2) {
+                            <button
+                              type="button"
+                              (click)="removeOption(question.id, j)"
+                              class="p-1 text-red-500 hover:text-red-600">
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                              </svg>
+                            </button>
+                          }
+                        </div>
+                      }
+                    </div>
+                    @if (question.options.length < 6) {
+                      <button
+                        type="button"
+                        (click)="addOption(question.id)"
+                        class="mt-3 flex items-center gap-1.5 text-[13px] font-medium text-orange-500 hover:text-orange-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3.5 h-3.5">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                        Ajouter une option
+                      </button>
+                    }
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <div class="flex justify-end gap-4">
+        <a routerLink="/surveys" class="px-6 py-2.5 rounded-[8px] border border-gray-200 text-[14px] font-medium text-vera-dark hover:bg-gray-50 transition-colors">
+          Annuler
+        </a>
+        <button
+          type="submit"
+          [disabled]="loading() || !isValid()"
+          class="px-6 py-2.5 rounded-[8px] bg-orange-500 text-[14px] font-medium text-white hover:bg-orange-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+          @if (loading()) {
+            <span class="flex items-center gap-2">
+              <span class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+              Creation...
+            </span>
+          } @else {
+            Creer le sondage
+          }
+        </button>
+      </div>
+    </form>
   </div>
 </div>

@@ -1,386 +1,471 @@
-<div class="min-h-screen bg-gray-50">
+<div class="fixed inset-0 bg-newspaper bg-cover bg-center -z-10"></div>
+<div class="min-h-screen">
   <app-navbar></app-navbar>
 
-  <div class="ml-[84px] min-h-screen">
-    <div class="page-wrapper">
-      <!-- Header -->
-      <div class="dashboard-header">
-        <div>
-          <h1 class="page-title">Dashboard</h1>
-          <p class="page-subtitle">Vue d'ensemble de vos statistiques</p>
+  <div class="ml-[84px] min-h-screen p-8">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-8">
+      <h1 class="text-[28px] font-heading font-medium text-vera-dark">Dashboard VERA</h1>
+
+      <!-- Search Bar -->
+      <div class="relative">
+        <input
+          type="text"
+          placeholder="Search"
+          class="w-[240px] h-[40px] pl-10 pr-12 rounded-[8px] border border-gray-200 text-[14px] text-vera-dark placeholder-gray-400 focus:outline-none focus:border-gray-300"
+        >
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+        </svg>
+        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[12px] text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">⌘K</span>
+      </div>
+    </div>
+
+    <!-- ==================== VUE OVERVIEW ==================== -->
+    @if (currentView() === 'overview') {
+      <!-- Cards Grid -->
+      <div class="grid grid-cols-3 gap-6 mb-8">
+        <!-- Vue d'ensemble Card -->
+        <div class="col-span-2 bg-white rounded-[16px] p-6" style="border: 1px solid #E5E7EB;">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-[18px] font-medium text-vera-dark">Vue d'ensemble</h2>
+            <button class="text-gray-400 hover:text-gray-600">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Stats Row -->
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <p class="text-[14px] text-gray-500 mb-1">Questions sur la periode</p>
+              <div class="flex items-center gap-3">
+                <span class="text-[42px] font-medium text-vera-dark leading-none">{{ totalQuestions() | number }}</span>
+                <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[12px] font-medium bg-green-100 text-green-700">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
+                  </svg>
+                  {{ percentageChange() }}%
+                </span>
+              </div>
+            </div>
+
+            <!-- Period Filters -->
+            <div class="flex items-center gap-2">
+              <button
+                (click)="setOverviewPeriod('12m')"
+                class="px-4 py-2 rounded-[8px] text-[14px] font-medium transition-colors"
+                [class.bg-white]="overviewPeriod() === '12m'"
+                [class.text-vera-dark]="overviewPeriod() === '12m'"
+                [class.border]="overviewPeriod() === '12m'"
+                [class.border-gray-200]="overviewPeriod() === '12m'"
+                [class.text-gray-500]="overviewPeriod() !== '12m'"
+                [class.hover:text-vera-dark]="overviewPeriod() !== '12m'">
+                12 months
+              </button>
+              <button
+                (click)="setOverviewPeriod('30d')"
+                class="px-4 py-2 rounded-[8px] text-[14px] font-medium transition-colors"
+                [class.bg-white]="overviewPeriod() === '30d'"
+                [class.text-vera-dark]="overviewPeriod() === '30d'"
+                [class.border]="overviewPeriod() === '30d'"
+                [class.border-gray-200]="overviewPeriod() === '30d'"
+                [class.text-gray-500]="overviewPeriod() !== '30d'"
+                [class.hover:text-vera-dark]="overviewPeriod() !== '30d'">
+                30 days
+              </button>
+              <button
+                (click)="setOverviewPeriod('7d')"
+                class="px-4 py-2 rounded-[8px] text-[14px] font-medium transition-colors"
+                [class.bg-white]="overviewPeriod() === '7d'"
+                [class.text-vera-dark]="overviewPeriod() === '7d'"
+                [class.border]="overviewPeriod() === '7d'"
+                [class.border-gray-200]="overviewPeriod() === '7d'"
+                [class.text-gray-500]="overviewPeriod() !== '7d'"
+                [class.hover:text-vera-dark]="overviewPeriod() !== '7d'">
+                7 days
+              </button>
+              <button
+                (click)="setOverviewPeriod('custom')"
+                class="px-4 py-2 rounded-[8px] text-[14px] font-medium transition-colors flex items-center gap-2"
+                [class.bg-white]="overviewPeriod() === 'custom'"
+                [class.text-vera-dark]="overviewPeriod() === 'custom'"
+                [class.border]="overviewPeriod() === 'custom'"
+                [class.border-gray-200]="overviewPeriod() === 'custom'"
+                [class.text-gray-500]="overviewPeriod() !== 'custom'"
+                [class.hover:text-vera-dark]="overviewPeriod() !== 'custom'">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                Custom
+              </button>
+            </div>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="h-1.5 bg-orange-500 rounded-full mb-4"></div>
+
+          <!-- Area Chart -->
+          <div class="h-[200px]">
+            <div echarts [options]="areaChartOptions" class="w-full h-full"></div>
+          </div>
         </div>
-        <div class="header-actions">
-          <a routerLink="/surveys" class="btn-action btn-action-secondary">
-            Gerer les sondages
-          </a>
-          <a routerLink="/surveys/create" class="btn-action btn-action-primary">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 1rem; height: 1rem;">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+
+        <!-- Langues principales Card -->
+        <div class="bg-white rounded-[16px] p-6" style="border: 1px solid #E5E7EB;">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-[18px] font-medium text-vera-dark">Langues principales</h2>
+            <button class="text-gray-400 hover:text-gray-600">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Donut Chart Langues -->
+          <div class="h-[280px]">
+            @if (languageStats().length > 0) {
+              <div echarts [options]="languageChartOptions()" class="w-full h-full"></div>
+            } @else {
+              <div class="h-full flex items-center justify-center text-gray-400 text-[14px]">Chargement...</div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Second Row: Pays -->
+      <div class="grid grid-cols-3 gap-6 mb-8">
+        <!-- Repartition par pays Card -->
+        <div class="bg-white rounded-[16px] p-6" style="border: 1px solid #E5E7EB;">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-[18px] font-medium text-vera-dark">Repartition par pays</h2>
+            <button class="text-gray-400 hover:text-gray-600">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Donut Chart Pays -->
+          <div class="h-[280px]">
+            @if (countryStats().length > 0) {
+              <div echarts [options]="countryChartOptions()" class="w-full h-full"></div>
+            } @else {
+              <div class="h-full flex items-center justify-center text-gray-400 text-[14px]">Chargement...</div>
+            }
+          </div>
+        </div>
+
+        <!-- Stats rapides -->
+        <div class="col-span-2 flex items-center justify-center">
+          <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-[16px] p-6 text-white min-w-[200px]">
+            <p class="text-[13px] opacity-80 mb-1">Total questions</p>
+            <p class="text-[36px] font-medium leading-none">{{ totalQuestions() | number }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Questions frequentes Section -->
+      <div class="bg-white rounded-[16px] p-6" style="border: 1px solid #E5E7EB;">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center gap-3">
+            <h2 class="text-[18px] font-medium text-vera-dark">Questions frequentes</h2>
+            <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-gray-100 text-gray-600">Top 10 sujets</span>
+          </div>
+          <button (click)="exportData()" class="flex items-center gap-2 px-4 py-2 rounded-[8px] border border-gray-200 text-[14px] font-medium text-vera-dark hover:bg-gray-50 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
             </svg>
-            Nouveau sondage
-          </a>
+            Export
+          </button>
+        </div>
+
+        <!-- Filters Row -->
+        <div class="flex items-center justify-between mb-6">
+          <!-- Period Filters -->
+          <div class="flex items-center gap-2">
+            <button
+              (click)="setQuestionsPeriod('12m')"
+              class="px-4 py-2 rounded-[8px] text-[14px] font-medium transition-colors"
+              [class.bg-white]="questionsPeriod() === '12m'"
+              [class.text-vera-dark]="questionsPeriod() === '12m'"
+              [class.border]="questionsPeriod() === '12m'"
+              [class.border-gray-200]="questionsPeriod() === '12m'"
+              [class.text-gray-500]="questionsPeriod() !== '12m'"
+              [class.hover:text-vera-dark]="questionsPeriod() !== '12m'">
+              12 months
+            </button>
+            <button
+              (click)="setQuestionsPeriod('30d')"
+              class="px-4 py-2 rounded-[8px] text-[14px] font-medium transition-colors"
+              [class.bg-white]="questionsPeriod() === '30d'"
+              [class.text-vera-dark]="questionsPeriod() === '30d'"
+              [class.border]="questionsPeriod() === '30d'"
+              [class.border-gray-200]="questionsPeriod() === '30d'"
+              [class.text-gray-500]="questionsPeriod() !== '30d'"
+              [class.hover:text-vera-dark]="questionsPeriod() !== '30d'">
+              30 days
+            </button>
+            <button
+              (click)="setQuestionsPeriod('7d')"
+              class="px-4 py-2 rounded-[8px] text-[14px] font-medium transition-colors"
+              [class.bg-white]="questionsPeriod() === '7d'"
+              [class.text-vera-dark]="questionsPeriod() === '7d'"
+              [class.border]="questionsPeriod() === '7d'"
+              [class.border-gray-200]="questionsPeriod() === '7d'"
+              [class.text-gray-500]="questionsPeriod() !== '7d'"
+              [class.hover:text-vera-dark]="questionsPeriod() !== '7d'">
+              7 days
+            </button>
+            <button
+              (click)="setQuestionsPeriod('custom')"
+              class="px-4 py-2 rounded-[8px] text-[14px] font-medium transition-colors flex items-center gap-2"
+              [class.bg-white]="questionsPeriod() === 'custom'"
+              [class.text-vera-dark]="questionsPeriod() === 'custom'"
+              [class.border]="questionsPeriod() === 'custom'"
+              [class.border-gray-200]="questionsPeriod() === 'custom'"
+              [class.text-gray-500]="questionsPeriod() !== 'custom'"
+              [class.hover:text-vera-dark]="questionsPeriod() !== 'custom'">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+              Custom
+            </button>
+          </div>
+
+          <!-- Search -->
+          <div class="relative">
+            <input
+              type="text"
+              placeholder="Search"
+              [(ngModel)]="searchQuery"
+              class="w-[200px] h-[40px] pl-10 pr-12 rounded-[8px] border border-gray-200 text-[14px] text-vera-dark placeholder-gray-400 focus:outline-none focus:border-gray-300"
+            >
+            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+            </svg>
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[12px] text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">⌘K</span>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr class="border-b border-gray-100">
+                <th class="text-left py-3 px-4 text-[12px] font-medium text-gray-500 uppercase tracking-wider w-16"></th>
+                <th class="text-left py-3 px-4 text-[12px] font-medium text-gray-500 uppercase tracking-wider">Sujet</th>
+                <th class="text-left py-3 px-4 text-[12px] font-medium text-gray-500 uppercase tracking-wider">Occurrences :</th>
+                <th class="text-left py-3 px-4 text-[12px] font-medium text-gray-500 uppercase tracking-wider">Date :</th>
+                <th class="text-left py-3 px-4 text-[12px] font-medium text-gray-500 uppercase tracking-wider">Langue :</th>
+                <th class="text-left py-3 px-4 text-[12px] font-medium text-gray-500 uppercase tracking-wider">Derniere activite :</th>
+                <th class="text-right py-3 px-4 text-[12px] font-medium text-gray-500 uppercase tracking-wider"></th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (question of frequentQuestions(); track question.id; let i = $index) {
+                <tr class="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
+                  <td class="py-4 px-4">
+                    <span class="text-[14px] font-medium text-orange-500">#{{ i + 1 }}</span>
+                  </td>
+                  <td class="py-4 px-4">
+                    <span class="text-[14px] text-vera-dark">{{ question.subject }}</span>
+                  </td>
+                  <td class="py-4 px-4">
+                    <span class="text-[14px] text-vera-dark">{{ question.occurrences }}</span>
+                  </td>
+                  <td class="py-4 px-4">
+                    <span class="text-[14px] text-vera-dark">{{ question.date }}</span>
+                  </td>
+                  <td class="py-4 px-4">
+                    <span class="text-[14px] text-vera-dark">{{ question.lang }}</span>
+                  </td>
+                  <td class="py-4 px-4">
+                    <span class="text-[14px] text-gray-500">{{ question.lastActivity }}</span>
+                  </td>
+                  <td class="py-4 px-4 text-right">
+                    <button
+                      (click)="askVera(question.subject)"
+                      class="px-4 py-2 rounded-[8px] border border-gray-200 text-[14px] font-medium text-vera-dark hover:bg-gray-50 transition-colors">
+                      Demander a VERA
+                    </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
         </div>
       </div>
+    }
 
-      <!-- Tabs -->
-      <div class="tabs">
-        <button
-          (click)="setView('survey')"
-          class="tab"
-          [class.active]="currentView() === 'survey'">
-          Statistiques Sondage
-        </button>
-        <button
-          (click)="setView('clustering')"
-          class="tab"
-          [class.active]="currentView() === 'clustering'">
-          Questions les plus posees
-        </button>
-      </div>
+    <!-- ==================== VUE SONDAGE ==================== -->
+    @if (currentView() === 'survey') {
+      <!-- Loading State -->
+      @if (surveyLoading()) {
+        <div class="flex items-center justify-center py-20">
+          <div class="w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      }
 
-      <!-- ==================== VUE SONDAGE ==================== -->
-      @if (currentView() === 'survey') {
-        <!-- Loading State -->
-        @if (surveyLoading()) {
-          <div class="loading-container">
-            <div class="loading-spinner"></div>
+      <!-- Error State -->
+      @if (surveyError()) {
+        <div class="bg-white rounded-[16px] p-6" style="border: 1px solid #E5E7EB;">
+          <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+            <p class="text-[14px] text-red-700">{{ surveyError() }}</p>
           </div>
-        }
+          <button (click)="loadSurveyStats()" class="mt-4 px-4 py-2 rounded-[8px] bg-vera-dark text-white text-[14px] font-medium hover:opacity-90 transition-opacity">
+            Reessayer
+          </button>
+        </div>
+      }
 
-        <!-- Error State -->
-        @if (surveyError()) {
-          <div class="page-card">
-            <div class="error-box">
-              <p class="error-box-text">{{ surveyError() }}</p>
-            </div>
-            <button (click)="loadSurveyStats()" class="btn-action btn-action-primary" style="margin-top: 1rem;">Reessayer</button>
-          </div>
-        }
-
-        <!-- Survey Stats Content -->
-        @if (!surveyLoading() && !surveyError() && surveyStats()) {
+      <!-- Survey Stats Content -->
+      @if (!surveyLoading() && !surveyError()) {
+        <div class="space-y-6">
           <!-- Stats Cards -->
-          <div class="stats-grid">
-            <div class="stat-card stat-card-gradient stat-card-blue">
-              <div class="stat-header">
-                <h3 class="stat-title">Reponses totales</h3>
-                <span class="badge badge-info" style="background: rgba(255,255,255,0.2); color: white;">Total</span>
-              </div>
-              <p class="stat-value">{{ surveyStats()?.totalResponses || 0 }}</p>
-              <p class="stat-label">Reponses recues</p>
+          <div class="grid grid-cols-2 gap-6">
+            <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-[16px] p-6 text-white">
+              <p class="text-[14px] opacity-80 mb-2">Reponses totales</p>
+              <p class="text-[42px] font-medium leading-none">{{ surveyStats()?.totalResponses || 0 }}</p>
             </div>
-
-            <div class="stat-card stat-card-gradient stat-card-purple">
-              <div class="stat-header">
-                <h3 class="stat-title">Questions</h3>
-                <span class="badge badge-info" style="background: rgba(255,255,255,0.2); color: white;">Sondage actif</span>
-              </div>
-              <p class="stat-value">{{ surveyStats()?.questions?.length || 0 }}</p>
-              <p class="stat-label">Questions configurees</p>
+            <div class="bg-gradient-to-br from-gray-600 to-gray-700 rounded-[16px] p-6 text-white">
+              <p class="text-[14px] opacity-80 mb-2">Questions</p>
+              <p class="text-[42px] font-medium leading-none">{{ questionResponses().length }}</p>
             </div>
           </div>
 
           <!-- Survey Details -->
           @if (surveyStats()?.survey) {
-            <div class="page-card" style="margin-bottom: 1.5rem;">
-              <div class="card-header">
-                <h2 class="card-title">Sondage actif</h2>
-                <span class="badge" [class.badge-success]="surveyStats()?.survey?.is_active" [class.badge-gray]="!surveyStats()?.survey?.is_active">
+            <div class="bg-white rounded-[16px] p-6" style="border: 1px solid #E5E7EB;">
+              <div class="flex items-center justify-between mb-4">
+                <h2 class="text-[18px] font-medium text-vera-dark">Sondage actif</h2>
+                <span class="px-3 py-1 rounded-full text-[12px] font-medium"
+                  [class.bg-green-100]="surveyStats()?.survey?.is_active"
+                  [class.text-green-700]="surveyStats()?.survey?.is_active"
+                  [class.bg-gray-100]="!surveyStats()?.survey?.is_active"
+                  [class.text-gray-600]="!surveyStats()?.survey?.is_active">
                   {{ surveyStats()?.survey?.is_active ? 'Actif' : 'Inactif' }}
                 </span>
               </div>
-
-              <div class="survey-info">
-                <div class="survey-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 class="survey-title">{{ surveyStats()?.survey?.title }}</h3>
-                  <p class="survey-description">{{ surveyStats()?.survey?.description }}</p>
-                </div>
-              </div>
-
-              <div class="divider"></div>
-
-              <div class="survey-meta">
-                <div class="meta-item">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
-                  </svg>
-                  <span>{{ surveyStats()?.questions?.length || 0 }} question{{ (surveyStats()?.questions?.length || 0) > 1 ? 's' : '' }}</span>
-                </div>
-                <div class="meta-item">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
-                  </svg>
-                  <span>{{ surveyStats()?.totalResponses || 0 }} reponse{{ (surveyStats()?.totalResponses || 0) > 1 ? 's' : '' }}</span>
-                </div>
-                <div class="meta-item">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-                  </svg>
-                  <span>Acces {{ surveyStats()?.survey?.is_active ? 'public' : 'ferme' }}</span>
-                </div>
-              </div>
-            </div>
-          } @else {
-            <div class="page-card" style="margin-bottom: 1.5rem;">
-              <div class="empty-state">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="empty-state-icon">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
-                </svg>
-                <h3 class="empty-state-title">Aucun sondage actif</h3>
-                <p class="empty-state-text">Activez un sondage pour voir ses statistiques ici</p>
-                <a routerLink="/surveys" class="btn-action btn-action-primary" style="margin-top: 1rem;">Gerer les sondages</a>
-              </div>
+              <h3 class="text-[16px] font-medium text-vera-dark mb-2">{{ surveyStats()?.survey?.title }}</h3>
+              <p class="text-[14px] text-gray-500">{{ surveyStats()?.survey?.description }}</p>
             </div>
           }
 
-          <!-- Questions List -->
-          @if (surveyStats()?.questions && surveyStats()?.questions!.length > 0) {
-            <div class="page-card" style="margin-bottom: 1.5rem;">
-              <h2 class="card-title" style="margin-bottom: 1.5rem;">Questions du sondage</h2>
-              <div class="questions-list">
-                @for (question of surveyStats()?.questions; track question.id; let i = $index) {
-                  <div class="question-item">
-                    <div class="question-number">{{ i + 1 }}</div>
-                    <div class="question-content">
-                      <h3 class="question-text">
-                        {{ question.question_text }}
-                        @if (question.is_required) {
-                          <span class="required-mark">*</span>
-                        }
-                      </h3>
-                      <span class="badge badge-gray">
-                        {{ question.question_type === 'multiple_choice' ? 'Choix multiple' :
-                           question.question_type === 'text' ? 'Texte libre' : 'Notation' }}
-                      </span>
-                      @if (question.options && question.options.length > 0) {
-                        <div class="question-options">
-                          @for (option of question.options; track option) {
-                            <div class="option-item">
-                              <span class="option-bullet"></span>
-                              <span>{{ option }}</span>
-                            </div>
-                          }
-                        </div>
-                      }
-                    </div>
-                  </div>
-                }
-              </div>
-            </div>
-          }
-
-          <!-- Quick Actions -->
-          <div class="quick-actions">
-            <a routerLink="/surveys" class="page-card page-card-hover action-card">
-              <div class="action-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
-                </svg>
-              </div>
-              <div>
-                <h3 class="action-title">Gerer les sondages</h3>
-                <p class="action-text">Voir tous les sondages et en activer un</p>
-              </div>
-            </a>
-
-            <a routerLink="/survey" class="page-card page-card-hover action-card">
-              <div class="action-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </div>
-              <div>
-                <h3 class="action-title">Voir le sondage</h3>
-                <p class="action-text">Apercu du formulaire public</p>
-              </div>
-            </a>
-          </div>
-        }
-      }
-
-      <!-- ==================== VUE CLUSTERING (AVEC FILTRES) ==================== -->
-      @if (currentView() === 'clustering') {
-        
-        <!-- --- SECTION FILTRES AJOUTÉE --- -->
-        <div class="page-card filters-container">
-          <div class="filters-header">
-            <h3 class="card-title" style="font-size: 1rem; margin-bottom: 0;">Filtrer les resultats</h3>
-          </div>
-          
-          <div class="filters-grid">
-            <!-- Filtre Période -->
-            <div class="filter-group">
-              <label class="filter-label">Periode</label>
-              <select (change)="onFilterChange('period', $any($event.target).value)" class="form-select">
-                <option value="7d" selected>7 derniers jours</option>
-                <option value="30d">30 derniers jours</option>
-                <option value="1y">Cette annee</option>
-                <option value="custom">Date personnalisee</option>
-              </select>
-            </div>
-
-            <!-- Date de début (Visible seulement si 'custom') -->
-            @if (currentFilters.period === 'custom') {
-              <div class="filter-group">
-                <label class="filter-label">Du</label>
-                <input type="date" (change)="onFilterChange('startDate', $any($event.target).value)" class="form-input">
-              </div>
-              <div class="filter-group">
-                <label class="filter-label">Au</label>
-                <input type="date" (change)="onFilterChange('endDate', $any($event.target).value)" class="form-input">
+          <!-- Resultats par question -->
+          <div class="space-y-6">
+            @if (questionResponses().length === 0) {
+              <div class="bg-white rounded-[16px] p-8 text-center" style="border: 1px solid #E5E7EB;">
+                <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full bg-gray-100">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-gray-400">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25Z" />
+                  </svg>
+                </div>
+                <h3 class="text-[16px] font-medium text-vera-dark mb-2">Aucune reponse pour le moment</h3>
+                <p class="text-[14px] text-gray-500">Les resultats apparaitront ici une fois que des utilisateurs auront repondu au sondage.</p>
               </div>
             }
-
-            <!-- Filtre Pays -->
-            <div class="filter-group">
-              <label class="filter-label">Pays</label>
-              <select (change)="onFilterChange('country', $any($event.target).value)" class="form-select">
-                <option value="">Tous les pays</option>
-                <option value="FR">France</option>
-                <option value="US">Etats-Unis</option>
-                <option value="BE">Belgique</option>
-                <option value="CA">Canada</option>
-              </select>
-            </div>
-
-            <!-- Filtre Langue -->
-            <div class="filter-group">
-              <label class="filter-label">Langue</label>
-              <select (change)="onFilterChange('lang', $any($event.target).value)" class="form-select">
-                <option value="">Toutes les langues</option>
-                <option value="fr">Francais</option>
-                <option value="en">Anglais</option>
-                <option value="es">Espagnol</option>
-              </select>
-            </div>
-            
-            <div class="filter-actions">
-              <button (click)="loadClusteringStats()" class="btn-action btn-action-primary" style="height: 42px; margin-top: auto;">
-                Actualiser
-              </button>
-            </div>
-          </div>
-        </div>
-        <!-- --- FIN SECTION FILTRES --- -->
-
-        <!-- Loading State -->
-        @if (clusteringLoading()) {
-          <div class="loading-container">
-            <div class="loading-spinner"></div>
-          </div>
-        }
-
-        <!-- Error State -->
-        @if (clusteringError()) {
-          <div class="page-card">
-            <div class="error-box">
-              <p class="error-box-text">{{ clusteringError() }}</p>
-            </div>
-            <button (click)="loadClusteringStats()" class="btn-action btn-action-primary" style="margin-top: 1rem;">Reessayer</button>
-          </div>
-        }
-
-        <!-- Clustering Stats Content -->
-        @if (!clusteringLoading() && !clusteringError()) {
-          <!-- Global Stats Cards -->
-          @if (clusteringStats()) {
-            <div class="stats-grid-4">
-              <div class="stat-card stat-card-gradient stat-card-blue">
-                <p class="stat-label-small">Questions totales</p>
-                <p class="stat-value-small">{{ clusteringStats()?.totalQuestions || 0 }}</p>
-              </div>
-              <div class="stat-card stat-card-gradient stat-card-purple">
-                <p class="stat-label-small">Clusters</p>
-                <p class="stat-value-small">{{ clusteringStats()?.totalClusters || 0 }}</p>
-              </div>
-              <div class="stat-card stat-card-gradient stat-card-green">
-                <p class="stat-label-small">Questions aujourd'hui</p>
-                <p class="stat-value-small">{{ clusteringStats()?.questionsToday || 0 }}</p>
-              </div>
-              <div class="stat-card stat-card-gradient stat-card-orange">
-                <p class="stat-label-small">Similarite moyenne</p>
-                <p class="stat-value-small">{{ (clusteringStats()?.overallAvgSimilarity || 0) * 100 | number:'1.0-0' }}%</p>
-              </div>
-            </div>
-          }
-
-          <!-- Top Clusters -->
-          <div class="page-card">
-            <div class="card-header">
-              <h2 class="card-title">Questions les plus posees</h2>
-              <span class="page-subtitle">Top 10</span>
-            </div>
-
-            @if (topClusters().length === 0) {
-              <div class="empty-state">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="empty-state-icon">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
-                </svg>
-                <h3 class="empty-state-title">Aucune question enregistree</h3>
-                <p class="empty-state-text">Les questions posees par les utilisateurs apparaitront ici</p>
-              </div>
-            } @else {
-              <div class="clusters-list">
-                @for (cluster of topClusters(); track cluster.id; let i = $index) {
-                  <div class="cluster-item">
-                    <div class="cluster-rank" [class.rank-1]="i === 0" [class.rank-2]="i === 1" [class.rank-3]="i === 2">
-                      #{{ i + 1 }}
-                    </div>
-                    <div class="cluster-content">
-                      <p class="cluster-text">"{{ cluster.representativeText }}"</p>
-                      <div class="cluster-meta">
-                        <span class="meta-item">
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
-                          </svg>
-                          <strong>{{ cluster.questionCount }}</strong> fois posee
+            @for (question of questionResponses(); track question.questionId; let i = $index) {
+              <div class="bg-white rounded-[16px] p-6" style="border: 1px solid #E5E7EB;">
+                <!-- Header de la question -->
+                <div class="flex items-start justify-between mb-6">
+                  <div class="flex gap-4">
+                    <span class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-orange-100 text-orange-600 text-[16px] font-semibold">{{ i + 1 }}</span>
+                    <div>
+                      <h3 class="text-[16px] font-medium text-vera-dark mb-1">{{ question.questionText }}</h3>
+                      <div class="flex items-center gap-3">
+                        <span class="inline-block px-2 py-0.5 rounded text-[12px] bg-gray-100 text-gray-600">
+                          {{ question.questionType === 'multiple_choice' ? 'Choix multiple' : question.questionType === 'text' ? 'Texte libre' : 'Notation' }}
                         </span>
-                        <span class="meta-item">
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
-                          </svg>
-                          {{ cluster.questionsToday }} aujourd'hui
-                        </span>
-                        <span class="meta-item">
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          {{ formatDateShort(cluster.lastActivityAt) }}
-                        </span>
+                        <span class="text-[13px] text-gray-500">{{ question.totalResponses }} reponses</span>
                       </div>
                     </div>
-                    <div class="cluster-count">
-                      <span class="badge badge-info">{{ cluster.questionCount }}</span>
-                    </div>
                   </div>
-                }
+                  <button class="text-gray-400 hover:text-gray-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- Graphique -->
+                <div class="h-[280px]">
+                  <div echarts [options]="getQuestionChartOptions(question)" class="w-full h-full"></div>
+                </div>
+
+                <!-- Resume des reponses -->
+                <div class="mt-6 pt-6 border-t border-gray-100">
+                  <div class="grid grid-cols-2 gap-4 max-md:grid-cols-1">
+                    @for (response of question.responses; track response.option; let j = $index) {
+                      <div class="flex items-center justify-between p-3 rounded-[8px] bg-gray-50">
+                        <div class="flex items-center gap-3">
+                          <span class="w-3 h-3 rounded-full" [style.background-color]="j === 0 ? '#F97316' : j === 1 ? '#FB923C' : j === 2 ? '#FDBA74' : j === 3 ? '#FED7AA' : '#6B7280'"></span>
+                          <span class="text-[14px] text-vera-dark">{{ response.option }}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                          <span class="text-[14px] font-medium text-vera-dark">{{ response.count }}</span>
+                          <span class="text-[12px] text-gray-500">({{ getResponsePercentage(response.count, question.totalResponses) }}%)</span>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                </div>
               </div>
             }
           </div>
 
-          <!-- Info about clustering -->
-          <div class="info-box" style="margin-top: 1.5rem;">
-            <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 1.25rem; height: 1.25rem; flex-shrink: 0; color: #3b82f6;">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-              </svg>
-              <div>
-                <p class="info-box-text" style="font-weight: 500; margin-bottom: 0.25rem;">Comment ca fonctionne ?</p>
-                <p class="info-box-text">
-                  Les questions similaires sont automatiquement regroupees grace a l'intelligence artificielle.
-                  Cela permet d'identifier les sujets les plus frequents poses par vos utilisateurs.
-                </p>
+          <!-- Quick Actions -->
+          <div class="grid grid-cols-2 gap-6">
+            <a routerLink="/surveys" class="flex items-center gap-4 p-6 bg-white rounded-[16px] hover:shadow-md transition-shadow" style="border: 1px solid #E5E7EB;">
+              <div class="w-12 h-12 flex items-center justify-center rounded-full bg-orange-100 text-orange-600">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25Z" />
+                </svg>
               </div>
-            </div>
+              <div>
+                <h3 class="text-[16px] font-medium text-vera-dark">Gerer les sondages</h3>
+                <p class="text-[14px] text-gray-500">Voir tous les sondages</p>
+              </div>
+            </a>
+            <a routerLink="/survey" class="flex items-center gap-4 p-6 bg-white rounded-[16px] hover:shadow-md transition-shadow" style="border: 1px solid #E5E7EB;">
+              <div class="w-12 h-12 flex items-center justify-center rounded-full bg-gray-100 text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-[16px] font-medium text-vera-dark">Voir le sondage</h3>
+                <p class="text-[14px] text-gray-500">Apercu du formulaire</p>
+              </div>
+            </a>
           </div>
-        }
+        </div>
       }
+    }
+
+    <!-- Navigation Tabs (bottom) -->
+    <div class="fixed bottom-8 left-1/2 -translate-x-1/2 ml-[42px] flex items-center gap-2 p-1 bg-white rounded-full shadow-lg" style="border: 1px solid #E5E7EB;">
+      <button
+        (click)="setView('overview')"
+        class="px-6 py-2 rounded-full text-[14px] font-medium transition-colors"
+        [class.bg-vera-dark]="currentView() === 'overview'"
+        [class.text-white]="currentView() === 'overview'"
+        [class.text-gray-500]="currentView() !== 'overview'"
+        [class.hover:text-vera-dark]="currentView() !== 'overview'">
+        Vue d'ensemble
+      </button>
+      <button
+        (click)="setView('survey')"
+        class="px-6 py-2 rounded-full text-[14px] font-medium transition-colors"
+        [class.bg-vera-dark]="currentView() === 'survey'"
+        [class.text-white]="currentView() === 'survey'"
+        [class.text-gray-500]="currentView() !== 'survey'"
+        [class.hover:text-vera-dark]="currentView() !== 'survey'">
+        Resultats sondage
+      </button>
     </div>
   </div>
 </div>

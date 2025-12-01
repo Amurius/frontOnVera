@@ -1,169 +1,182 @@
-<div class="min-h-screen bg-gray-50">
+<div class="fixed inset-0 bg-newspaper bg-cover bg-center -z-10"></div>
+<div class="min-h-screen">
   <app-navbar></app-navbar>
 
-  <div class="ml-[84px] min-h-screen">
-    <div class="page-wrapper">
-      <div class="survey-container">
-        <!-- Loading State -->
-        @if (loading()) {
-          <div class="loading-container">
-            <div class="loading-spinner"></div>
-          </div>
-        }
+  <div class="ml-[84px] min-h-screen p-8">
+    <div class="max-w-[700px] mx-auto">
+      <!-- Loading State -->
+      @if (loading()) {
+        <div class="flex items-center justify-center py-20">
+          <div class="w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      }
 
-        <!-- Error State -->
-        @if (!loading() && error() && !survey()) {
-          <div class="page-card">
-            <div class="error-box">
-              <p class="error-box-text">{{ error() }}</p>
-            </div>
-            <a routerLink="/" class="btn-action btn-action-primary" style="margin-top: 1rem;">Retour a l'accueil</a>
+      <!-- Error State -->
+      @if (!loading() && error() && !survey()) {
+        <div class="bg-white rounded-[16px] p-6" style="border: 1px solid #E5E7EB;">
+          <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+            <p class="text-[14px] text-red-700">{{ error() }}</p>
           </div>
-        }
+          <a routerLink="/" class="inline-block mt-4 px-4 py-2 rounded-[8px] bg-orange-500 text-white text-[14px] font-medium hover:bg-orange-600 transition-colors">
+            Retour a l'accueil
+          </a>
+        </div>
+      }
 
-        <!-- Success State -->
-        @if (success()) {
-          <div class="page-card">
-            <div class="success-box" style="text-align: center; padding: 2rem;">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 3rem; height: 3rem; color: #10b981; margin: 0 auto 1rem;">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <h2 style="font-size: 1.25rem; font-weight: 600; color: #166534; margin-bottom: 0.5rem;">Merci pour votre participation !</h2>
-              <p style="color: #166534; font-size: 0.875rem;">Votre reponse a ete enregistree avec succes.</p>
-              <p style="color: #166534; font-size: 0.75rem; margin-top: 0.5rem;">Redirection vers l'accueil...</p>
-            </div>
+      <!-- Success State -->
+      @if (success()) {
+        <div class="bg-white rounded-[16px] p-8 text-center" style="border: 1px solid #E5E7EB;">
+          <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full bg-green-100">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-green-600">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h2 class="text-[18px] font-medium text-green-700 mb-2">Merci pour votre participation !</h2>
+          <p class="text-[14px] text-green-600 mb-1">Votre reponse a ete enregistree avec succes.</p>
+          <p class="text-[13px] text-gray-500">Redirection vers l'accueil...</p>
+        </div>
+      }
+
+      <!-- Survey Form -->
+      @if (!loading() && !success() && survey()) {
+        <!-- Header -->
+        <div class="text-center mb-8">
+          <h1 class="text-[28px] font-heading font-medium text-vera-dark mb-2">{{ survey()!.title }}</h1>
+          @if (survey()!.description) {
+            <p class="text-[14px] text-gray-500">{{ survey()!.description }}</p>
+          }
+        </div>
+
+        <!-- Error Message -->
+        @if (error()) {
+          <div class="bg-red-50 border border-red-200 rounded-[12px] p-4 mb-6">
+            <p class="text-[14px] text-red-700">{{ error() }}</p>
           </div>
         }
 
         <!-- Survey Form -->
-        @if (!loading() && !success() && survey()) {
-          <!-- Header -->
-          <div class="survey-header">
-            <h1 class="page-title">{{ survey()!.title }}</h1>
-            @if (survey()!.description) {
-              <p class="page-subtitle">{{ survey()!.description }}</p>
-            }
-          </div>
+        <form [formGroup]="surveyForm" (ngSubmit)="onSubmit()" class="bg-white rounded-[16px] p-6" style="border: 1px solid #E5E7EB;">
+          <!-- Question Loop -->
+          @for (question of questions(); track question.id; let last = $last) {
+            <div class="mb-6" [class.pb-6]="!last" [class.border-b]="!last" [class.border-gray-100]="!last">
+              <label class="block text-[15px] font-medium text-vera-dark mb-3">
+                {{ question.question_text }}
+                @if (question.is_required) {
+                  <span class="text-red-500 ml-0.5">*</span>
+                }
+              </label>
 
-          <!-- Error Message -->
-          @if (error()) {
-            <div class="error-box" style="margin-bottom: 1.5rem;">
-              <p class="error-box-text">{{ error() }}</p>
+              <!-- Rating Type -->
+              @if (question.question_type === 'rating') {
+                <div class="flex gap-2 mt-2">
+                  @for (rating of [1, 2, 3, 4, 5]; track rating) {
+                    <button
+                      type="button"
+                      (click)="surveyForm.get(question.id)?.setValue(rating)"
+                      class="flex-1 py-3 px-4 rounded-[8px] border text-[14px] font-medium transition-all"
+                      [class.border-gray-200]="surveyForm.get(question.id)?.value !== rating"
+                      [class.bg-white]="surveyForm.get(question.id)?.value !== rating"
+                      [class.text-vera-dark]="surveyForm.get(question.id)?.value !== rating"
+                      [class.hover:bg-gray-50]="surveyForm.get(question.id)?.value !== rating"
+                      [class.bg-orange-500]="surveyForm.get(question.id)?.value === rating"
+                      [class.border-orange-500]="surveyForm.get(question.id)?.value === rating"
+                      [class.text-white]="surveyForm.get(question.id)?.value === rating"
+                      [class.shadow-md]="surveyForm.get(question.id)?.value === rating">
+                      {{ rating }}
+                    </button>
+                  }
+                </div>
+              }
+
+              <!-- Multiple Choice Type -->
+              @if (question.question_type === 'multiple_choice' && question.options) {
+                <div class="space-y-2 mt-2">
+                  @for (option of question.options; track option) {
+                    <label
+                      class="flex items-center p-4 rounded-[8px] border cursor-pointer transition-all"
+                      [class.border-gray-200]="surveyForm.get(question.id)?.value !== option"
+                      [class.bg-white]="surveyForm.get(question.id)?.value !== option"
+                      [class.hover:bg-gray-50]="surveyForm.get(question.id)?.value !== option"
+                      [class.bg-orange-50]="surveyForm.get(question.id)?.value === option"
+                      [class.border-orange-400]="surveyForm.get(question.id)?.value === option">
+                      <input
+                        type="radio"
+                        [formControlName]="question.id"
+                        [value]="option"
+                        class="w-4 h-4 text-orange-500 border-gray-300 focus:ring-orange-400">
+                      <span class="ml-3 text-[14px] text-vera-dark">{{ option }}</span>
+                    </label>
+                  }
+                </div>
+              }
+
+              <!-- Select Type -->
+              @if (question.question_type === 'select' && question.options) {
+                <select
+                  [formControlName]="question.id"
+                  class="w-full h-[44px] px-4 rounded-[8px] border border-gray-200 text-[14px] text-vera-dark focus:outline-none focus:border-orange-400 focus:ring-1 focus:ring-orange-400 mt-2">
+                  <option value="">Selectionnez une option</option>
+                  @for (option of question.options; track option) {
+                    <option [value]="option">{{ option }}</option>
+                  }
+                </select>
+              }
+
+              <!-- Text Type -->
+              @if (question.question_type === 'text') {
+                <input
+                  type="text"
+                  [formControlName]="question.id"
+                  class="w-full h-[44px] px-4 rounded-[8px] border border-gray-200 text-[14px] text-vera-dark placeholder-gray-400 focus:outline-none focus:border-orange-400 focus:ring-1 focus:ring-orange-400 mt-2"
+                  placeholder="Votre reponse...">
+              }
+
+              <!-- Textarea Type -->
+              @if (question.question_type === 'textarea') {
+                <textarea
+                  [formControlName]="question.id"
+                  rows="4"
+                  class="w-full px-4 py-3 rounded-[8px] border border-gray-200 text-[14px] text-vera-dark placeholder-gray-400 focus:outline-none focus:border-orange-400 focus:ring-1 focus:ring-orange-400 resize-none mt-2"
+                  placeholder="Partagez vos suggestions...">
+                </textarea>
+              }
+
+              <!-- Error Message -->
+              @if (getErrorMessage(question.id)) {
+                <p class="text-[12px] text-red-500 mt-2">{{ getErrorMessage(question.id) }}</p>
+              }
             </div>
           }
 
-          <!-- Survey Form -->
-          <form [formGroup]="surveyForm" (ngSubmit)="onSubmit()" class="page-card">
-            <!-- Question Loop -->
-            @for (question of questions(); track question.id) {
-              <div class="question-block">
-                <label class="form-label">
-                  {{ question.question_text }}
-                  @if (question.is_required) {
-                    <span class="required-mark">*</span>
-                  }
-                </label>
-
-                <!-- Rating Type -->
-                @if (question.question_type === 'rating') {
-                  <div class="rating-options">
-                    @for (rating of [1, 2, 3, 4, 5]; track rating) {
-                      <button
-                        type="button"
-                        (click)="surveyForm.get(question.id)?.setValue(rating)"
-                        class="rating-btn"
-                        [class.active]="surveyForm.get(question.id)?.value === rating">
-                        {{ rating }}
-                      </button>
-                    }
-                  </div>
-                }
-
-                <!-- Multiple Choice Type -->
-                @if (question.question_type === 'multiple_choice' && question.options) {
-                  <div class="choice-options">
-                    @for (option of question.options; track option) {
-                      <label class="choice-option" [class.selected]="surveyForm.get(question.id)?.value === option">
-                        <input
-                          type="radio"
-                          [formControlName]="question.id"
-                          [value]="option"
-                          class="choice-radio">
-                        <span>{{ option }}</span>
-                      </label>
-                    }
-                  </div>
-                }
-
-                <!-- Select Type -->
-                @if (question.question_type === 'select' && question.options) {
-                  <select [formControlName]="question.id" class="form-input">
-                    <option value="">Selectionnez une option</option>
-                    @for (option of question.options; track option) {
-                      <option [value]="option">{{ option }}</option>
-                    }
-                  </select>
-                }
-
-                <!-- Text Type -->
-                @if (question.question_type === 'text') {
-                  <input
-                    type="text"
-                    [formControlName]="question.id"
-                    class="form-input"
-                    placeholder="Votre reponse...">
-                }
-
-                <!-- Textarea Type -->
-                @if (question.question_type === 'textarea') {
-                  <textarea
-                    [formControlName]="question.id"
-                    class="form-input"
-                    rows="4"
-                    style="resize: none;"
-                    placeholder="Partagez vos suggestions...">
-                  </textarea>
-                }
-
-                <!-- Error Message -->
-                @if (getErrorMessage(question.id)) {
-                  <p class="form-error">{{ getErrorMessage(question.id) }}</p>
-                }
-              </div>
+          <!-- Submit Button -->
+          <button
+            type="submit"
+            [disabled]="submitting()"
+            class="w-full py-3.5 rounded-[8px] bg-orange-500 text-[14px] font-medium text-white hover:bg-orange-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center">
+            @if (submitting()) {
+              <span class="flex items-center gap-2">
+                <span class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                Envoi en cours...
+              </span>
+            } @else {
+              Envoyer mes reponses
             }
+          </button>
+        </form>
 
-            <!-- Submit Button -->
-            <div class="divider"></div>
-            <button
-              type="submit"
-              [disabled]="submitting()"
-              class="btn-action btn-action-primary"
-              style="width: 100%; justify-content: center; padding: 1rem;">
-              @if (submitting()) {
-                <span class="btn-loading">
-                  <span class="loading-spinner" style="width: 1.25rem; height: 1.25rem;"></span>
-                  Envoi en cours...
-                </span>
-              } @else {
-                Envoyer mes reponses
-              }
-            </button>
-          </form>
-
-          <!-- Info Box -->
-          <div class="info-box" style="margin-top: 1.5rem;">
-            <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 1.25rem; height: 1.25rem; flex-shrink: 0; color: #3b82f6;">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-              </svg>
-              <div>
-                <p class="info-box-text" style="font-weight: 500; margin-bottom: 0.25rem;">Vos donnees sont protegees</p>
-                <p class="info-box-text">Vos reponses sont anonymes et stockees en toute securite.</p>
-              </div>
+        <!-- Info Box -->
+        <div class="bg-orange-50 rounded-[12px] p-4 mt-6" style="border: 1px solid #FDBA74;">
+          <div class="flex items-start gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 flex-shrink-0 text-orange-500">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+            </svg>
+            <div>
+              <p class="text-[14px] font-medium text-orange-800 mb-0.5">Vos donnees sont protegees</p>
+              <p class="text-[14px] text-orange-700">Vos reponses sont anonymes et stockees en toute securite.</p>
             </div>
           </div>
-        }
-      </div>
+        </div>
+      }
     </div>
   </div>
 </div>
