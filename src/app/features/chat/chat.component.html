@@ -1,9 +1,10 @@
-<div class="flex min-h-screen bg-newspaper bg-cover bg-center">
+<div class="fixed inset-0 bg-newspaper bg-cover bg-center -z-10"></div>
+<div class="flex min-h-screen">
   <!-- Sidebar gauche -->
   <div class="w-[60px] bg-vera-sugar flex flex-col justify-between py-6 px-2 fixed left-3 top-3 h-[calc(100vh-24px)] z-50 rounded-[12px]" style="border: 0.5px solid rgba(10, 13, 18, 0.12);">
     <!-- Logo en haut -->
     <div class="flex flex-col items-center">
-      <a routerLink="/" class="mb-6 p-2 rounded-md bg-vera-sugar" style="border: 0.2px solid rgba(10, 13, 18, 0.12); box-shadow: 0 -0.5px 0.5px 0 rgba(10, 13, 18, 0.10) inset, 0 1px 1px -0.5px rgba(10, 13, 18, 0.13), 0 1px 3px 0 rgba(10, 13, 18, 0.10), 0 1px 2px 0 rgba(10, 13, 18, 0.06);">
+      <a routerLink="/" class="mb-6 p-1 rounded-md bg-vera-sugar" style="border: 0.2px solid rgba(10, 13, 18, 0.12); box-shadow: 0 -0.5px 0.5px 0 rgba(10, 13, 18, 0.10) inset, 0 1px 1px -0.5px rgba(10, 13, 18, 0.13), 0 1px 3px 0 rgba(10, 13, 18, 0.10), 0 1px 2px 0 rgba(10, 13, 18, 0.06);">
         <img src="assets/icons/Logo/Mini.svg" alt="VERA" class="w-6 h-6">
       </a>
       @if (authService.isAuthenticated()) {
@@ -43,8 +44,8 @@
   <div class="flex-1 flex flex-col min-h-screen ml-[84px]">
     <!-- Header -->
     <div class="flex justify-end items-center gap-3 p-6">
-      <a routerLink="/" class="px-5 py-2.5 bg-vera-dark rounded-full text-[14px] text-white font-medium hover:opacity-90 transition-opacity">Comment ca marche ?</a>
-      <a href="#" class="px-5 py-2.5 border border-vera-dark rounded-full text-[14px] text-vera-dark font-medium hover:bg-vera-dark hover:text-white transition-colors">Nous aider</a>
+      <a routerLink="/" class="px-5 py-2.5 bg-vera-dark rounded-full text-normal text-white font-medium hover:opacity-90 transition-opacity">Comment ca marche ?</a>
+      <a href="#" class="px-5 py-2.5 border border-vera-dark rounded-full text-normal text-vera-dark font-medium hover:bg-vera-dark hover:text-white transition-colors">Nous aider</a>
     </div>
 
     <!-- Zone des messages -->
@@ -52,9 +53,9 @@
       @if (messages().length === 0) {
         <!-- Etat d'accueil -->
         <div class="flex-1 flex flex-col items-center justify-center text-center">
-          <h1 class="font-heading text-[48px] font-medium text-vera-dark mb-4 max-md:text-[32px]">Bienvenue sur <span class="bg-vera-green px-2 rounded">VERA</span></h1>
-          <p class="text-[16px] text-vera-text mb-1">Verifie une info en quelques secondes</p>
-          <p class="text-[14px] text-vera-text-light">Colle un lien, un extrait de texte ou resume ce que tu as vu.</p>
+          <h1 class="font-heading text-h1 font-medium text-vera-dark mb-4 max-md:text-[32px]">Bienvenue sur <span class="bg-vera-green px-2 rounded">VERA</span></h1>
+          <p class="text-h3 text-vera-text mb-1">Verifie une info en quelques secondes</p>
+          <p class="text-large text-vera-text-light">Colle un lien, un extrait de texte ou resume ce que tu as vu.</p>
         </div>
 
       } @else {
@@ -145,7 +146,7 @@
         <!-- Questions de la semaine -->
         @if (messages().length === 0) {
           <div class="w-full">
-            <h2 class="text-[24px] text-vera-dark mb-4 font-heading">Questions de la semaine</h2>
+            <h2 class="text-h3 text-vera-dark mb-4 font-heading">Questions de la semaine</h2>
             <div class="grid grid-cols-3 gap-4 max-md:grid-cols-1">
               @if (isLoadingRecent()) {
                 <div class="bg-white rounded-xl p-4 border border-gray-100 animate-pulse">
@@ -161,13 +162,13 @@
                   <div class="h-4 bg-gray-200 rounded w-1/2"></div>
                 </div>
               } @else if (recentQuestions().length === 0) {
-                <p class="text-[14px] text-vera-text-light col-span-3">Aucune question recente</p>
+                <p class="text-normal text-vera-text-light col-span-3">Aucune question recente</p>
               } @else {
                 @for (question of recentQuestions(); track question.id) {
                   <button
                     (click)="selectRecentQuestion(question.text)"
                     class="bg-white rounded-xl p-4 border border-gray-100 text-left hover:border-vera-green hover:shadow-md transition-all flex items-center justify-between gap-3 group">
-                    <span class="text-[14px] text-vera-text leading-relaxed line-clamp-2">{{ question.text }}</span>
+                    <span class="text-normal text-vera-text leading-relaxed line-clamp-2">{{ question.text }}</span>
                     <img src="assets/icons/chevron-right-outline.svg" alt="" class="w-5 h-5 opacity-50 group-hover:opacity-100 shrink-0">
                   </button>
                 }
@@ -178,7 +179,7 @@
 
         <!-- Input -->
         <div class="w-full flex flex-col items-start gap-[13px] p-[16px_12px_12px_12px] rounded-[12px] bg-cta-gradient" style="box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);">
-          <p class="text-[12px] text-vera-text-light">VERA utilise uniquement des sources fiables (fact-checkers, medias reconnus, ONG).</p>
+          <p class="text-small text-vera-text-light">VERA utilise uniquement des sources fiables (fact-checkers, medias reconnus, ONG).</p>
 
           <div class="w-full bg-white rounded-[12px] border border-gray-200 overflow-hidden">
             <input
@@ -191,19 +192,19 @@
             @if (isSelectingLanguage()) {
               <!-- Selection de la langue -->
               <div class="flex flex-col items-center justify-center py-8 gap-4">
-                <p class="text-[14px] text-vera-text">Choisissez votre langue</p>
+                <p class="text-normal text-vera-text">Choisissez votre langue</p>
                 <div class="flex items-center gap-4">
                   <button
                     (click)="selectLanguageAndRecord('fr-FR')"
                     class="flex flex-col items-center gap-2 px-6 py-4 rounded-xl border-2 border-gray-200 hover:border-vera-green hover:bg-vera-green/10 transition-all">
                     <span class="text-[24px]">🇫🇷</span>
-                    <span class="text-[14px] font-medium text-vera-dark">Francais</span>
+                    <span class="text-normal font-medium text-vera-dark">Francais</span>
                   </button>
                   <button
                     (click)="selectLanguageAndRecord('en-US')"
                     class="flex flex-col items-center gap-2 px-6 py-4 rounded-xl border-2 border-gray-200 hover:border-vera-green hover:bg-vera-green/10 transition-all">
                     <span class="text-[24px]">🇺🇸</span>
-                    <span class="text-[14px] font-medium text-vera-dark">English</span>
+                    <span class="text-normal font-medium text-vera-dark">English</span>
                   </button>
                 </div>
                 <button (click)="cancelLanguageSelection()" class="text-[12px] text-vera-text-light hover:text-vera-dark transition-colors">
@@ -213,7 +214,7 @@
             } @else if (isRecording()) {
               <!-- Mode enregistrement vocal -->
               <div class="flex flex-col items-center justify-center py-8 gap-4">
-                <p class="text-[14px] text-vera-text-light">
+                <p class="text-normal text-vera-text-light">
                   @if (selectedLanguage() === 'fr-FR') {
                     Parlez maintenant...
                   } @else {
@@ -235,7 +236,7 @@
                     </svg>
                   </button>
                 </div>
-                <p class="text-[12px] text-vera-text-light">
+                <p class="text-small text-vera-text-light">
                   @if (selectedLanguage() === 'fr-FR') {
                     Cliquez pour arreter
                   } @else {
@@ -247,14 +248,14 @@
               <!-- Mode normal -->
               <!-- Label -->
               <div class="px-4 pt-3">
-                <span class="text-[12px] font-medium" style="background: linear-gradient(91deg, #DBF9BE -18.27%, #819370 128.27%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">VERA AI Assistant</span>
+                <span class="text-small font-medium" style="background: linear-gradient(91deg, #DBF9BE -18.27%, #819370 128.27%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">VERA AI Assistant</span>
               </div>
 
               <!-- Input -->
               <div class="px-4 py-2">
                 @if (selectedFile()) {
                   <div class="flex items-center gap-2 py-2">
-                    <span class="text-[14px] text-vera-text">{{ selectedFile()!.name }}</span>
+                    <span class="text-normal text-vera-text">{{ selectedFile()!.name }}</span>
                     <button (click)="clearSelectedFile()" class="text-vera-text-light hover:text-red-500" [disabled]="isLoading()">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -268,7 +269,7 @@
                     (keydown)="onKeyDown($event)"
                     (input)="onInputChange()"
                     placeholder="Saisissez votre texte ici, collez un lien ou telechargez un document"
-                    class="w-full text-[15px] text-vera-dark placeholder-vera-text-light outline-none bg-transparent py-2"
+                    class="w-full text-normal text-vera-dark placeholder-vera-text-light outline-none bg-transparent py-2"
                     [disabled]="isLoading()">
                 }
               </div>

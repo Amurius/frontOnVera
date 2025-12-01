@@ -105,4 +105,16 @@ export class ClusteringService {
       { params }
     );
   }
+
+  getCountryStats(): Observable<{ success: boolean; countries: { country: string; count: number }[] }> {
+    return this.http.get<{ success: boolean; countries: { country: string; count: number }[] }>(
+      `${this.DASHBOARD_API_URL}/stats/countries`
+    );
+  }
+
+  getLanguageStats(): Observable<{ success: boolean; languages: { lang: string; count: number }[] }> {
+    return this.http.get<{ success: boolean; languages: { lang: string; count: number }[] }>(
+      `${this.DASHBOARD_API_URL}/stats/languages`
+    );
+  }
 }
