@@ -1,59 +1,335 @@
-<div class="page-container">
-  <div class="main-content">
-    <div class="page-wrapper">
-      <!-- Hero Section -->
-      <div class="landing-hero">
-        <h1 class="page-title" style="font-size: 2.5rem; margin-bottom: 1rem;">Verifiez vos faits avec Vera</h1>
-        <p class="page-subtitle" style="font-size: 1.125rem; max-width: 600px; margin: 0 auto 2rem;">
-          Soumettez une affirmation, une image ou une video et obtenez une verification factuelle instantanee grace a l'intelligence artificielle.
-        </p>
-        <div class="landing-buttons">
-          <a routerLink="/verify" class="btn-action btn-action-primary" style="padding: 1rem 2rem; font-size: 1rem;">
-            Verifier un fait
-          </a>
-          <a routerLink="/login" class="btn-action btn-action-secondary" style="padding: 1rem 2rem; font-size: 1rem;">
-            Connexion
-          </a>
-        </div>
+<!-- Header fixe avec blur -->
+<header class="fixed top-0 left-0 right-0 z-40 bg-white/20" style="backdrop-filter: blur(4px); border-bottom: 0.5px solid rgba(10, 13, 18, 0.06);">
+  <!-- Beta Banner -->
+  <div class="bg-vera-green py-3 px-6 flex justify-center items-center gap-4 text-[14px] max-md:text-[12px] max-md:py-2.5 max-md:px-4" *ngIf="showBanner">
+    <p class="m-0">Vera est en version beta et peut faire des erreurs. <a href="#" class="underline font-medium">Aidez-nous a l'ameliorer !</a></p>
+    <button class="bg-transparent border-none cursor-pointer p-1 flex items-center justify-center text-vera-dark" (click)="closeBanner()">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+  <div class="max-w-container mx-auto px-8 max-lg:px-12 max-md:px-6 max-sm:px-4 h-[72px] flex items-center justify-between">
+    <a routerLink="/" class="flex items-center">
+      <svg width="88" height="28" viewBox="0 0 88 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24.2173 9.84827C23.1358 12.1286 19.5784 14.1223 18.132 13.2753C17.7281 13.0407 17.8845 12.8192 18.8748 12.1937C20.7773 10.9819 21.3636 8.98824 19.813 8.98824C15.4608 8.98824 14.3923 2.8379 18.523 1.56091C23.4746 0.0363475 26.6801 4.70122 24.2173 9.84827Z" fill="#1A1A1A"/>
+        <path d="M73.2428 26.5898C69.5175 26.5898 67.8936 23.1989 67.8936 20.3333C67.8936 14.9363 73.9114 12.3572 79.4993 10.0647C79.977 9.87368 80.168 9.53936 80.168 9.06176C80.1202 5.71852 79.7382 2.80513 76.2039 2.80513C73.3383 2.80513 73.0517 4.90659 73.0994 7.19909C73.0994 8.34536 72.6219 9.82593 70.9025 9.82593C69.3741 9.82593 68.7532 8.5364 68.7532 7.19909C68.7532 3.95138 72.0488 0.990234 76.968 0.990234C83.6545 0.990234 84.4665 4.23795 84.4665 9.2528V20.9063C84.4665 22.3392 84.8486 23.0556 85.4695 23.0556C85.8037 23.0556 86.1381 22.8645 86.6635 22.387C87.0455 22.0048 87.4276 21.8616 87.7619 22.1481C88.0485 22.387 88.0963 22.769 87.7619 23.1989C86.6635 24.6794 84.8963 26.5421 82.7949 26.5421C81.0277 26.5421 80.4068 25.2048 80.2636 23.772C80.2158 23.1034 79.9292 22.9601 79.4993 23.3421C77.78 24.8705 75.8696 26.5898 73.2428 26.5898ZM72.2398 18.9959C72.2398 21.0974 73.3383 23.3421 75.392 23.3421C76.586 23.3421 77.971 22.578 79.6904 21.1452C80.0247 20.8586 80.168 20.5243 80.168 20.0944V12.7394C80.168 12.1185 79.6427 11.8796 78.8784 12.214C75.1532 13.8855 72.2398 15.5572 72.2398 18.9959Z" fill="#1A1A1A"/>
+        <path d="M60.1612 4.81167C59.4448 4.81167 58.3463 6.14896 57.2955 8.29819C57.1045 8.68027 57.0567 9.01459 57.0567 9.39668V18.6622C57.0567 22.5785 57.0567 24.2024 59.2059 24.4412C59.7313 24.489 60.0179 24.8233 60.0179 25.3487C60.0179 25.8741 59.6836 26.2084 59.2059 26.2084H50.6568C50.1792 26.2084 49.8449 25.8741 49.8449 25.3487C49.8449 24.8233 50.1315 24.489 50.6568 24.4412C52.806 24.2024 52.806 22.5785 52.806 18.6622V9.77876C52.806 6.38777 52.7583 4.66839 50.7046 5.14599C50.036 5.28928 49.6061 5.19375 49.3673 4.71615C49.1763 4.23854 49.4628 3.80869 50.0837 3.52214L52.8538 2.28036L55.2896 1.22963C56.006 0.895308 57.0567 0.704265 57.0567 1.85052V4.14303C57.0567 4.95495 57.5821 5.09823 58.0598 4.38182C59.3493 2.32812 60.8298 0.990829 62.788 0.990829C64.6507 0.990829 66.4656 2.18484 66.4656 4.09526C66.4656 5.8624 64.8417 6.57881 63.7433 6.57881C61.9761 6.57881 61.0686 4.81167 60.1612 4.81167Z" fill="#1A1A1A"/>
+        <path d="M37.1749 3.0917C34.1659 3.0917 32.542 5.95733 32.0645 8.44087C31.9211 9.014 32.2555 9.34832 32.8286 9.34832H40.9479C41.5211 9.34832 41.8554 9.014 41.7598 8.48864C41.4732 5.76628 40.1359 3.0917 37.1749 3.0917ZM28.1959 13.981C28.1959 8.34536 30.9182 0.990234 38.3211 0.990234C44.1479 0.990234 46.8702 5.52748 47.1567 10.208C47.2045 10.7811 46.8702 11.0677 46.3448 11.0677H32.7809C32.2555 11.0677 31.9211 11.3542 31.969 11.9274C32.2077 16.3691 34.4047 22.1003 39.8017 22.1003C43.2404 22.1003 44.8165 19.7602 45.8672 17.3243C46.0583 16.8467 46.3926 16.608 46.727 16.7035C47.0612 16.799 47.2046 17.1332 47.109 17.6586C46.2493 21.5272 43.3836 26.5898 37.748 26.5898C31.2525 26.5898 28.1959 19.9512 28.1959 13.981Z" fill="#1A1A1A"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M12.632 26.4869L14.2543 22.2574C13.8946 21.2359 13.5434 20.1998 13.2715 19.3981C13.0266 18.6757 12.8462 18.1436 12.7823 17.9838L9.1047 8.33614C8.84502 7.64663 8.58869 7.03772 8.36311 6.50183C7.38552 4.1795 6.98529 3.22875 9.39127 3.03472C10.1554 2.98696 10.5375 2.65264 10.5375 2.12727C10.5375 1.6019 10.1077 1.26758 9.39127 1.26758H0.937656C-0.256357 1.26758 -0.351878 2.89143 0.937656 3.13024C1.94063 3.32128 3.23016 4.65858 4.61522 8.33614L11.3017 25.8165C11.4928 26.2463 11.7793 26.4851 12.1614 26.4851C12.3218 26.4851 12.4788 26.4859 12.632 26.4869Z" fill="#1A1A1A"/>
+      </svg>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <div class="flex items-center gap-6">
+    <nav class="flex gap-8 max-md:hidden">
+      <a href="#how-it-works" class="text-[14px] text-vera-text transition-colors duration-200 hover:text-vera-dark">Comment ca marche ?</a>
+      <a href="#team" class="text-[14px] text-vera-text transition-colors duration-200 hover:text-vera-dark">Rencontrez l'equipe</a>
+      <a href="#faq" class="text-[14px] text-vera-text transition-colors duration-200 hover:text-vera-dark">FAQ</a>
+    </nav>
+
+    <div class="flex items-center gap-6 max-md:hidden">
+      <a routerLink="/verify" class="bg-[#1e1e1e] border-2 border-[#1e1e1e] text-white py-2 px-5 rounded-full-btn text-[14px] font-medium transition-opacity duration-200 hover:opacity-90">Parler a Vera</a>
+      <div class="flex items-center gap-1 text-[14px]">
+        <span class="font-semibold">FR</span>
+        <span class="text-vera-text-light">/</span>
+        <span class="text-vera-text-light">ENG</span>
       </div>
+      <a routerLink="/login" class="text-vera-text hover:text-vera-dark transition-colors" title="Espace admin">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+        </svg>
+      </a>
+    </div>
+</div>
+    <!-- Mobile Menu Button -->
+    <button class="hidden max-md:flex flex-col gap-[5px] bg-transparent border-none cursor-pointer p-2" (click)="toggleMenu()">
+      <span class="block w-6 h-0.5 bg-vera-dark transition-transform duration-300" [class.rotate-45]="menuOpen" [class.translate-y-[7px]]="menuOpen"></span>
+      <span class="block w-6 h-0.5 bg-vera-dark transition-opacity duration-300" [class.opacity-0]="menuOpen"></span>
+      <span class="block w-6 h-0.5 bg-vera-dark transition-transform duration-300" [class.-rotate-45]="menuOpen" [class.-translate-y-[7px]]="menuOpen"></span>
+    </button>
+  </div>
 
-      <!-- Features Section -->
-      <div class="landing-features">
-        <div class="page-card page-card-hover">
-          <div class="feature-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-            </svg>
-          </div>
-          <h3 class="feature-title">Rapide</h3>
-          <p class="feature-text">Obtenez une reponse en quelques secondes seulement</p>
+  <!-- Mobile Navigation -->
+  <nav class="flex-col gap-4 py-6 px-8 max-md:px-6 max-sm:px-4 bg-vera-sugar border-t border-black/10" [class.hidden]="!menuOpen" [class.flex]="menuOpen">
+    <a href="#how-it-works" class="text-[14px] text-vera-text transition-colors duration-200 hover:text-vera-dark" (click)="toggleMenu()">Comment ca marche ?</a>
+    <a href="#team" class="text-[14px] text-vera-text transition-colors duration-200 hover:text-vera-dark" (click)="toggleMenu()">Rencontrez l'equipe</a>
+    <a href="#faq" class="text-[14px] text-vera-text transition-colors duration-200 hover:text-vera-dark" (click)="toggleMenu()">FAQ</a>
+    <a routerLink="/verify" class="bg-[#1e1e1e] border-2 border-[#1e1e1e] text-white py-2 px-5 rounded-full-btn text-[14px] font-medium transition-opacity duration-200 hover:opacity-90 w-fit" (click)="toggleMenu()">Parler a Vera</a>
+    <a routerLink="/login" class="flex items-center gap-2 text-[14px] text-vera-text transition-colors duration-200 hover:text-vera-dark" (click)="toggleMenu()">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+      </svg>
+      Espace admin
+    </a>
+    <div class="flex items-center gap-1 text-[14px]">
+      <span class="font-semibold">FR</span>
+      <span class="text-vera-text-light">/</span>
+      <span class="text-vera-text-light">ENG</span>
+    </div>
+  </nav>
+</header>
+
+<!-- Section 1 : Hero -->
+<section class="bg-newspaper bg-cover bg-center pt-[120px] relative z-0 min-h-screen" [class.pt-[160px]]="showBanner">
+<!-- Hero Section -->
+<div class="py-24 pb-24 max-md:py-10 max-md:pb-[60px]">
+  <div class="flex max-w-container mx-auto px-8 max-lg:px-12 max-md:px-6 max-sm:px-4 justify-center items-center gap-16 flex-1 max-lg:flex-col max-lg:gap-12 max-lg:text-center">
+    <div class="flex flex-col items-start gap-12 flex-1 max-lg:items-center">
+      <span class="inline-flex items-center gap-2 bg-white py-2 px-4 rounded-[100px] text-[12px] text-vera-text w-fit">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="6" cy="6" r="4.5" fill="#2E3626" stroke="#DBF9BE" stroke-width="3"/>
+        </svg>
+        VERA - Le mensonge n'a jamais ete aussi indetectable
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3.33334 8.00016H12.6667M12.6667 8.00016L8.00001 3.3335M12.6667 8.00016L8.00001 12.6668" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <h1 class="font-heading text-[64px] font-medium leading-[1.15] text-vera-dark max-md:text-[32px] max-sm:text-[28px]">Tu crois savoir reperer le faux ? <span class="bg-vera-green px-2 rounded">VERA</span> verifie pour toi.</h1>
+      <p class="text-[16px] text-vera-text max-w-[480px] max-lg:max-w-full">Ton instinct te dit qu'un truc est bizarre. VERA confirme en 30 secondes. Finis des vieilles sources.</p>
+      <a routerLink="/verify" class="inline-flex items-center gap-2 bg-[#1e1e1e] border-2 border-[#1e1e1e] text-white py-2 px-6 rounded-full-btn text-[18px] font-medium w-fit transition-opacity duration-200 hover:opacity-90 group max-sm:w-full max-sm:justify-center">
+        Tester VERA maintenant
+        <svg class="transition-transform duration-200 group-hover:translate-x-1" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3.33334 8.00016H12.6667M12.6667 8.00016L8.00001 3.3335M12.6667 8.00016L8.00001 12.6668" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+    <div class="flex justify-center items-center">
+      <div class="relative flex justify-center items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="532" height="480" viewBox="0 0 532 480" fill="none" class="w-full max-w-[532px] h-auto">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M182.034 461.691C74.9901 428.768 1.32278 329.846 0.0121784 217.408C-1.15817 117.003 82.1936 43.2414 176.777 10.7273C260.07 -17.9056 346.327 12.9156 406.143 77.7959C484.913 163.236 571.343 274.645 512.702 375.097C449.003 484.212 302.448 498.727 182.034 461.691Z" fill="#DBF9BE"/>
+        </svg>
+        <div class="absolute flex justify-center items-center">
+          <img src="assets/images/Mockup wrap.png" alt="VERA App Screen" class="absolute max-w-[258px] h-auto z-[1] rounded-5xl">
+          <img src="assets/images/iPhone mockup.png" alt="iPhone Frame" class="max-w-[280px] h-auto relative z-[2] max-lg:max-w-[320px] max-md:max-w-[280px]">
         </div>
-
-        <div class="page-card page-card-hover">
-          <div class="feature-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-            </svg>
-          </div>
-          <h3 class="feature-title">Fiable</h3>
-          <p class="feature-text">Analyse basee sur des modeles d'IA avances</p>
-        </div>
-
-        <div class="page-card page-card-hover">
-          <div class="feature-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />
-            </svg>
-          </div>
-          <h3 class="feature-title">Polyvalent</h3>
-          <p class="feature-text">Texte, images et videos supportes</p>
-        </div>
-      </div>
-
-      <!-- Footer -->
-      <div class="landing-footer">
-        <p>&copy; 2024 Vera. Tous droits reserves.</p>
       </div>
     </div>
   </div>
 </div>
+</section>
+<!-- Fin Section 1 -->
+
+<!-- Section 2 : Trust + Feature Tabs -->
+<section class="flex py-24 flex-col items-center gap-16 bg-white max-md:py-16 max-md:gap-12 relative z-0">
+  <div class="flex w-full max-w-container mx-auto px-8 max-md:px-6 max-sm:px-4 flex-col items-start gap-8">
+    <h2 class="font-heading text-[48px] font-normal leading-[110%] text-vera-heading max-md:text-[28px] max-sm:text-[24px]">Tu fais confiance a ton instinct. Mais lui, il peut se tromper.</h2>
+    <p class="font-body text-[20px] font-normal leading-[30px] text-vera-body max-md:text-[16px]">On pense tous savoir faire la difference entre une vraie info et une fake news. Tu scrolles, tu vois un truc louche, tu te dis "mouais, ca pue bon". Et la plupart du temps, tu as raison de te mefier.</p>
+  </div>
+  <div class="flex max-w-container mx-auto px-8 max-md:px-6 max-sm:px-4 items-center gap-16 max-md:flex-col max-md:gap-10">
+    <div class="flex-1 flex flex-col gap-8">
+      <div class="flex flex-col gap-4">
+        <div class="flex py-4 pl-6 flex-col items-start gap-4 border-l-4 border-[#e0e0e0] transition-colors duration-200 cursor-pointer hover:border-vera-green">
+          <h3 class="text-[18px] font-semibold text-vera-dark">Le probleme ? Le mensonge n'a jamais ete aussi indetectable.</h3>
+          <p class="text-[14px] text-vera-text leading-[1.7]">Deepfakes ultra-realistes. Screenshots modifies a la perfection. Video authentiques sorties de leur contexte. Fausses citations qui ressemblent a des vraies. Meme avec du recul, meme en faisant gaffe, on se fait avoir.</p>
+        </div>
+
+        <div class="flex py-4 pl-6 flex-col items-start gap-4 border-l-4 border-[#e0e0e0] transition-colors duration-200 cursor-pointer hover:border-vera-green">
+          <h3 class="text-[18px] font-semibold text-vera-dark">Resultat ?</h3>
+          <p class="text-[14px] text-vera-text leading-[1.7]">Ton intuition te dit qu'il y a un truc qui cloche... mais tu n'as pas le temps de verifier. Alors tu scroll, tu fais, tu partages. Et parfois, tu te plantes.</p>
+        </div>
+
+        <div class="flex py-4 pl-6 flex-col items-start gap-4 border-l-4 border-[#e0e0e0] transition-colors duration-200 cursor-pointer hover:border-vera-green">
+          <h3 class="text-[18px] font-semibold text-vera-dark">Ce qu'il te manque, c'est pas du discernement.</h3>
+          <p class="text-[14px] text-vera-text leading-[1.7]">Ce qu'il te manque, c'est pas du discernement. C'est un outil rapide pour confirmer ce que tu pressens. Un reflexe simple qui te permet de verifier en 30 secondes, sans prise de tete.</p>
+          <p class="text-[14px] font-medium text-vera-dark italic">VERA, c'est ca : transforme ton intuition en certitude.</p>
+        </div>
+      </div>
+    </div>
+    <div class="flex-1">
+      <img src="assets/images/hommeTel.png" alt="Homme avec telephone" class="max-w-full h-auto rounded-2xl shadow-image-green">
+    </div>
+  </div>
+</section>
+
+<!-- Instinct + VERA Section -->
+<section class="flex flex-col items-center py-20 bg-newspaper bg-cover bg-center text-center max-md:py-16 relative z-0">
+  <div class="flex max-w-container mx-auto px-8 max-md:px-6 max-sm:px-4 flex-col items-center gap-8">
+    <div class="flex flex-col items-center gap-4">
+      <h2 class="font-heading text-[48px] font-normal leading-[110%] text-vera-heading w-full max-md:text-[28px] max-sm:text-[24px]">Ton instinct + <span class="bg-vera-green px-2 rounded">VERA</span> = tu sais.</h2>
+      <p class="font-body text-[20px] font-normal leading-[150%] text-vera-body w-full max-md:text-[16px]">VERA ne devine pas. Elle croise des fact-checkers reconnus, des medias verifies, des ONG specialisees. Elle confirme (ou infirme) ce que ton instinct te dit. Et si elle ne trouve pas de reponse fiable ? Elle te le dit clairement.</p>
+    </div>
+    <a routerLink="/verify" class="inline-flex items-center gap-2 bg-[#1e1e1e] border-2 border-[#1e1e1e] text-white py-2 px-6 rounded-full-btn text-[18px] font-medium w-fit transition-opacity duration-200 hover:opacity-90">
+      Tester VERA maintenant
+    </a>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="flex py-24 flex-col items-center gap-16 bg-white overflow-hidden max-md:py-16 max-md:gap-12 relative z-0" id="how-it-works">
+  <div class="flex max-w-container w-full mx-auto px-8 max-md:px-6 max-sm:px-4 flex-col items-start gap-8">
+    <div class="flex max-w-[768px] flex-col items-start gap-5">
+      <div class="flex flex-col items-start gap-3">
+        <span class="text-vera-label font-body text-[16px] font-semibold leading-6">Features</span>
+        <h2 class="font-heading text-[48px] font-normal leading-[110%] text-vera-heading w-full max-md:text-[28px] max-sm:text-[24px]">Pourquoi utiliser VERA ?</h2>
+      </div>
+      <p class="font-body text-[20px] font-normal leading-[30px] text-vera-body w-full max-md:text-[16px]">Parce que ton instinct ne suffit plus</p>
+    </div>
+  </div>
+
+  <div class="flex max-w-container w-full mx-auto px-8 max-md:px-6 max-sm:px-4 items-start gap-16 max-lg:flex-col">
+    <div class="flex items-start content-start gap-x-8 gap-y-12 flex-1 flex-wrap max-md:flex-col max-md:gap-6">
+      <div class="flex min-w-[240px] w-[calc(50%-16px)] max-md:w-full max-md:min-w-full flex-col items-start gap-4">
+        <div class="flex w-12 h-12 p-3 justify-center items-center rounded-[10px] border border-[#e0e0e0] shadow-xl-custom">
+          <img src="assets/icons/File Check.svg" alt="Verification icon" class="w-6 h-6">
+        </div>
+        <div class="flex flex-col items-start gap-1">
+          <h3 class="font-body text-[18px] font-bold leading-7 text-vera-heading">Fais confiance a ton intuition... mais verifie quand meme</h3>
+          <p class="font-body text-[16px] font-normal leading-6 text-vera-body">Tu sens qu'un truc est bizarre ? C'est deja un bon reflexe. VERA te permet d'aller au bout de cette intuition en 30 secondes.</p>
+        </div>
+      </div>
+
+      <div class="flex min-w-[240px] w-[calc(50%-16px)] max-md:w-full max-md:min-w-full flex-col items-start gap-4">
+        <div class="flex w-12 h-12 p-3 justify-center items-center rounded-[10px] border border-[#e0e0e0] shadow-xl-custom">
+          <img src="assets/icons/Incognito.svg" alt="Privacy icon" class="w-6 h-6">
+        </div>
+        <div class="flex flex-col items-start gap-1">
+          <h3 class="font-body text-[18px] font-bold leading-7 text-vera-heading">Protege ton image</h3>
+          <p class="font-body text-[16px] font-normal leading-6 text-vera-body">Evite de partager des conneries et de passer pour quelqu'un qui relaie n'importe quoi. Meme avec les meilleures intentions.</p>
+        </div>
+      </div>
+
+      <div class="flex min-w-[240px] w-[calc(50%-16px)] max-md:w-full max-md:min-w-full flex-col items-start gap-4">
+        <div class="flex w-12 h-12 p-3 justify-center items-center rounded-[10px] border border-[#e0e0e0] shadow-xl-custom">
+          <img src="assets/icons/History 3.svg" alt="Time icon" class="w-6 h-6">
+        </div>
+        <div class="flex flex-col items-start gap-1">
+          <h3 class="font-body text-[18px] font-bold leading-7 text-vera-heading">Gagne du temps</h3>
+          <p class="font-body text-[16px] font-normal leading-6 text-vera-body">Pas besoin de faire 10 recherches Google ou de demander a une IA qui t'invente des trucs. VERA fait le job pendant que tu scroll.</p>
+        </div>
+      </div>
+
+      <div class="flex min-w-[240px] w-[calc(50%-16px)] max-md:w-full max-md:min-w-full flex-col items-start gap-4">
+        <div class="flex w-12 h-12 p-3 justify-center items-center rounded-[10px] border border-[#e0e0e0] shadow-xl-custom">
+          <img src="assets/icons/Lock Keyhole.svg" alt="Control icon" class="w-6 h-6">
+        </div>
+        <div class="flex flex-col items-start gap-1">
+          <h3 class="font-body text-[18px] font-bold leading-7 text-vera-heading">Garde le controle</h3>
+          <p class="font-body text-[16px] font-normal leading-6 text-vera-body">Avant de liker, commenter ou transferer : tu sais. Et tu decides en connaissance de cause.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-start items-start shrink-0 relative w-[calc(50%-32px)] max-lg:w-full max-lg:order-first max-lg:justify-center">
+      <div class="relative flex w-[300px] h-[500px] max-md:w-[200px] max-md:h-[350px]">
+        <div class="absolute left-[100px] top-0 z-[1] w-max max-lg:left-[80px] max-md:left-[60px]">
+          <img src="assets/images/screenMockup.png" alt="VERA Desktop Screen" class="h-[682px] rounded-xl border-[6px] border-vera-dark object-cover max-lg:w-[800px] max-lg:h-[533px] max-md:w-[600px] max-md:h-[400px]">
+        </div>
+        <div class="absolute left-0 top-[75px] z-[2] flex justify-center items-center max-md:top-[20px]">
+          <img src="assets/images/source_iPhone 13 & 14 - 6.png" alt="Welcome Screen" class="absolute max-w-[258px] h-auto z-[1] rounded-5xl max-lg:max-w-[220px] max-md:max-w-[166px]">
+          <img src="assets/images/iPhone mockup.png" alt="iPhone Frame" class="max-w-[280px] h-auto relative z-[2] max-lg:max-w-[240px] max-md:max-w-[180px]">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section Green -->
+<section class="flex py-24 flex-col justify-center items-center gap-16 max-md:py-16 relative z-0">
+  <div class="max-w-container w-full px-8 max-md:px-6 max-sm:px-4">
+    <div class="flex items-center rounded-4xl bg-cta-gradient shadow-xl-custom overflow-hidden max-lg:flex-col">
+      <div class="flex p-16 flex-col justify-center items-start gap-12 flex-1 max-md:p-8 max-md:gap-8">
+        <div class="flex flex-col items-start gap-5">
+          <h2 class="font-heading text-[42px] font-normal leading-[1.2] text-vera-heading max-md:text-[28px] max-sm:text-[24px]">Ton instinct te parle.<br><span class="bg-vera-green px-2 rounded">VERA</span> le confirme.</h2>
+          <p class="font-body text-[18px] font-normal leading-7 text-vera-body max-md:text-[16px]">Fais de VERA le reflexe qui transforme ton doute en certitude.</p>
+        </div>
+        <a routerLink="/verify" class="flex py-2 px-6 items-center rounded-full-btn border border-[#1e1e1e] bg-transparent font-body text-[16px] font-medium text-[#1e1e1e] transition-all duration-200 hover:bg-[#1e1e1e] hover:text-white">Tester VERA maintenant</a>
+      </div>
+      <div class="flex items-center relative flex-1 h-full min-h-[450px] max-lg:min-h-[400px] max-lg:w-full max-lg:justify-center max-md:hidden">
+        <div class="inline-flex flex-col items-start gap-2 z-[2] self-end pb-2">
+          <div class="flex w-[320px] p-4 items-start gap-1 bg-white/70 backdrop-blur-[10px] rounded-xl shadow-notification max-md:w-[280px]">
+            <div class="flex items-start gap-3 flex-1">
+              <p class="font-body text-[14px] leading-[1.5] text-vera-heading m-0">Video TikTok avec Elon Musk qu'il offre 5000&#8364; a tout le monde qui partage sa video, c'est vrai?</p>
+              <img src="assets/images/Avatar (1).svg" alt="User avatar" class="w-10 h-10 rounded-full shrink-0">
+            </div>
+          </div>
+          <div class="flex w-[320px] p-4 items-start gap-1 bg-white/70 backdrop-blur-[10px] rounded-xl shadow-notification max-md:w-[280px]">
+            <div class="flex items-start gap-3 flex-1">
+              <img src="assets/images/Avatar.svg" alt="VERA avatar" class="w-10 h-10 rounded-full shrink-0">
+              <div class="flex flex-col gap-2">
+                <p class="font-body text-[14px] leading-[1.5] text-vera-heading m-0">Cette video utilise un deepfake. Elon Musk n'a jamais fait cette annonce. Il s'agit d'une arnaque classique pour recuperer des donnees personnelles.</p>
+                <span class="inline-block py-1 px-3 bg-[#f5f5f5] rounded text-[12px] text-vera-body">france24.com</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex w-[320px] p-4 items-start gap-1 bg-white/70 backdrop-blur-[10px] rounded-xl shadow-notification max-md:w-[280px]">
+            <div class="flex items-start gap-3 flex-1">
+              <p class="font-body text-[14px] leading-[1.5] text-vera-heading m-0">Le gouvernement francais interdit les jeux video apres 22h pour les moins de 18 an</p>
+              <img src="assets/images/Avatar (1).svg" alt="User avatar" class="w-10 h-10 rounded-full shrink-0">
+            </div>
+          </div>
+        </div>
+        <div class="absolute right-[25px] top-[70%] -translate-y-1/2 z-[1] max-lg:right-[-100px]">
+          <div class="relative flex justify-center items-center">
+            <img src="assets/images/Mockup wrap.png" alt="VERA App Screen" class="absolute max-w-[258px] h-auto z-[1] rounded-5xl">
+            <img src="assets/images/iPhone mockup.png" alt="iPhone Frame" class="max-w-[280px] h-auto relative z-[2]">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer with Final CTA -->
+<footer class="bg-vera-footer pt-16 pb-8 max-md:pt-12 relative z-0">
+  <div class="max-w-container mx-auto px-8 max-md:px-6 max-sm:px-4">
+    <!-- Final CTA Section -->
+    <div class="text-center pb-16 max-md:pb-12">
+      <h2 class="font-heading text-[42px] font-normal leading-[1.2] text-vera-cream mb-4 max-lg:text-[32px] max-md:text-[28px] max-sm:text-[24px]">Parce que faire confiance a ton instinct, c'est bien.<br>Le verifier, c'est mieux.</h2>
+      <p class="font-body text-[16px] text-vera-gray mb-8">Tu as l'intuition. VERA t'apporte la preuve.</p>
+      <a routerLink="/verify" class="inline-flex py-3 px-8 items-center justify-center rounded-full-btn bg-vera-green font-body text-[16px] font-medium text-[#1E1E1E] transition-opacity duration-200 hover:opacity-90">Tester VERA</a>
+    </div>
+
+    <div class="h-px bg-white/10 w-full"></div>
+
+    <!-- Footer Main -->
+    <div class="flex justify-between items-start py-12 max-lg:flex-col max-lg:gap-12">
+      <div class="max-w-[400px]">
+        <a routerLink="/" class="inline-block mb-4">
+          <svg width="88" height="28" viewBox="0 0 88 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24.2173 9.84827C23.1358 12.1286 19.5784 14.1223 18.132 13.2753C17.7281 13.0407 17.8845 12.8192 18.8748 12.1937C20.7773 10.9819 21.3636 8.98824 19.813 8.98824C15.4608 8.98824 14.3923 2.8379 18.523 1.56091C23.4746 0.0363475 26.6801 4.70122 24.2173 9.84827Z" fill="#F5ECDE"/>
+            <path d="M73.2428 26.5898C69.5175 26.5898 67.8936 23.1989 67.8936 20.3333C67.8936 14.9363 73.9114 12.3572 79.4993 10.0647C79.977 9.87368 80.168 9.53936 80.168 9.06176C80.1202 5.71852 79.7382 2.80513 76.2039 2.80513C73.3383 2.80513 73.0517 4.90659 73.0994 7.19909C73.0994 8.34536 72.6219 9.82593 70.9025 9.82593C69.3741 9.82593 68.7532 8.5364 68.7532 7.19909C68.7532 3.95138 72.0488 0.990234 76.968 0.990234C83.6545 0.990234 84.4665 4.23795 84.4665 9.2528V20.9063C84.4665 22.3392 84.8486 23.0556 85.4695 23.0556C85.8037 23.0556 86.1381 22.8645 86.6635 22.387C87.0455 22.0048 87.4276 21.8616 87.7619 22.1481C88.0485 22.387 88.0963 22.769 87.7619 23.1989C86.6635 24.6794 84.8963 26.5421 82.7949 26.5421C81.0277 26.5421 80.4068 25.2048 80.2636 23.772C80.2158 23.1034 79.9292 22.9601 79.4993 23.3421C77.78 24.8705 75.8696 26.5898 73.2428 26.5898ZM72.2398 18.9959C72.2398 21.0974 73.3383 23.3421 75.392 23.3421C76.586 23.3421 77.971 22.578 79.6904 21.1452C80.0247 20.8586 80.168 20.5243 80.168 20.0944V12.7394C80.168 12.1185 79.6427 11.8796 78.8784 12.214C75.1532 13.8855 72.2398 15.5572 72.2398 18.9959Z" fill="#F5ECDE"/>
+            <path d="M60.1612 4.81167C59.4448 4.81167 58.3463 6.14896 57.2955 8.29819C57.1045 8.68027 57.0567 9.01459 57.0567 9.39668V18.6622C57.0567 22.5785 57.0567 24.2024 59.2059 24.4412C59.7313 24.489 60.0179 24.8233 60.0179 25.3487C60.0179 25.8741 59.6836 26.2084 59.2059 26.2084H50.6568C50.1792 26.2084 49.8449 25.8741 49.8449 25.3487C49.8449 24.8233 50.1315 24.489 50.6568 24.4412C52.806 24.2024 52.806 22.5785 52.806 18.6622V9.77876C52.806 6.38777 52.7583 4.66839 50.7046 5.14599C50.036 5.28928 49.6061 5.19375 49.3673 4.71615C49.1763 4.23854 49.4628 3.80869 50.0837 3.52214L52.8538 2.28036L55.2896 1.22963C56.006 0.895308 57.0567 0.704265 57.0567 1.85052V4.14303C57.0567 4.95495 57.5821 5.09823 58.0598 4.38182C59.3493 2.32812 60.8298 0.990829 62.788 0.990829C64.6507 0.990829 66.4656 2.18484 66.4656 4.09526C66.4656 5.8624 64.8417 6.57881 63.7433 6.57881C61.9761 6.57881 61.0686 4.81167 60.1612 4.81167Z" fill="#F5ECDE"/>
+            <path d="M37.1749 3.0917C34.1659 3.0917 32.542 5.95733 32.0645 8.44087C31.9211 9.014 32.2555 9.34832 32.8286 9.34832H40.9479C41.5211 9.34832 41.8554 9.014 41.7598 8.48864C41.4732 5.76628 40.1359 3.0917 37.1749 3.0917ZM28.1959 13.981C28.1959 8.34536 30.9182 0.990234 38.3211 0.990234C44.1479 0.990234 46.8702 5.52748 47.1567 10.208C47.2045 10.7811 46.8702 11.0677 46.3448 11.0677H32.7809C32.2555 11.0677 31.9211 11.3542 31.969 11.9274C32.2077 16.3691 34.4047 22.1003 39.8017 22.1003C43.2404 22.1003 44.8165 19.7602 45.8672 17.3243C46.0583 16.8467 46.3926 16.608 46.727 16.7035C47.0612 16.799 47.2046 17.1332 47.109 17.6586C46.2493 21.5272 43.3836 26.5898 37.748 26.5898C31.2525 26.5898 28.1959 19.9512 28.1959 13.981Z" fill="#F5ECDE"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12.632 26.4869L14.2543 22.2574C13.8946 21.2359 13.5434 20.1998 13.2715 19.3981C13.0266 18.6757 12.8462 18.1436 12.7823 17.9838L9.1047 8.33614C8.84502 7.64663 8.58869 7.03772 8.36311 6.50183C7.38552 4.1795 6.98529 3.22875 9.39127 3.03472C10.1554 2.98696 10.5375 2.65264 10.5375 2.12727C10.5375 1.6019 10.1077 1.26758 9.39127 1.26758H0.937656C-0.256357 1.26758 -0.351878 2.89143 0.937656 3.13024C1.94063 3.32128 3.23016 4.65858 4.61522 8.33614L11.3017 25.8165C11.4928 26.2463 11.7793 26.4851 12.1614 26.4851C12.3218 26.4851 12.4788 26.4859 12.632 26.4869Z" fill="#F5ECDE"/>
+          </svg>
+        </a>
+        <p class="font-body text-[14px] text-vera-gray leading-[1.6] mb-6">VERA Web - L'assistant de verification qui confirme ton instinct en 3 secondes.</p>
+        <div class="flex gap-6 max-md:flex-col max-md:gap-3">
+          <a href="#" class="text-[14px] text-vera-cream transition-colors duration-200 hover:text-vera-green">Mentions legales</a>
+          <a href="#" class="text-[14px] text-vera-cream transition-colors duration-200 hover:text-vera-green">Politique de confidentialite</a>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <h4 class="font-body text-[14px] font-semibold text-vera-cream mb-2">A propos</h4>
+        <a href="#" class="text-[14px] text-vera-gray transition-colors duration-200 hover:text-vera-cream">Comment ca marche</a>
+        <a href="#" class="text-[14px] text-vera-gray transition-colors duration-200 hover:text-vera-cream">Pourquoi utiliser VERA</a>
+        <a href="#" class="text-[14px] text-vera-gray transition-colors duration-200 hover:text-vera-cream">FAQ</a>
+      </div>
+
+      <div class="flex items-start max-lg:order-first">
+        <a routerLink="/verify" class="inline-flex items-center py-3 px-6 border border-vera-cream rounded-full-btn font-body text-[14px] font-medium text-vera-cream transition-all duration-200 hover:bg-vera-cream hover:text-vera-footer">Tester VERA maintenant</a>
+      </div>
+    </div>
+
+    <div class="h-px bg-white/10 w-full"></div>
+
+    <!-- Footer Bottom -->
+    <div class="pt-8 flex justify-between items-center max-md:flex-col max-md:gap-4 max-md:text-center">
+      <p class="font-body text-[14px] text-vera-gray">&copy; 2025 VERA Web. Le mensonge n'a jamais ete aussi indetectable.</p>
+      <div class="flex gap-4 max-md:justify-center">
+        <a href="#" aria-label="WhatsApp" class="flex items-center justify-center transition-opacity duration-200 hover:opacity-70">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="#F5ECDE"/>
+          </svg>
+        </a>
+        <a href="#" aria-label="Instagram" class="flex items-center justify-center transition-opacity duration-200 hover:opacity-70">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" fill="#F5ECDE"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

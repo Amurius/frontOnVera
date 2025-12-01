@@ -195,6 +195,15 @@ export class ChatComponent implements AfterViewInit, OnInit {
     this.isYouTubeLink.set(false);
   }
 
+  copyToClipboard(text: string): void {
+    navigator.clipboard.writeText(text).then(() => {
+      // Optionnel: afficher un feedback visuel
+      console.log('Message copie dans le presse-papiers');
+    }).catch(err => {
+      console.error('Erreur lors de la copie:', err);
+    });
+  }
+
   private scrollToBottom(): void {
     if (this.messagesContainer) {
       const element = this.messagesContainer.nativeElement;
