@@ -41,6 +41,16 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
   {
+    path: 'legales/cgu',
+    loadComponent: () => import('./features/legales/cgu/cgu.component')
+      .then(m => m.CguComponent)
+  },
+  {
+    path: 'legales/politique-confidentialite',
+    loadComponent: () => import('./features/legales/politique-confidentialite/politique-confidentialite.component')
+      .then(m => m.PolitiqueConfidentialiteComponent)
+  },
+  {
     path: '**',
     redirectTo: ''
   }

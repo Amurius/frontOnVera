@@ -1,208 +1,310 @@
-<div class="chat-container">
+<div class="flex min-h-screen bg-newspaper bg-cover bg-center">
   <!-- Sidebar gauche -->
-  <div class="sidebar-left">
-    <!-- Partie haute : navigation -->
-    <div class="sidebar-top">
+  <div class="w-[60px] bg-vera-sugar flex flex-col justify-between py-6 px-2 fixed left-3 top-3 h-[calc(100vh-24px)] z-50 rounded-[12px]" style="border: 0.5px solid rgba(10, 13, 18, 0.12);">
+    <!-- Logo en haut -->
+    <div class="flex flex-col items-center">
+      <a routerLink="/" class="mb-6 p-2 rounded-md bg-vera-sugar" style="border: 0.2px solid rgba(10, 13, 18, 0.12); box-shadow: 0 -0.5px 0.5px 0 rgba(10, 13, 18, 0.10) inset, 0 1px 1px -0.5px rgba(10, 13, 18, 0.13), 0 1px 3px 0 rgba(10, 13, 18, 0.10), 0 1px 2px 0 rgba(10, 13, 18, 0.06);">
+        <img src="assets/icons/Logo/Mini.svg" alt="VERA" class="w-6 h-6">
+      </a>
       @if (authService.isAuthenticated()) {
-        <a routerLink="/dashboard" class="sidebar-btn dashboard-btn" title="Dashboard">
+        <a routerLink="/dashboard" class="w-10 h-10 flex items-center justify-center rounded-lg text-vera-text-light hover:bg-gray-100 hover:text-vera-dark transition-colors" title="Dashboard">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
           </svg>
         </a>
       }
-      <button class="sidebar-btn new-chat-btn" (click)="newChat()" [disabled]="isLoading()" title="Nouvelle demande">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-        </svg>
-      </button>
     </div>
 
-    <!-- Partie basse : utilisateur et parametres -->
-    <div class="sidebar-bottom">
+    <!-- Icones en bas -->
+    <div class="flex flex-col items-center gap-2">
       @if (authService.isAuthenticated()) {
-        <button class="sidebar-btn user-btn" title="Mon profil">
+        <button class="w-10 h-10 flex items-center justify-center rounded-lg text-vera-text-light hover:bg-gray-100 hover:text-vera-dark transition-colors" title="Parametres">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
           </svg>
         </button>
-        <button class="sidebar-btn logout-btn" (click)="logout()" title="Deconnexion">
+        <button class="w-10 h-10 flex items-center justify-center rounded-lg text-vera-text-light hover:bg-red-50 hover:text-red-500 transition-colors" (click)="logout()" title="Deconnexion">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
           </svg>
         </button>
       } @else {
-        <a routerLink="/login" class="sidebar-btn login-btn" title="Connexion">
+        <a routerLink="/login" class="w-10 h-10 flex items-center justify-center rounded-lg text-vera-text-light hover:bg-gray-100 hover:text-vera-dark transition-colors" title="Connexion">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
           </svg>
         </a>
       }
-      <button class="sidebar-btn" (click)="toggleTheme()" title="Changer le theme">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-        </svg>
-      </button>
     </div>
   </div>
 
   <!-- Contenu principal -->
-  <div class="main-content">
-    <!-- Messages Area -->
-    <div #messagesContainer class="messages-area">
-      @if (messages().length === 0) {
-        <div class="welcome-state">
-          <h1 class="welcome-title">Welcome to VERA</h1>
-          <p class="welcome-subtitle">Verifie une info en quelques secondes</p>
-          <p class="welcome-description">Colle un lien, un extrait de texte ou resume ce que tu as vu.</p>
+  <div class="flex-1 flex flex-col min-h-screen ml-[84px]">
+    <!-- Header -->
+    <div class="flex justify-end items-center gap-3 p-6">
+      <a routerLink="/" class="px-5 py-2.5 bg-vera-dark rounded-full text-[14px] text-white font-medium hover:opacity-90 transition-opacity">Comment ca marche ?</a>
+      <a href="#" class="px-5 py-2.5 border border-vera-dark rounded-full text-[14px] text-vera-dark font-medium hover:bg-vera-dark hover:text-white transition-colors">Nous aider</a>
+    </div>
 
+    <!-- Zone des messages -->
+    <div #messagesContainer class="flex-1 overflow-y-auto px-8 max-md:px-4 flex flex-col">
+      @if (messages().length === 0) {
+        <!-- Etat d'accueil -->
+        <div class="flex-1 flex flex-col items-center justify-center text-center">
+          <h1 class="font-heading text-[48px] font-medium text-vera-dark mb-4 max-md:text-[32px]">Bienvenue sur <span class="bg-vera-green px-2 rounded">VERA</span></h1>
+          <p class="text-[16px] text-vera-text mb-1">Verifie une info en quelques secondes</p>
+          <p class="text-[14px] text-vera-text-light">Colle un lien, un extrait de texte ou resume ce que tu as vu.</p>
         </div>
-          <div class="recent-section">
-            <h2 class="recent-title">Recent</h2>
-            <div class="recent-cards">
+
+      } @else {
+        <!-- Messages -->
+        <div class="max-w-[1280px] w-full mx-auto py-8 px-6">
+          @for (message of messages(); track message.id) {
+            <div class="mb-8 relative" [class.flex]="true" [class.justify-end]="message.type === 'user'" [class.justify-start]="message.type === 'assistant'">
+              <!-- Message utilisateur -->
+              @if (message.type === 'user') {
+                <div class="max-w-[60%] bg-white rounded-2xl px-5 py-3 border border-gray-100" style="box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);">
+                  <!-- Media Content -->
+                  @if (message.contentType === 'file' && message.fileUrl) {
+                    <div class="mb-2">
+                      <img [src]="message.fileUrl" [alt]="message.fileName" class="max-w-full rounded-lg">
+                      <p class="text-[12px] mt-1 text-vera-text-light">{{ message.fileName }}</p>
+                    </div>
+                  }
+                  @if (message.contentType === 'video' && message.fileUrl) {
+                    <div class="mb-2">
+                      <video [src]="message.fileUrl" controls class="max-w-full rounded-lg"></video>
+                      <p class="text-[12px] mt-1 text-vera-text-light">{{ message.fileName }}</p>
+                    </div>
+                  }
+                  @if (message.contentType === 'youtube') {
+                    <div class="flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-red-500">
+                        <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                      </svg>
+                      <a [href]="message.content" target="_blank" class="underline text-vera-dark">{{ message.content }}</a>
+                    </div>
+                  }
+                  @if (message.contentType === 'text') {
+                    <p class="text-[16px] text-vera-dark leading-relaxed">{{ message.content }}</p>
+                  }
+                  <!-- Bouton copier -->
+                  <div class="flex justify-end mt-2">
+                    <button (click)="copyToClipboard(message.content)" class="opacity-60 hover:opacity-100 transition-opacity" title="Copier">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.16 1.33325H7.56389C6.38773 1.33324 5.45612 1.33323 4.72703 1.43165C3.97668 1.53294 3.36935 1.74635 2.8904 2.22722C2.41144 2.7081 2.19889 3.31787 2.09801 4.07123C1.99998 4.80325 1.99999 5.7386 2 6.91948V10.8112C2 11.8166 2.6133 12.6782 3.48478 13.0394C3.43992 12.4331 3.43996 11.5824 3.44 10.8746L3.44 7.59831L3.44 7.53486C3.43995 6.68042 3.43991 5.94421 3.51886 5.35466C3.60346 4.72284 3.79426 4.1172 4.28353 3.62596C4.77281 3.13472 5.37603 2.94315 6.00532 2.85821C6.59251 2.77894 7.32578 2.77899 8.1768 2.77903L8.24 2.77904H10.16L10.2232 2.77903C11.0742 2.77899 11.8059 2.77894 12.3931 2.85821C12.0418 1.96511 11.1744 1.33325 10.16 1.33325Z" fill="#6B7280"/>
+                        <path d="M4.40015 7.59834C4.40015 5.78088 4.40015 4.87215 4.9625 4.30753C5.52486 3.74292 6.42995 3.74292 8.24015 3.74292H10.1601C11.9703 3.74292 12.8754 3.74292 13.4378 4.30753C14.0001 4.87215 14.0001 5.78088 14.0001 7.59834V10.8112C14.0001 12.6287 14.0001 13.5374 13.4378 14.102C12.8754 14.6666 11.9703 14.6666 10.1601 14.6666H8.24015C6.42995 14.6666 5.52486 14.6666 4.9625 14.102C4.40015 13.5374 4.40015 12.6287 4.40015 10.8112V7.59834Z" fill="#6B7280"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              }
+
+              <!-- Message assistant (VERA) -->
+              @if (message.type === 'assistant') {
+                <div class="w-full">
+                  <div class="text-[16px] text-[#6B7280] leading-relaxed whitespace-pre-wrap">
+                    {{ message.content }}
+                    @if (message.isStreaming) {
+                      <span class="inline-block w-2 h-4 bg-vera-dark ml-1 animate-pulse"></span>
+                    }
+                  </div>
+                  <!-- Bouton copier -->
+                  <div class="flex justify-start mt-2">
+                    <button (click)="copyToClipboard(message.content)" class="opacity-60 hover:opacity-100 transition-opacity" title="Copier">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.16 1.33325H7.56389C6.38773 1.33324 5.45612 1.33323 4.72703 1.43165C3.97668 1.53294 3.36935 1.74635 2.8904 2.22722C2.41144 2.7081 2.19889 3.31787 2.09801 4.07123C1.99998 4.80325 1.99999 5.7386 2 6.91948V10.8112C2 11.8166 2.6133 12.6782 3.48478 13.0394C3.43992 12.4331 3.43996 11.5824 3.44 10.8746L3.44 7.59831L3.44 7.53486C3.43995 6.68042 3.43991 5.94421 3.51886 5.35466C3.60346 4.72284 3.79426 4.1172 4.28353 3.62596C4.77281 3.13472 5.37603 2.94315 6.00532 2.85821C6.59251 2.77894 7.32578 2.77899 8.1768 2.77903L8.24 2.77904H10.16L10.2232 2.77903C11.0742 2.77899 11.8059 2.77894 12.3931 2.85821C12.0418 1.96511 11.1744 1.33325 10.16 1.33325Z" fill="#6B7280"/>
+                        <path d="M4.40015 7.59834C4.40015 5.78088 4.40015 4.87215 4.9625 4.30753C5.52486 3.74292 6.42995 3.74292 8.24015 3.74292H10.1601C11.9703 3.74292 12.8754 3.74292 13.4378 4.30753C14.0001 4.87215 14.0001 5.78088 14.0001 7.59834V10.8112C14.0001 12.6287 14.0001 13.5374 13.4378 14.102C12.8754 14.6666 11.9703 14.6666 10.1601 14.6666H8.24015C6.42995 14.6666 5.52486 14.6666 4.9625 14.102C4.40015 13.5374 4.40015 12.6287 4.40015 10.8112V7.59834Z" fill="#6B7280"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+
+          @if (isLoading() && messages().length > 0 && !messages()[messages().length - 1].isStreaming) {
+            <div class="flex justify-start mb-6">
+              <div class="bg-white border border-gray-100 rounded-2xl px-5 py-4">
+                <div class="flex gap-1">
+                  <span class="w-2 h-2 bg-vera-text-light rounded-full animate-bounce" style="animation-delay: 0ms"></span>
+                  <span class="w-2 h-2 bg-vera-text-light rounded-full animate-bounce" style="animation-delay: 150ms"></span>
+                  <span class="w-2 h-2 bg-vera-text-light rounded-full animate-bounce" style="animation-delay: 300ms"></span>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Zone de saisie et questions -->
+    <div class="p-6 pt-0">
+      <div class="max-w-[1280px] w-full mx-auto flex flex-col gap-6">
+        <!-- Questions de la semaine -->
+        @if (messages().length === 0) {
+          <div class="w-full">
+            <h2 class="text-[24px] text-vera-dark mb-4 font-heading">Questions de la semaine</h2>
+            <div class="grid grid-cols-3 gap-4 max-md:grid-cols-1">
               @if (isLoadingRecent()) {
-                <div class="recent-card recent-card-skeleton">
-                  <div class="skeleton-text"></div>
+                <div class="bg-white rounded-xl p-4 border border-gray-100 animate-pulse">
+                  <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                  <div class="h-4 bg-gray-200 rounded w-1/2"></div>
                 </div>
-                <div class="recent-card recent-card-skeleton">
-                  <div class="skeleton-text"></div>
+                <div class="bg-white rounded-xl p-4 border border-gray-100 animate-pulse">
+                  <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                  <div class="h-4 bg-gray-200 rounded w-1/2"></div>
                 </div>
-                <div class="recent-card recent-card-skeleton">
-                  <div class="skeleton-text"></div>
+                <div class="bg-white rounded-xl p-4 border border-gray-100 animate-pulse">
+                  <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                  <div class="h-4 bg-gray-200 rounded w-1/2"></div>
                 </div>
               } @else if (recentQuestions().length === 0) {
-                <p class="no-recent">Aucune question recente</p>
+                <p class="text-[14px] text-vera-text-light col-span-3">Aucune question recente</p>
               } @else {
                 @for (question of recentQuestions(); track question.id) {
-                  <button class="recent-card" (click)="selectRecentQuestion(question.text)">
-                    <span class="recent-card-text">{{ question.text }}</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="recent-card-arrow">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                    </svg>
+                  <button
+                    (click)="selectRecentQuestion(question.text)"
+                    class="bg-white rounded-xl p-4 border border-gray-100 text-left hover:border-vera-green hover:shadow-md transition-all flex items-center justify-between gap-3 group">
+                    <span class="text-[14px] text-vera-text leading-relaxed line-clamp-2">{{ question.text }}</span>
+                    <img src="assets/icons/chevron-right-outline.svg" alt="" class="w-5 h-5 opacity-50 group-hover:opacity-100 shrink-0">
                   </button>
                 }
               }
             </div>
           </div>
-      }
+        }
 
-      @for (message of messages(); track message.id) {
-        <div class="message" [class.message-user]="message.type === 'user'" [class.message-assistant]="message.type === 'assistant'">
-          <div class="message-bubble" [class.user-bubble]="message.type === 'user'" [class.assistant-bubble]="message.type === 'assistant'">
-            <!-- Media Content -->
-            @if (message.contentType === 'file' && message.fileUrl) {
-              <div class="media-preview">
-                <img [src]="message.fileUrl" [alt]="message.fileName" class="preview-image">
-                <p class="file-name">{{ message.fileName }}</p>
+        <!-- Input -->
+        <div class="w-full flex flex-col items-start gap-[13px] p-[16px_12px_12px_12px] rounded-[12px] bg-cta-gradient" style="box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);">
+          <p class="text-[12px] text-vera-text-light">VERA utilise uniquement des sources fiables (fact-checkers, medias reconnus, ONG).</p>
+
+          <div class="w-full bg-white rounded-[12px] border border-gray-200 overflow-hidden">
+            <input
+              #fileInput
+              type="file"
+              accept="image/*,video/*,.pdf,.doc,.docx,.txt"
+              (change)="onFileSelected($event)"
+              class="hidden">
+
+            @if (isSelectingLanguage()) {
+              <!-- Selection de la langue -->
+              <div class="flex flex-col items-center justify-center py-8 gap-4">
+                <p class="text-[14px] text-vera-text">Choisissez votre langue</p>
+                <div class="flex items-center gap-4">
+                  <button
+                    (click)="selectLanguageAndRecord('fr-FR')"
+                    class="flex flex-col items-center gap-2 px-6 py-4 rounded-xl border-2 border-gray-200 hover:border-vera-green hover:bg-vera-green/10 transition-all">
+                    <span class="text-[24px]">🇫🇷</span>
+                    <span class="text-[14px] font-medium text-vera-dark">Francais</span>
+                  </button>
+                  <button
+                    (click)="selectLanguageAndRecord('en-US')"
+                    class="flex flex-col items-center gap-2 px-6 py-4 rounded-xl border-2 border-gray-200 hover:border-vera-green hover:bg-vera-green/10 transition-all">
+                    <span class="text-[24px]">🇺🇸</span>
+                    <span class="text-[14px] font-medium text-vera-dark">English</span>
+                  </button>
+                </div>
+                <button (click)="cancelLanguageSelection()" class="text-[12px] text-vera-text-light hover:text-vera-dark transition-colors">
+                  Annuler
+                </button>
               </div>
-            }
-
-            @if (message.contentType === 'video' && message.fileUrl) {
-              <div class="media-preview">
-                <video [src]="message.fileUrl" controls class="preview-video"></video>
-                <p class="file-name">{{ message.fileName }}</p>
+            } @else if (isRecording()) {
+              <!-- Mode enregistrement vocal -->
+              <div class="flex flex-col items-center justify-center py-8 gap-4">
+                <p class="text-[14px] text-vera-text-light">
+                  @if (selectedLanguage() === 'fr-FR') {
+                    Parlez maintenant...
+                  } @else {
+                    Speak now...
+                  }
+                </p>
+                <div class="relative flex items-center justify-center">
+                  <!-- Cercles de pulsation -->
+                  <span class="absolute w-20 h-20 rounded-full bg-red-400/30 animate-[ping_1.5s_ease-in-out_infinite]"></span>
+                  <span class="absolute w-28 h-28 rounded-full bg-red-300/20 animate-[ping_1.5s_ease-in-out_0.3s_infinite]"></span>
+                  <span class="absolute w-36 h-36 rounded-full bg-red-200/10 animate-[ping_1.5s_ease-in-out_0.6s_infinite]"></span>
+                  <!-- Bouton central -->
+                  <button
+                    (click)="toggleVoiceRecording()"
+                    class="relative z-10 w-20 h-20 flex items-center justify-center rounded-full bg-red-500 text-white shadow-lg hover:bg-red-600 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-8 h-8">
+                      <path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Z"/>
+                      <path d="M19 11a1 1 0 1 0-2 0 5 5 0 0 1-10 0 1 1 0 1 0-2 0 7 7 0 0 0 6 6.93V20H8a1 1 0 1 0 0 2h8a1 1 0 1 0 0-2h-3v-2.07A7 7 0 0 0 19 11Z"/>
+                    </svg>
+                  </button>
+                </div>
+                <p class="text-[12px] text-vera-text-light">
+                  @if (selectedLanguage() === 'fr-FR') {
+                    Cliquez pour arreter
+                  } @else {
+                    Click to stop
+                  }
+                </p>
               </div>
-            }
-
-            <!-- YouTube Content -->
-            @if (message.contentType === 'youtube' && message.type === 'user') {
-              <div class="youtube-message">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="youtube-icon">
-                  <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
-                </svg>
-                <a [href]="message.content" target="_blank" class="youtube-link">{{ message.content }}</a>
+            } @else {
+              <!-- Mode normal -->
+              <!-- Label -->
+              <div class="px-4 pt-3">
+                <span class="text-[12px] font-medium" style="background: linear-gradient(91deg, #DBF9BE -18.27%, #819370 128.27%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">VERA AI Assistant</span>
               </div>
-            }
 
-            <!-- Text Content -->
-            @if (message.contentType === 'text' || (message.type === 'assistant' && message.content)) {
-              <div class="message-text" [class.streaming]="message.isStreaming">
-                {{ message.content }}
-                @if (message.isStreaming) {
-                  <span class="cursor"></span>
+              <!-- Input -->
+              <div class="px-4 py-2">
+                @if (selectedFile()) {
+                  <div class="flex items-center gap-2 py-2">
+                    <span class="text-[14px] text-vera-text">{{ selectedFile()!.name }}</span>
+                    <button (click)="clearSelectedFile()" class="text-vera-text-light hover:text-red-500" [disabled]="isLoading()">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                } @else {
+                  <input
+                    type="text"
+                    [(ngModel)]="textMessage"
+                    (keydown)="onKeyDown($event)"
+                    (input)="onInputChange()"
+                    placeholder="Saisissez votre texte ici, collez un lien ou telechargez un document"
+                    class="w-full text-[15px] text-vera-dark placeholder-vera-text-light outline-none bg-transparent py-2"
+                    [disabled]="isLoading()">
                 }
               </div>
+
+              <!-- Actions -->
+              <div class="flex items-center justify-between px-4 pb-3">
+                <button
+                  (click)="triggerFileInput()"
+                  [disabled]="isLoading()"
+                  class="w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 text-vera-text-light bg-[#F9F6F6] hover:opacity-80 transition-opacity disabled:opacity-50">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                  </svg>
+                </button>
+
+                <div class="flex items-center gap-3">
+                  <button
+                    (click)="toggleVoiceRecording()"
+                    [disabled]="isLoading()"
+                    class="w-9 h-9 flex items-center justify-center rounded-full text-vera-text-light hover:bg-gray-50 hover:text-vera-dark transition-colors">
+                    <img src="assets/icons/Bold/Video, Audio, Sound/Microphone.svg" alt="Micro" class="w-5 h-5 opacity-60">
+                  </button>
+
+                  <button
+                    (click)="sendMessage()"
+                    [disabled]="isLoading() || (!textMessage().trim() && !selectedFile())"
+                    class="flex items-center gap-2 bg-vera-dark text-white px-5 py-2 rounded-full text-[14px] font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                    </svg>
+                    Verifier
+                  </button>
+                </div>
+              </div>
             }
-
-            <span class="message-time">
-              {{ message.timestamp | date:'HH:mm' }}
-            </span>
           </div>
-        </div>
-      }
-
-      @if (isLoading() && messages().length > 0 && !messages()[messages().length - 1].isStreaming) {
-        <div class="message message-assistant">
-          <div class="message-bubble assistant-bubble">
-            <div class="typing-indicator">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          </div>
-        </div>
-      }
-    </div>
-
-    <!-- Input Area -->
-    <div class="input-area">
-      <p class="input-disclaimer">VERA utilise uniquement des sources fiables (fact-checkers, medias reconnus, ONG).</p>
-
-      <div class="input-box">
-        <div class="input-box-header">
-          <span class="input-label">VERA AI Assistant</span>
-        </div>
-
-        <div class="input-content">
-          <input
-            #fileInput
-            type="file"
-            accept="image/*,video/*,.pdf,.doc,.docx,.txt"
-            (change)="onFileSelected($event)"
-            class="hidden">
-
-          @if (selectedFile()) {
-            <div class="selected-file-inline">
-              <span class="file-name-inline">{{ selectedFile()!.name }}</span>
-              <button (click)="clearSelectedFile()" class="clear-file-btn" [disabled]="isLoading()">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-          } @else {
-            <input
-              type="text"
-              [(ngModel)]="textMessage"
-              (keydown)="onKeyDown($event)"
-              (input)="onInputChange()"
-              placeholder="Type your text here, paste un lien ou upload a document"
-              class="main-input"
-              [disabled]="isLoading()">
-          }
-        </div>
-
-        <div class="input-actions">
-          <button
-            (click)="triggerFileInput()"
-            [disabled]="isLoading()"
-            class="upload-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
-            </svg>
-            <span>Upload</span>
-          </button>
-
-          <button
-            (click)="sendMessage()"
-            [disabled]="isLoading() || (!textMessage().trim() && !selectedFile())"
-            class="verify-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-            </svg>
-            <span>Verifier</span>
-          </button>
-        </div>
       </div>
     </div>
   </div>

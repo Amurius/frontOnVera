@@ -1,0 +1,71 @@
+{
+  "NAV": {
+    "HOW_IT_WORKS": "How it works?",
+    "MEET_TEAM": "Meet the team",
+    "FAQ": "FAQ",
+    "TALK_TO_VERA": "Talk to Vera",
+    "ADMIN_SPACE": "Admin space"
+  },
+  "BANNER": {
+    "TEXT": "Vera is in beta and may make mistakes.",
+    "HELP_US": "Help us improve it!"
+  },
+  "HERO": {
+    "BADGE": "Lies have never been so undetectable",
+    "TITLE_1": "Think you can spot the fake?",
+    "TITLE_2": "checks for you.",
+    "SUBTITLE": "Your instinct tells you something's off. VERA confirms in 30 seconds. No more outdated sources.",
+    "CTA": "Try VERA now"
+  },
+  "TRUST": {
+    "TITLE": "You trust your instincts. But they can be wrong.",
+    "SUBTITLE": "We all think we can tell the difference between real news and fake news. You scroll, see something sketchy, think \"hmm, that's fishy\". Most of the time, you're right to be suspicious.",
+    "PROBLEM_TITLE": "The problem? Lies have never been so undetectable.",
+    "PROBLEM_TEXT": "Ultra-realistic deepfakes. Perfectly edited screenshots. Authentic videos taken out of context. Fake quotes that look real. Even with hindsight, even being careful, we get fooled.",
+    "RESULT_TITLE": "Result:",
+    "RESULT_TEXT": "Your gut tells you something's wrong... but you don't have time to verify. So you scroll, share, move on. And sometimes, you're wrong.",
+    "MISSING_TITLE": "What you're missing isn't discernment.",
+    "MISSING_TEXT": "What you're missing isn't discernment. It's a quick tool to confirm what you sense. A simple reflex that lets you verify in 30 seconds, hassle-free.",
+    "VERA_IS": "That's VERA: turns your intuition into certainty."
+  },
+  "INSTINCT": {
+    "TITLE_1": "Your instinct +",
+    "TITLE_2": "= you know.",
+    "SUBTITLE": "VERA doesn't guess. It cross-references recognized fact-checkers, verified media, specialized NGOs. It confirms (or denies) what your instinct tells you. And if it can't find a reliable answer? It tells you clearly."
+  },
+  "FEATURES": {
+    "LABEL": "Features",
+    "TITLE": "Why use VERA?",
+    "SUBTITLE": "Because your instinct isn't enough anymore",
+    "TRUST_TITLE": "Trust your intuition... but verify anyway",
+    "TRUST_TEXT": "You sense something's off? That's already a good reflex. VERA lets you follow through on that intuition in 30 seconds.",
+    "PROTECT_TITLE": "Protect your image",
+    "PROTECT_TEXT": "Avoid sharing nonsense and looking like someone who spreads anything. Even with the best intentions.",
+    "TIME_TITLE": "Save time",
+    "TIME_TEXT": "No need for 10 Google searches or asking an AI that makes things up. VERA does the job while you scroll.",
+    "CONTROL_TITLE": "Stay in control",
+    "CONTROL_TEXT": "Before liking, commenting, or sharing: you know. And you decide with full knowledge."
+  },
+  "CTA": {
+    "TITLE_1": "Your instinct speaks.",
+    "TITLE_2": "confirms it.",
+    "SUBTITLE": "Make VERA the reflex that turns your doubt into certainty.",
+    "BUTTON": "Try VERA now",
+    "CHAT_1": "TikTok video with Elon Musk offering 5000€ to everyone who shares his video, is it true?",
+    "CHAT_2": "This video uses a deepfake. Elon Musk never made this announcement. It's a classic scam to collect personal data.",
+    "CHAT_3": "The French government bans video games after 10pm for under 18s"
+  },
+  "FOOTER": {
+    "FINAL_TITLE_1": "Because trusting your instinct is good.",
+    "FINAL_TITLE_2": "Verifying it is better.",
+    "FINAL_SUBTITLE": "You have the intuition. VERA brings you the proof.",
+    "FINAL_CTA": "Try VERA",
+    "DESCRIPTION": "VERA Web - The verification assistant that confirms your instinct in 3 seconds.",
+    "LEGAL": "Legal notice",
+    "PRIVACY": "Privacy policy",
+    "ABOUT": "About",
+    "HOW_IT_WORKS": "How it works",
+    "WHY_VERA": "Why use VERA",
+    "COPYRIGHT": "2025 VERA Web. Lies have never been so undetectable."
+  }
+}

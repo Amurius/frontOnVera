@@ -4,14 +4,13 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-landing',
+  selector: 'app-cgu',
   standalone: true,
   imports: [CommonModule, RouterLink, TranslateModule],
-  templateUrl: './landing.component.html',
-  styleUrl: './landing.component.css',
+  templateUrl: './cgu.component.html',
   host: { 'class': 'block' }
 })
-export class LandingComponent {
+export class CguComponent {
   private translate = inject(TranslateService);
 
   showBanner = true;

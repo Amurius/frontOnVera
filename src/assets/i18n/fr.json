@@ -1,0 +1,71 @@
+{
+  "NAV": {
+    "HOW_IT_WORKS": "Comment ca marche ?",
+    "MEET_TEAM": "Rencontrez l'equipe",
+    "FAQ": "FAQ",
+    "TALK_TO_VERA": "Parler a Vera",
+    "ADMIN_SPACE": "Espace admin"
+  },
+  "BANNER": {
+    "TEXT": "Vera est en version beta et peut faire des erreurs.",
+    "HELP_US": "Aidez-nous a l'ameliorer !"
+  },
+  "HERO": {
+    "BADGE": "Le mensonge n'a jamais ete aussi indetectable",
+    "TITLE_1": "Tu crois savoir reperer le faux ?",
+    "TITLE_2": "verifie pour toi.",
+    "SUBTITLE": "Ton instinct te dit qu'un truc est bizarre. VERA confirme en 30 secondes. Finis des vieilles sources.",
+    "CTA": "Tester VERA maintenant"
+  },
+  "TRUST": {
+    "TITLE": "Tu fais confiance a ton instinct. Mais lui, il peut se tromper.",
+    "SUBTITLE": "On pense tous savoir faire la difference entre une vraie info et une fake news. Tu scrolles, tu vois un truc louche, tu te dis \"mouais, ca pue bon\". Et la plupart du temps, tu as raison de te mefier.",
+    "PROBLEM_TITLE": "Le probleme ? Le mensonge n'a jamais ete aussi indetectable.",
+    "PROBLEM_TEXT": "Deepfakes ultra-realistes. Screenshots modifies a la perfection. Video authentiques sorties de leur contexte. Fausses citations qui ressemblent a des vraies. Meme avec du recul, meme en faisant gaffe, on se fait avoir.",
+    "RESULT_TITLE": "Resultat :",
+    "RESULT_TEXT": "Ton intuition te dit qu'il y a un truc qui cloche... mais tu n'as pas le temps de verifier. Alors tu scroll, tu fais, tu partages. Et parfois, tu te plantes.",
+    "MISSING_TITLE": "Ce qu'il te manque, c'est pas du discernement.",
+    "MISSING_TEXT": "Ce qu'il te manque, c'est pas du discernement. C'est un outil rapide pour confirmer ce que tu pressens. Un reflexe simple qui te permet de verifier en 30 secondes, sans prise de tete.",
+    "VERA_IS": "VERA, c'est ca : transforme ton intuition en certitude."
+  },
+  "INSTINCT": {
+    "TITLE_1": "Ton instinct +",
+    "TITLE_2": "= tu sais.",
+    "SUBTITLE": "VERA ne devine pas. Elle croise des fact-checkers reconnus, des medias verifies, des ONG specialisees. Elle confirme (ou infirme) ce que ton instinct te dit. Et si elle ne trouve pas de reponse fiable ? Elle te le dit clairement."
+  },
+  "FEATURES": {
+    "LABEL": "Features",
+    "TITLE": "Pourquoi utiliser VERA ?",
+    "SUBTITLE": "Parce que ton instinct ne suffit plus",
+    "TRUST_TITLE": "Fais confiance a ton intuition... mais verifie quand meme",
+    "TRUST_TEXT": "Tu sens qu'un truc est bizarre ? C'est deja un bon reflexe. VERA te permet d'aller au bout de cette intuition en 30 secondes.",
+    "PROTECT_TITLE": "Protege ton image",
+    "PROTECT_TEXT": "Evite de partager des conneries et de passer pour quelqu'un qui relaie n'importe quoi. Meme avec les meilleures intentions.",
+    "TIME_TITLE": "Gagne du temps",
+    "TIME_TEXT": "Pas besoin de faire 10 recherches Google ou de demander a une IA qui t'invente des trucs. VERA fait le job pendant que tu scroll.",
+    "CONTROL_TITLE": "Garde le controle",
+    "CONTROL_TEXT": "Avant de liker, commenter ou transferer : tu sais. Et tu decides en connaissance de cause."
+  },
+  "CTA": {
+    "TITLE_1": "Ton instinct te parle.",
+    "TITLE_2": "le confirme.",
+    "SUBTITLE": "Fais de VERA le reflexe qui transforme ton doute en certitude.",
+    "BUTTON": "Tester VERA maintenant",
+    "CHAT_1": "Video TikTok avec Elon Musk qu'il offre 5000€ a tout le monde qui partage sa video, c'est vrai?",
+    "CHAT_2": "Cette video utilise un deepfake. Elon Musk n'a jamais fait cette annonce. Il s'agit d'une arnaque classique pour recuperer des donnees personnelles.",
+    "CHAT_3": "Le gouvernement francais interdit les jeux video apres 22h pour les moins de 18 ans"
+  },
+  "FOOTER": {
+    "FINAL_TITLE_1": "Parce que faire confiance a ton instinct, c'est bien.",
+    "FINAL_TITLE_2": "Le verifier, c'est mieux.",
+    "FINAL_SUBTITLE": "Tu as l'intuition. VERA t'apporte la preuve.",
+    "FINAL_CTA": "Tester VERA",
+    "DESCRIPTION": "VERA Web - L'assistant de verification qui confirme ton instinct en 3 secondes.",
+    "LEGAL": "Mentions legales",
+    "PRIVACY": "Politique de confidentialite",
+    "ABOUT": "A propos",
+    "HOW_IT_WORKS": "Comment ca marche",
+    "WHY_VERA": "Pourquoi utiliser VERA",
+    "COPYRIGHT": "2025 VERA Web. Le mensonge n'a jamais ete aussi indetectable."
+  }
+}

@@ -1,89 +1,117 @@
-<div class="page-container">
-  <app-navbar></app-navbar>
+<div class="flex min-h-screen">
+  <!-- Partie gauche - Formulaire -->
+  <div class="w-1/2 bg-white flex flex-col justify-between p-12 max-lg:w-full max-lg:min-h-screen">
+    <div></div>
 
-  <div class="main-content">
-    <div class="page-wrapper login-wrapper">
-      <div class="login-container">
-        <!-- Header -->
-        <div class="login-header">
-          <h1 class="page-title">Vera Admin</h1>
-          <p class="page-subtitle">Accedez au tableau de bord des statistiques</p>
+    <!-- Formulaire centre -->
+    <div class="max-w-[400px] mx-auto w-full">
+      <div class="mb-8">
+        <h1 class="font-heading text-[32px] font-medium text-vera-dark mb-2">Connexion</h1>
+        <p class="text-[14px] text-vera-text">Welcome back ! Merci de saisir vos identifiants.</p>
+      </div>
+
+      <!-- Messages d'erreur/succes -->
+      @if (error()) {
+        <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+          <p class="text-[14px] text-red-700">{{ error() }}</p>
+        </div>
+      }
+
+      @if (success()) {
+        <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+          <p class="text-[14px] text-green-700">{{ success() }}</p>
+        </div>
+      }
+
+      <!-- Formulaire -->
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="mb-5">
+          <label class="block text-[14px] font-medium text-vera-dark mb-2">Email</label>
+          <input
+            type="email"
+            formControlName="email"
+            class="w-full px-4 py-3 border border-gray-200 rounded-lg text-[14px] text-vera-dark placeholder-gray-400 focus:outline-none focus:border-vera-dark focus:ring-1 focus:ring-vera-dark transition-colors"
+            placeholder="Utilisez votre adresse professionnelle.">
+          @if (getErrorMessage('email')) {
+            <p class="text-[12px] text-red-500 mt-1">{{ getErrorMessage('email') }}</p>
+          }
         </div>
 
-        <!-- Card -->
-        <div class="page-card">
-          <!-- Messages -->
-          @if (error()) {
-            <div class="error-box" style="margin-bottom: 1rem;">
-              <p class="error-box-text">{{ error() }}</p>
-            </div>
+        <div class="mb-5">
+          <label class="block text-[14px] font-medium text-vera-dark mb-2">Password</label>
+          <input
+            type="password"
+            formControlName="password"
+            class="w-full px-4 py-3 border border-gray-200 rounded-lg text-[14px] text-vera-dark placeholder-gray-400 focus:outline-none focus:border-vera-dark focus:ring-1 focus:ring-vera-dark transition-colors"
+            placeholder="**********">
+          @if (getErrorMessage('password')) {
+            <p class="text-[12px] text-red-500 mt-1">{{ getErrorMessage('password') }}</p>
           }
-
-          @if (success()) {
-            <div class="success-box" style="margin-bottom: 1rem;">
-              <p class="success-box-text">{{ success() }}</p>
-            </div>
-          }
-
-          <!-- Login Form -->
-          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-            <div style="margin-bottom: 1rem;">
-              <label class="form-label">Email administrateur</label>
-              <input
-                type="email"
-                formControlName="email"
-                class="form-input"
-                placeholder="admin@vera.fr">
-              @if (getErrorMessage('email')) {
-                <p class="form-error">{{ getErrorMessage('email') }}</p>
-              }
-            </div>
-
-            <div style="margin-bottom: 1.5rem;">
-              <label class="form-label">Mot de passe</label>
-              <input
-                type="password"
-                formControlName="password"
-                class="form-input"
-                placeholder="Votre mot de passe">
-              @if (getErrorMessage('password')) {
-                <p class="form-error">{{ getErrorMessage('password') }}</p>
-              }
-            </div>
-
-            <button
-              type="submit"
-              [disabled]="loading() || loginForm.invalid"
-              class="btn-action btn-action-primary"
-              style="width: 100%; justify-content: center;">
-              @if (loading()) {
-                <span class="btn-loading">
-                  <span class="loading-spinner" style="width: 1.25rem; height: 1.25rem;"></span>
-                  Connexion en cours...
-                </span>
-              } @else {
-                Se connecter
-              }
-            </button>
-          </form>
-
-          <!-- Info -->
-          <div class="info-box" style="margin-top: 1.5rem;">
-            <p class="info-box-text" style="text-align: center;">
-              Reserve aux administrateurs uniquement
-            </p>
-          </div>
         </div>
 
-        <!-- Back to home -->
-        <div class="login-back">
-          <a routerLink="/" class="back-link">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 1rem; height: 1rem;">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+        <div class="flex items-center justify-between mb-6">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-vera-dark focus:ring-vera-dark">
+            <span class="text-[13px] text-vera-text">Rester connecte sur cet appareil</span>
+          </label>
+          <a href="#" class="text-[13px] text-orange-500 hover:text-orange-600 transition-colors">Mot de passe oublie ?</a>
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="loading() || loginForm.invalid"
+          class="w-full bg-vera-dark text-white py-3 px-6 rounded-full-btn text-[16px] font-medium transition-opacity hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+          @if (loading()) {
+            <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
-            Retour a l'accueil
-          </a>
-        </div>
+            Connexion en cours...
+          } @else {
+            Se connecter
+          }
+        </button>
+      </form>
+    </div>
+
+    <!-- Copyright en bas -->
+    <div>
+      <p class="text-[14px] text-vera-gray">&copy; VERA 2025</p>
+    </div>
+  </div>
+
+  <!-- Partie droite - Info + Statue -->
+  <div class="w-1/2 flex flex-col p-12 relative overflow-hidden max-lg:hidden rounded-2xl m-4" style="background: linear-gradient(157deg, #FFF 4.31%, #FEF2E4 39.36%, #FFF 97.78%)">
+    <!-- Contenu haut -->
+    <div class="relative z-10">
+      <h2 class="font-heading text-[48px] font-medium text-vera-dark mb-4">Espace admin VERA</h2>
+      <p class="text-[18px] text-vera-text leading-relaxed mb-6 max-w-[500px]">Suivez l'activite de VERA et les questions les plus posees en temps reel.</p>
+      <div class="flex items-center gap-2 text-[14px] text-vera-text-light">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C9.23858 2 7 4.23858 7 7V10H6C4.89543 10 4 10.8954 4 12V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V12C20 10.8954 19.1046 10 18 10H17V7C17 4.23858 14.7614 2 12 2ZM9 7C9 5.34315 10.3431 4 12 4C13.6569 4 15 5.34315 15 7V10H9V7Z" fill="currentColor"/>
+        </svg>
+        <span>Acces reserve aux membres de l'equipe VERA et partenaires autorises.</span>
+      </div>
+    </div>
+
+    <!-- Image de la statue -->
+    <div class="absolute bottom-0 right-0 pointer-events-none">
+      <img
+        src="assets/images/VeraStatue.png"
+        alt="VERA Statue"
+        class="h-[700px] w-auto object-contain">
+    </div>
+
+    <!-- Liens en bas avec blur -->
+    <div class="absolute bottom-0 left-0 right-0 z-10 inline-flex items-end gap-[75px] px-[50px] pb-[39px] pt-[299px]" style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0.00) 100%); backdrop-filter: blur(6px); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 50%); mask-image: linear-gradient(to bottom, transparent 0%, black 50%);">
+      <a routerLink="/" class="hover:opacity-70 transition-opacity cursor-pointer">
+        <h4 class="text-[16px] font-semibold text-vera-dark mb-1">VERA Web</h4>
+        <p class="text-[14px] text-vera-text-light">Accedez a la plateforme</p>
+      </a>
+      <div class="w-px h-10 bg-vera-dark/20"></div>
+      <div>
+        <h4 class="text-[16px] font-semibold text-vera-dark mb-1">Support</h4>
+        <p class="text-[14px] text-vera-text-light">Contactez notre support</p>
       </div>
     </div>
   </div>
