@@ -35,6 +35,14 @@ export class ChatComponent implements AfterViewInit, OnInit {
   recentQuestions = signal<RecentQuestion[]>([]);
   isLoadingRecent = signal(false);
 
+  // Reconnaissance vocale
+  isRecording = signal(false);
+  isSelectingLanguage = signal(false);
+  selectedLanguage = signal<'fr-FR' | 'en-US'>('fr-FR');
+  private recognition: any = null;
+  private silenceTimeout: any = null;
+  private finalTranscript = '';
+
   private isViewReady = false;
 
   get messages() {
@@ -46,12 +54,9 @@ export class ChatComponent implements AfterViewInit, OnInit {
   }
 
   constructor() {
-    // Scroll automatique a chaque changement de messages ou de streaming
     effect(() => {
       const messages = this.chatService.messages();
       const streamingContent = this.chatService.currentStreamingMessage();
-
-      // Declenche le scroll a chaque mise a jour
       if (this.isViewReady && (messages.length > 0 || streamingContent)) {
         setTimeout(() => this.scrollToBottom(), 0);
       }
@@ -64,6 +69,18 @@ export class ChatComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit(): void {
     this.isViewReady = true;
+  }
+
+  //  FONCTION POUR DÉTECTER LE PAYS 
+  private getBrowserInfo() {
+    // Récupère la config du navigateur (ex: "fr-FR", "en-US", "fr-BE")
+    const browserLocale = navigator.language || 'fr-FR';
+    
+    const parts = browserLocale.split('-'); 
+    return {
+      lang: parts[0] || 'fr',        
+      country: parts[1] || 'FR'      
+    };
   }
 
   private loadTrendingQuestions(): void {
@@ -87,7 +104,6 @@ export class ChatComponent implements AfterViewInit, OnInit {
   }
 
   toggleTheme(): void {
-    // TODO: Implementer le changement de theme dark/light
     console.log('Toggle theme');
   }
 
@@ -117,7 +133,6 @@ export class ChatComponent implements AfterViewInit, OnInit {
 
     if (file) {
       this.selectedFile.set(file);
-
       if (file.type.startsWith('image/') || file.type.startsWith('video/')) {
         this.previewUrl.set(URL.createObjectURL(file));
       } else {
@@ -154,10 +169,12 @@ export class ChatComponent implements AfterViewInit, OnInit {
     this.textMessage.set('');
     this.isYouTubeLink.set(false);
 
+    const { country, lang } = this.getBrowserInfo();
+
     if (this.isYouTubeUrl(text)) {
       await this.chatService.sendYouTubeMessage(text);
     } else {
-      await this.chatService.sendTextMessage(text);
+      await this.chatService.sendTextMessage(text, country, lang);
     }
   }
 
@@ -208,6 +225,110 @@ export class ChatComponent implements AfterViewInit, OnInit {
     if (this.messagesContainer) {
       const element = this.messagesContainer.nativeElement;
       element.scrollTop = element.scrollHeight;
+    }
+  }
+
+  // Reconnaissance vocale
+  toggleVoiceRecording(): void {
+    if (this.isRecording()) {
+      this.stopRecording();
+    } else if (this.isSelectingLanguage()) {
+      this.cancelLanguageSelection();
+    } else {
+      this.isSelectingLanguage.set(true);
+    }
+  }
+
+  selectLanguageAndRecord(lang: 'fr-FR' | 'en-US'): void {
+    this.selectedLanguage.set(lang);
+    this.isSelectingLanguage.set(false);
+    this.startRecording();
+  }
+
+  cancelLanguageSelection(): void {
+    this.isSelectingLanguage.set(false);
+  }
+
+  private startRecording(): void {
+    // Verification du support de l'API
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      alert('La reconnaissance vocale n\'est pas supportee par votre navigateur. Utilisez Chrome ou Edge.');
+      return;
+    }
+
+    this.recognition = new SpeechRecognition();
+    this.recognition.lang = this.selectedLanguage();
+    this.recognition.continuous = true;
+    this.recognition.interimResults = true;
+    this.finalTranscript = '';
+
+    this.recognition.onstart = () => {
+      this.isRecording.set(true);
+      this.resetSilenceTimeout();
+    };
+
+    this.recognition.onresult = (event: any) => {
+      let interimTranscript = '';
+
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        const transcript = event.results[i][0].transcript;
+        if (event.results[i].isFinal) {
+          this.finalTranscript += transcript;
+        } else {
+          interimTranscript += transcript;
+        }
+      }
+
+      // Reinitialise le timeout a chaque nouvelle parole detectee
+      this.resetSilenceTimeout();
+    };
+
+    this.recognition.onerror = (event: any) => {
+      console.error('Erreur de reconnaissance vocale:', event.error);
+      this.clearSilenceTimeout();
+      this.isRecording.set(false);
+      if (event.error === 'not-allowed') {
+        alert('Acces au microphone refuse. Veuillez autoriser l\'acces dans les parametres de votre navigateur.');
+      }
+    };
+
+    this.recognition.onend = () => {
+      this.clearSilenceTimeout();
+      this.isRecording.set(false);
+      // Envoie le message si on a du texte
+      if (this.finalTranscript.trim()) {
+        this.textMessage.set(this.finalTranscript.trim());
+        this.sendMessage();
+      }
+    };
+
+    this.recognition.start();
+  }
+
+  private stopRecording(): void {
+    this.clearSilenceTimeout();
+    if (this.recognition) {
+      this.recognition.stop();
+      this.isRecording.set(false);
+    }
+  }
+
+  private resetSilenceTimeout(): void {
+    this.clearSilenceTimeout();
+    // Arrete l'enregistrement apres 2 secondes de silence
+    this.silenceTimeout = setTimeout(() => {
+      if (this.recognition && this.isRecording()) {
+        this.recognition.stop();
+      }
+    }, 2000);
+  }
+
+  private clearSilenceTimeout(): void {
+    if (this.silenceTimeout) {
+      clearTimeout(this.silenceTimeout);
+      this.silenceTimeout = null;
     }
   }
 }

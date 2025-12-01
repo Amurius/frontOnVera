@@ -1,0 +1,270 @@
+<!-- Background fixe newspaper -->
+<div class="fixed inset-0 bg-newspaper bg-cover bg-center -z-10"></div>
+
+<!-- Header fixe avec blur -->
+<header class="fixed top-0 left-0 right-0 z-40 bg-white/20" style="backdrop-filter: blur(4px); border-bottom: 0.5px solid rgba(10, 13, 18, 0.06);">
+  <!-- Beta Banner -->
+  <div class="bg-vera-green py-3 px-6 flex justify-center items-center gap-4 text-small max-md:text-[12px] max-md:py-2.5 max-md:px-4" *ngIf="showBanner">
+    <p class="m-0">{{ 'BANNER.TEXT' | translate }} <a href="#" class="underline font-medium">{{ 'BANNER.HELP_US' | translate }}</a></p>
+    <button class="bg-transparent border-none cursor-pointer p-1 flex items-center justify-center text-vera-dark" (click)="closeBanner()">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+  <div class="max-w-container mx-auto px-8 max-lg:px-12 max-md:px-6 max-sm:px-4 h-[72px] flex items-center justify-between">
+    <a routerLink="/" class="flex items-center">
+      <svg width="88" height="28" viewBox="0 0 88 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24.2173 9.84827C23.1358 12.1286 19.5784 14.1223 18.132 13.2753C17.7281 13.0407 17.8845 12.8192 18.8748 12.1937C20.7773 10.9819 21.3636 8.98824 19.813 8.98824C15.4608 8.98824 14.3923 2.8379 18.523 1.56091C23.4746 0.0363475 26.6801 4.70122 24.2173 9.84827Z" fill="#1A1A1A"/>
+        <path d="M73.2428 26.5898C69.5175 26.5898 67.8936 23.1989 67.8936 20.3333C67.8936 14.9363 73.9114 12.3572 79.4993 10.0647C79.977 9.87368 80.168 9.53936 80.168 9.06176C80.1202 5.71852 79.7382 2.80513 76.2039 2.80513C73.3383 2.80513 73.0517 4.90659 73.0994 7.19909C73.0994 8.34536 72.6219 9.82593 70.9025 9.82593C69.3741 9.82593 68.7532 8.5364 68.7532 7.19909C68.7532 3.95138 72.0488 0.990234 76.968 0.990234C83.6545 0.990234 84.4665 4.23795 84.4665 9.2528V20.9063C84.4665 22.3392 84.8486 23.0556 85.4695 23.0556C85.8037 23.0556 86.1381 22.8645 86.6635 22.387C87.0455 22.0048 87.4276 21.8616 87.7619 22.1481C88.0485 22.387 88.0963 22.769 87.7619 23.1989C86.6635 24.6794 84.8963 26.5421 82.7949 26.5421C81.0277 26.5421 80.4068 25.2048 80.2636 23.772C80.2158 23.1034 79.9292 22.9601 79.4993 23.3421C77.78 24.8705 75.8696 26.5898 73.2428 26.5898ZM72.2398 18.9959C72.2398 21.0974 73.3383 23.3421 75.392 23.3421C76.586 23.3421 77.971 22.578 79.6904 21.1452C80.0247 20.8586 80.168 20.5243 80.168 20.0944V12.7394C80.168 12.1185 79.6427 11.8796 78.8784 12.214C75.1532 13.8855 72.2398 15.5572 72.2398 18.9959Z" fill="#1A1A1A"/>
+        <path d="M60.1612 4.81167C59.4448 4.81167 58.3463 6.14896 57.2955 8.29819C57.1045 8.68027 57.0567 9.01459 57.0567 9.39668V18.6622C57.0567 22.5785 57.0567 24.2024 59.2059 24.4412C59.7313 24.489 60.0179 24.8233 60.0179 25.3487C60.0179 25.8741 59.6836 26.2084 59.2059 26.2084H50.6568C50.1792 26.2084 49.8449 25.8741 49.8449 25.3487C49.8449 24.8233 50.1315 24.489 50.6568 24.4412C52.806 24.2024 52.806 22.5785 52.806 18.6622V9.77876C52.806 6.38777 52.7583 4.66839 50.7046 5.14599C50.036 5.28928 49.6061 5.19375 49.3673 4.71615C49.1763 4.23854 49.4628 3.80869 50.0837 3.52214L52.8538 2.28036L55.2896 1.22963C56.006 0.895308 57.0567 0.704265 57.0567 1.85052V4.14303C57.0567 4.95495 57.5821 5.09823 58.0598 4.38182C59.3493 2.32812 60.8298 0.990829 62.788 0.990829C64.6507 0.990829 66.4656 2.18484 66.4656 4.09526C66.4656 5.8624 64.8417 6.57881 63.7433 6.57881C61.9761 6.57881 61.0686 4.81167 60.1612 4.81167Z" fill="#1A1A1A"/>
+        <path d="M37.1749 3.0917C34.1659 3.0917 32.542 5.95733 32.0645 8.44087C31.9211 9.014 32.2555 9.34832 32.8286 9.34832H40.9479C41.5211 9.34832 41.8554 9.014 41.7598 8.48864C41.4732 5.76628 40.1359 3.0917 37.1749 3.0917ZM28.1959 13.981C28.1959 8.34536 30.9182 0.990234 38.3211 0.990234C44.1479 0.990234 46.8702 5.52748 47.1567 10.208C47.2045 10.7811 46.8702 11.0677 46.3448 11.0677H32.7809C32.2555 11.0677 31.9211 11.3542 31.969 11.9274C32.2077 16.3691 34.4047 22.1003 39.8017 22.1003C43.2404 22.1003 44.8165 19.7602 45.8672 17.3243C46.0583 16.8467 46.3926 16.608 46.727 16.7035C47.0612 16.799 47.2046 17.1332 47.109 17.6586C46.2493 21.5272 43.3836 26.5898 37.748 26.5898C31.2525 26.5898 28.1959 19.9512 28.1959 13.981Z" fill="#1A1A1A"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M12.632 26.4869L14.2543 22.2574C13.8946 21.2359 13.5434 20.1998 13.2715 19.3981C13.0266 18.6757 12.8462 18.1436 12.7823 17.9838L9.1047 8.33614C8.84502 7.64663 8.58869 7.03772 8.36311 6.50183C7.38552 4.1795 6.98529 3.22875 9.39127 3.03472C10.1554 2.98696 10.5375 2.65264 10.5375 2.12727C10.5375 1.6019 10.1077 1.26758 9.39127 1.26758H0.937656C-0.256357 1.26758 -0.351878 2.89143 0.937656 3.13024C1.94063 3.32128 3.23016 4.65858 4.61522 8.33614L11.3017 25.8165C11.4928 26.2463 11.7793 26.4851 12.1614 26.4851C12.3218 26.4851 12.4788 26.4859 12.632 26.4869Z" fill="#1A1A1A"/>
+      </svg>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <div class="flex items-center gap-6">
+    <nav class="flex gap-8 max-md:hidden">
+      <a routerLink="/" class="text-normal text-vera-text transition-colors duration-200 hover:text-vera-dark">Accueil</a>
+    </nav>
+
+    <div class="flex items-center gap-6 max-md:hidden">
+      <a routerLink="/verify" class="bg-[#1e1e1e] border-2 border-[#1e1e1e] text-white py-2 px-5 rounded-full-btn text-small font-medium transition-all duration-200 hover:bg-vera-green hover:text-vera-dark hover:scale-105">{{ 'NAV.TALK_TO_VERA' | translate }}</a>
+      <div class="flex items-center gap-1 text-small">
+        <button (click)="switchLanguage('fr')" class="cursor-pointer bg-transparent border-none p-0" [class.font-semibold]="currentLang === 'fr'" [class.text-vera-text-light]="currentLang !== 'fr'">FR</button>
+        <span class="text-vera-text-light">/</span>
+        <button (click)="switchLanguage('en')" class="cursor-pointer bg-transparent border-none p-0" [class.font-semibold]="currentLang === 'en'" [class.text-vera-text-light]="currentLang !== 'en'">ENG</button>
+      </div>
+    </div>
+  </div>
+    <!-- Mobile Menu Button -->
+    <button class="hidden max-md:flex flex-col gap-[5px] bg-transparent border-none cursor-pointer p-2" (click)="toggleMenu()">
+      <span class="block w-6 h-0.5 bg-vera-dark transition-transform duration-300" [class.rotate-45]="menuOpen" [class.translate-y-[7px]]="menuOpen"></span>
+      <span class="block w-6 h-0.5 bg-vera-dark transition-opacity duration-300" [class.opacity-0]="menuOpen"></span>
+      <span class="block w-6 h-0.5 bg-vera-dark transition-transform duration-300" [class.-rotate-45]="menuOpen" [class.-translate-y-[7px]]="menuOpen"></span>
+    </button>
+  </div>
+
+  <!-- Mobile Navigation -->
+  <nav class="flex-col gap-4 py-6 px-8 max-md:px-6 max-sm:px-4 bg-vera-sugar border-t border-black/10" [class.hidden]="!menuOpen" [class.flex]="menuOpen">
+    <a routerLink="/" class="text-small text-vera-text transition-colors duration-200 hover:text-vera-dark" (click)="toggleMenu()">Accueil</a>
+    <a routerLink="/verify" class="bg-[#1e1e1e] border-2 border-[#1e1e1e] text-white py-2 px-5 rounded-full-btn text-small font-medium transition-all duration-200 hover:bg-vera-green hover:text-vera-dark hover:scale-105 w-fit" (click)="toggleMenu()">{{ 'NAV.TALK_TO_VERA' | translate }}</a>
+    <div class="flex items-center gap-1 text-small">
+      <button (click)="switchLanguage('fr'); toggleMenu()" class="cursor-pointer bg-transparent border-none p-0" [class.font-semibold]="currentLang === 'fr'" [class.text-vera-text-light]="currentLang !== 'fr'">FR</button>
+      <span class="text-vera-text-light">/</span>
+      <button (click)="switchLanguage('en'); toggleMenu()" class="cursor-pointer bg-transparent border-none p-0" [class.font-semibold]="currentLang === 'en'" [class.text-vera-text-light]="currentLang !== 'en'">ENG</button>
+    </div>
+  </nav>
+</header>
+
+<!-- Contenu principal -->
+<main class="pt-[140px] pb-24 relative z-0" [class.pt-[180px]]="showBanner">
+  <div class="max-w-container mx-auto px-8 max-md:px-6 max-sm:px-4">
+    <div>
+      <h1 class="font-heading text-h1 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[28px]">Politique de confidentialité</h1>
+      <p class="text-small text-vera-gray mb-8">Dernière mise à jour : 26 novembre 2025</p>
+
+      <!-- Introduction -->
+      <section class="mb-10">
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>Cette Politique de Confidentialité décrit la manière dont LAREPONSE.TECH (ci-après « nous » ou « LAREPONSE.TECH ») collecte, utilise et protège les données à caractère personnel présentes sur le service VERA. LAREPONSE.TECH est responsable de traitement en application de l'article 4 du Règlement Général sur la Protection des Données (RGPD). Nous nous engageons à respecter la confidentialité et la protection des données personnelles conformément à la réglementation en vigueur, en particulier le RGPD.</p>
+          <p>LAREPONSE.TECH traite les données à caractère personnel en se basant sur l'exécution d'un contrat auquel la personne concernée est partie au sens de l'article 6)b) du RGPD et sur les intérêts légitimes en ce qui concerne l'analyse des usages et l'amélioration du produit, au sens de l'article 6)f) du RGPD. Le contrat est accessible à cette adresse : <a href="https://www.askvera.org/legales/cgu" target="_blank" class="text-vera-label hover:underline">www.askvera.org/legales/cgu</a></p>
+        </div>
+      </section>
+
+      <!-- 1. Données personnelles -->
+      <section class="mb-10">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">1. Données à caractère personnel, finalités & durées de conservation</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <div class="overflow-x-auto">
+            <table class="w-full border-collapse border border-gray-300 text-small">
+              <thead>
+                <tr class="bg-gray-100">
+                  <th class="border border-gray-300 p-3 text-left font-semibold">Données personnelles</th>
+                  <th class="border border-gray-300 p-3 text-left font-semibold">Durée de conservation</th>
+                  <th class="border border-gray-300 p-3 text-left font-semibold">Finalités</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="border border-gray-300 p-3">Numéro de téléphone</td>
+                  <td class="border border-gray-300 p-3">Quelques secondes</td>
+                  <td class="border border-gray-300 p-3">Permettre aux utilisateurs de recevoir des réponses factuelles en vue de vérifier les informations transmises par les utilisateurs</td>
+                </tr>
+                <tr>
+                  <td class="border border-gray-300 p-3">Identifiants du compte Instagram</td>
+                  <td class="border border-gray-300 p-3" rowspan="4">24 mois</td>
+                  <td class="border border-gray-300 p-3" rowspan="4">
+                    <ul class="list-disc list-inside space-y-1">
+                      <li>Améliorer et optimiser les performances du service Vera</li>
+                      <li>Analyser l'utilisation du service via des outils d'analytics afin de comprendre les tendances d'utilisation et les besoins des utilisateurs, y compris à différentes échelles (locale, nationale, supra-nationale)</li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="border border-gray-300 p-3">Messages (y compris vocaux) ou conversations téléphoniques pouvant contenir des données à caractère personnel si l'utilisateur en mentionne</td>
+                </tr>
+                <tr>
+                  <td class="border border-gray-300 p-3">Indicatif téléphonique international</td>
+                </tr>
+                <tr>
+                  <td class="border border-gray-300 p-3">Identifiant de l'utilisateur généré à partir du numéro de téléphone chiffré</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="mt-4">Pour comprendre et analyser les usages en vue d'améliorer le produit et son impact notamment en réalisant des statistiques agrégées et anonymes, LAREPONSE.TECH conserve uniquement l'indicatif téléphonique international (pour les utilisateurs de VERA via téléphone et via Whatsapp), un identifiant utilisateur et les messages pour une durée de 24 mois qui n'excède pas la finalité poursuivie. L'identifiant utilisateur est généré à partir du numéro de téléphone ou de l'identifiant du compte Instagram sur la base d'un hachage irréversible. LAREPONSE.TECH ne peut réidentifier la personne.</p>
+        </div>
+      </section>
+
+      <!-- 2. Partage des données -->
+      <section class="mb-10">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">2. Partage des données</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>Nous nous engageons à ne pas vendre, louer ou partager vos données personnelles à des tiers, sauf dans les cas suivants :</p>
+          <ul class="list-disc list-inside space-y-2">
+            <li>Avec des fournisseurs de services mentionnés comme sous-traitants, uniquement pour le fonctionnement et l'analyse du service VERA.</li>
+            <li>Si requis par la loi, ou dans le cadre d'une procédure légale, pour protéger nos droits ou répondre à une demande légitime des autorités.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 3. Droits des utilisateurs -->
+      <section class="mb-10">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">3. Droits des utilisateurs</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>Conformément au RGPD, vous disposez des droits suivants concernant vos données :</p>
+          <ul class="list-disc list-inside space-y-2">
+            <li><strong>Accès :</strong> Vous avez le droit de savoir quelles données sont collectées et comment elles sont utilisées.</li>
+            <li><strong>Modification :</strong> Vous avez le droit de demander la modification des données pour assurer leur exactitude.</li>
+            <li><strong>Limitation :</strong> Vous avez le droit de demander d'arrêter temporairement l'utilisation des données.</li>
+            <li><strong>Opposition</strong> (uniquement pour les données liées à l'analyse des usages et à l'amélioration du produit) : Vous avez le droit de vous opposer au traitement.</li>
+            <li><strong>Suppression :</strong> Vous pouvez demander la suppression des données collectées (dans les limites de la réglementation en vigueur) en envoyant un mail à <a href="mailto:dpo@lareponse.tech" class="text-vera-label hover:underline">dpo&#64;lareponse.tech</a> avec votre numéro de téléphone.</li>
+            <li><strong>Portabilité des données</strong> (uniquement pour les données liées à l'usage de VERA dans le cadre de l'exécution du contrat) : Vous pouvez demander une copie de vos données dans un format structuré et lisible par machine.</li>
+          </ul>
+          <p>Pour exercer ces droits, vous pouvez nous contacter à l'adresse suivante : <a href="mailto:dpo@lareponse.tech" class="text-vera-label hover:underline">dpo&#64;lareponse.tech</a></p>
+          <p>Puisque ce sont des droits personnels, nous ne traiterons votre demande que si nous sommes en mesure de vous identifier. Dans le cas où nous ne parvenons pas à vous identifier, nous pouvons être amenés à vous demander une preuve de votre identité.</p>
+          <p>Pour vous aider dans votre démarche, vous trouverez un modèle de courrier élaboré par la CNIL ici : <a href="https://www.cnil.fr/fr/modele/courrier/exercer-son-droit-dacces" target="_blank" class="text-vera-label hover:underline">https://www.cnil.fr/fr/modele/courrier/exercer-son-droit-dacces</a></p>
+          <p>Nous nous engageons à vous répondre dans un délai raisonnable qui ne saurait dépasser 1 mois à compter de la réception de votre demande.</p>
+        </div>
+      </section>
+
+      <!-- 4. Sous-traitants -->
+      <section class="mb-10">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">4. Sous-traitants</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>Dans le cadre du service VERA, des données à caractère personnel sont traitées par des tiers pour le compte de LAREPONSE.TECH :</p>
+          <ul class="list-disc list-inside space-y-3">
+            <li><strong>WhatsApp Ireland Limited :</strong> les questions et réponses vous sont transmises via Whatsapp dès lors que vous utilisez VERA via ce service. Pour plus d'informations, veuillez consulter les mesures de protection des données personnelles de WhatsApp.</li>
+            <li><strong>Facebook Ireland Limited :</strong> les questions et réponses vous sont transmises via Instagram dès lors que vous utilisez VERA via ce service. Pour plus d'informations, veuillez consulter les mesures de protection des données personnelles d'Instagram <a href="https://privacycenter.instagram.com/policy" target="_blank" class="text-vera-label hover:underline">https://privacycenter.instagram.com/policy</a></li>
+            <li><strong>Twilio :</strong> Nous utilisons Twilio pour gérer les communications via téléphone et WhatsApp. Twilio collecte et stocke les numéros de téléphone et les métadonnées (comme les heures, la durée des appels/messages) nécessaires à l'établissement des communications. Ces données sont traitées et conservées par Twilio conformément à leur propre politique de confidentialité. Nous ne stockons pas ces numéros de téléphone. Pour plus d'informations, veuillez consulter les mesures de protection des données personnelles de Twilio.</li>
+            <li><strong>OpenAI (GPT-4) :</strong> OpenAI fournit les réponses à vos questions posées via VERA. Les données personnelles que vous pourriez inclure dans vos questions sont transmises à OpenAI pour générer des réponses. Ces données sont conservées par OpenAI pour une durée de 30 jours. Elles ne sont pas utilisées pour l'amélioration de leurs modèles. Nous vous recommandons toutefois de ne pas inclure d'informations personnelles sensibles dans vos questions. Pour en savoir plus, consultez les mesures de protection des données personnelles de OpenAI.</li>
+            <li><strong>Deepgram :</strong> Nous utilisons Deepgram pour convertir vos messages vocaux en texte et inversement. Les données sont conservées par Deepgram dans cette optique. Elles ne sont pas utilisées pour l'amélioration de leurs modèles. Pour en savoir plus, consultez les mesures de protection des données personnelles de Deepgram.</li>
+            <li><strong>Google Cloud Platform :</strong> Nous utilisons Google Cloud Platform pour héberger et assurer le transit sécurisé des données liées au fonctionnement de VERA (à l'exception des données d'analytics). Ces données sont protégées conformément à la réglementation en vigueur. Pour plus d'informations, veuillez consulter les mesures de protection des données de Google Cloud Platform.</li>
+            <li><strong>Posthog :</strong> Nous utilisons Posthog pour analyser les usages de VERA en vue d'améliorer le produit. Les données personnelles que vous pourriez inclure dans vos questions peuvent être transmises à Posthog. Pour en savoir plus, veuillez consulter les mesures de protection des données de Posthog.</li>
+          </ul>
+          <p class="mt-4">Les données traitées par ces services peuvent être transférées aux États-Unis et dans d'autres pays tiers. Le transfert des données aux États-Unis est encadré par la décision d'adéquation de la Commission européenne du 10 juillet 2023 ou par des clauses contractuelles types, conformément au RGPD.</p>
+        </div>
+      </section>
+
+      <!-- 5. Sécurité des données -->
+      <section class="mb-10">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">5. Sécurité des données</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>Nous prenons des mesures techniques et organisationnelles appropriées pour protéger les données que nous collectons contre toute perte, vol, accès non autorisé ou altération.</p>
+          <p>Si vous découvrez une faille de sécurité ou suspectez une vulnérabilité affectant VERA, vous pouvez nous en informer à l'adresse suivante : <a href="mailto:security@lareponse.tech" class="text-vera-label hover:underline">security&#64;lareponse.tech</a>. Nous nous engageons à enquêter rapidement et à prendre les mesures appropriées pour corriger toute faille identifiée.</p>
+        </div>
+      </section>
+
+      <!-- 6. DPO -->
+      <section class="mb-10">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">6. Délégué à la Protection des Données (DPO)</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>Conformément aux exigences du RGPD, LAREPONSE.TECH a désigné un Délégué à la Protection des Données (DPO). Le DPO est responsable de veiller à ce que les pratiques de gestion des données personnelles soient conformes aux lois en vigueur et d'assurer la protection de vos droits en matière de données.</p>
+          <p>Si vous avez des questions concernant la gestion de vos données personnelles ou souhaitez exercer vos droits (accès, rectification, suppression, etc.), vous pouvez contacter notre DPO à l'adresse suivante : <a href="mailto:dpo@lareponse.tech" class="text-vera-label hover:underline">dpo&#64;lareponse.tech</a></p>
+        </div>
+      </section>
+
+      <!-- 7. Cookies -->
+      <section class="mb-10">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">7. Cookies</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>VERA n'utilise pas de cookies dans son fonctionnement direct.</p>
+          <p>Des cookies et des données de connexion peuvent être collectés par des services tiers comme WhatsApp, Instagram et Twilio pour assurer la performance de leur service.</p>
+        </div>
+      </section>
+
+      <!-- 8. Modifications -->
+      <section class="mb-10">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">8. Modifications de la Politique de Confidentialité</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>Nous nous réservons le droit de modifier cette Politique de Confidentialité à tout moment. Les modifications seront publiées sur notre site web et, le cas échéant, nous vous en informerons via nos réseaux sociaux. Nous vous encourageons à consulter cette Politique régulièrement pour rester informés des éventuels changements.</p>
+        </div>
+      </section>
+
+      <!-- 9. Réclamation -->
+      <section>
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">9. Réclamation</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>Vous pouvez introduire une réclamation auprès de la <a href="https://www.cnil.fr" target="_blank" class="text-vera-label hover:underline">CNIL</a>.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-vera-footer pt-16 pb-8 max-md:pt-12 relative z-0">
+  <div class="max-w-container mx-auto px-8 max-md:px-6 max-sm:px-4">
+    <!-- Footer Main -->
+    <div class="flex justify-between items-start py-12 max-lg:flex-col max-lg:gap-12">
+      <div class="max-w-[400px]">
+        <a routerLink="/" class="inline-block mb-4">
+          <svg width="88" height="28" viewBox="0 0 88 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24.2173 9.84827C23.1358 12.1286 19.5784 14.1223 18.132 13.2753C17.7281 13.0407 17.8845 12.8192 18.8748 12.1937C20.7773 10.9819 21.3636 8.98824 19.813 8.98824C15.4608 8.98824 14.3923 2.8379 18.523 1.56091C23.4746 0.0363475 26.6801 4.70122 24.2173 9.84827Z" fill="#F5ECDE"/>
+            <path d="M73.2428 26.5898C69.5175 26.5898 67.8936 23.1989 67.8936 20.3333C67.8936 14.9363 73.9114 12.3572 79.4993 10.0647C79.977 9.87368 80.168 9.53936 80.168 9.06176C80.1202 5.71852 79.7382 2.80513 76.2039 2.80513C73.3383 2.80513 73.0517 4.90659 73.0994 7.19909C73.0994 8.34536 72.6219 9.82593 70.9025 9.82593C69.3741 9.82593 68.7532 8.5364 68.7532 7.19909C68.7532 3.95138 72.0488 0.990234 76.968 0.990234C83.6545 0.990234 84.4665 4.23795 84.4665 9.2528V20.9063C84.4665 22.3392 84.8486 23.0556 85.4695 23.0556C85.8037 23.0556 86.1381 22.8645 86.6635 22.387C87.0455 22.0048 87.4276 21.8616 87.7619 22.1481C88.0485 22.387 88.0963 22.769 87.7619 23.1989C86.6635 24.6794 84.8963 26.5421 82.7949 26.5421C81.0277 26.5421 80.4068 25.2048 80.2636 23.772C80.2158 23.1034 79.9292 22.9601 79.4993 23.3421C77.78 24.8705 75.8696 26.5898 73.2428 26.5898ZM72.2398 18.9959C72.2398 21.0974 73.3383 23.3421 75.392 23.3421C76.586 23.3421 77.971 22.578 79.6904 21.1452C80.0247 20.8586 80.168 20.5243 80.168 20.0944V12.7394C80.168 12.1185 79.6427 11.8796 78.8784 12.214C75.1532 13.8855 72.2398 15.5572 72.2398 18.9959Z" fill="#F5ECDE"/>
+            <path d="M60.1612 4.81167C59.4448 4.81167 58.3463 6.14896 57.2955 8.29819C57.1045 8.68027 57.0567 9.01459 57.0567 9.39668V18.6622C57.0567 22.5785 57.0567 24.2024 59.2059 24.4412C59.7313 24.489 60.0179 24.8233 60.0179 25.3487C60.0179 25.8741 59.6836 26.2084 59.2059 26.2084H50.6568C50.1792 26.2084 49.8449 25.8741 49.8449 25.3487C49.8449 24.8233 50.1315 24.489 50.6568 24.4412C52.806 24.2024 52.806 22.5785 52.806 18.6622V9.77876C52.806 6.38777 52.7583 4.66839 50.7046 5.14599C50.036 5.28928 49.6061 5.19375 49.3673 4.71615C49.1763 4.23854 49.4628 3.80869 50.0837 3.52214L52.8538 2.28036L55.2896 1.22963C56.006 0.895308 57.0567 0.704265 57.0567 1.85052V4.14303C57.0567 4.95495 57.5821 5.09823 58.0598 4.38182C59.3493 2.32812 60.8298 0.990829 62.788 0.990829C64.6507 0.990829 66.4656 2.18484 66.4656 4.09526C66.4656 5.8624 64.8417 6.57881 63.7433 6.57881C61.9761 6.57881 61.0686 4.81167 60.1612 4.81167Z" fill="#F5ECDE"/>
+            <path d="M37.1749 3.0917C34.1659 3.0917 32.542 5.95733 32.0645 8.44087C31.9211 9.014 32.2555 9.34832 32.8286 9.34832H40.9479C41.5211 9.34832 41.8554 9.014 41.7598 8.48864C41.4732 5.76628 40.1359 3.0917 37.1749 3.0917ZM28.1959 13.981C28.1959 8.34536 30.9182 0.990234 38.3211 0.990234C44.1479 0.990234 46.8702 5.52748 47.1567 10.208C47.2045 10.7811 46.8702 11.0677 46.3448 11.0677H32.7809C32.2555 11.0677 31.9211 11.3542 31.969 11.9274C32.2077 16.3691 34.4047 22.1003 39.8017 22.1003C43.2404 22.1003 44.8165 19.7602 45.8672 17.3243C46.0583 16.8467 46.3926 16.608 46.727 16.7035C47.0612 16.799 47.2046 17.1332 47.109 17.6586C46.2493 21.5272 43.3836 26.5898 37.748 26.5898C31.2525 26.5898 28.1959 19.9512 28.1959 13.981Z" fill="#F5ECDE"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12.632 26.4869L14.2543 22.2574C13.8946 21.2359 13.5434 20.1998 13.2715 19.3981C13.0266 18.6757 12.8462 18.1436 12.7823 17.9838L9.1047 8.33614C8.84502 7.64663 8.58869 7.03772 8.36311 6.50183C7.38552 4.1795 6.98529 3.22875 9.39127 3.03472C10.1554 2.98696 10.5375 2.65264 10.5375 2.12727C10.5375 1.6019 10.1077 1.26758 9.39127 1.26758H0.937656C-0.256357 1.26758 -0.351878 2.89143 0.937656 3.13024C1.94063 3.32128 3.23016 4.65858 4.61522 8.33614L11.3017 25.8165C11.4928 26.2463 11.7793 26.4851 12.1614 26.4851C12.3218 26.4851 12.4788 26.4859 12.632 26.4869Z" fill="#F5ECDE"/>
+          </svg>
+        </a>
+        <p class="font-body text-small text-vera-gray leading-[1.6] mb-6">{{ 'FOOTER.DESCRIPTION' | translate }}</p>
+        <div class="flex gap-6 max-md:flex-col max-md:gap-3">
+          <a routerLink="/legales/cgu" class="text-small text-vera-cream transition-colors duration-200 hover:text-vera-green">{{ 'FOOTER.LEGAL' | translate }}</a>
+          <a routerLink="/legales/politique-confidentialite" class="text-small text-vera-cream transition-colors duration-200 hover:text-vera-green">{{ 'FOOTER.PRIVACY' | translate }}</a>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <h4 class="font-body text-small font-semibold text-vera-cream mb-2">{{ 'FOOTER.ABOUT' | translate }}</h4>
+        <a href="https://www.askvera.org/#comment-ca-marche" target="_blank" class="text-small text-vera-gray transition-colors duration-200 hover:text-vera-cream">{{ 'FOOTER.HOW_IT_WORKS' | translate }}</a>
+        <a href="https://www.askvera.org/#pourquoi-vera" target="_blank" class="text-small text-vera-gray transition-colors duration-200 hover:text-vera-cream">{{ 'FOOTER.WHY_VERA' | translate }}</a>
+        <a href="https://www.askvera.org/#faq" target="_blank" class="text-small text-vera-gray transition-colors duration-200 hover:text-vera-cream">{{ 'NAV.FAQ' | translate }}</a>
+      </div>
+
+      <div class="flex items-start max-lg:order-first">
+        <a routerLink="/verify" class="inline-flex items-center py-3 px-6 border border-vera-cream rounded-full-btn font-body text-small font-medium text-vera-cream transition-all duration-200 hover:bg-vera-cream hover:text-vera-footer">{{ 'HERO.CTA' | translate }}</a>
+      </div>
+    </div>
+
+    <div class="h-px bg-white/10 w-full"></div>
+
+    <!-- Footer Bottom -->
+    <div class="pt-8 flex justify-between items-center max-md:flex-col max-md:gap-4 max-md:text-center">
+      <p class="font-body text-small text-vera-gray">&copy; {{ 'FOOTER.COPYRIGHT' | translate }}</p>
+      <div class="flex gap-4 max-md:justify-center">
+        <a href="whatsapp://send?phone=+33974991295" aria-label="WhatsApp" class="flex items-center justify-center transition-opacity duration-200 hover:opacity-70">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="#F5ECDE"/>
+          </svg>
+        </a>
+        <a href="https://www.instagram.com/askvera_org" target="_blank" aria-label="Instagram" class="flex items-center justify-center transition-opacity duration-200 hover:opacity-70">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" fill="#F5ECDE"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

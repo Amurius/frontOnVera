@@ -1,0 +1,296 @@
+<!-- Background fixe newspaper -->
+<div class="fixed inset-0 bg-newspaper bg-cover bg-center -z-10"></div>
+
+<!-- Header fixe avec blur -->
+<header class="fixed top-0 left-0 right-0 z-40 bg-white/20" style="backdrop-filter: blur(4px); border-bottom: 0.5px solid rgba(10, 13, 18, 0.06);">
+  <!-- Beta Banner -->
+  <div class="bg-vera-green py-3 px-6 flex justify-center items-center gap-4 text-small max-md:text-[12px] max-md:py-2.5 max-md:px-4" *ngIf="showBanner">
+    <p class="m-0">{{ 'BANNER.TEXT' | translate }} <a href="#" class="underline font-medium">{{ 'BANNER.HELP_US' | translate }}</a></p>
+    <button class="bg-transparent border-none cursor-pointer p-1 flex items-center justify-center text-vera-dark" (click)="closeBanner()">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+  <div class="max-w-container mx-auto px-8 max-lg:px-12 max-md:px-6 max-sm:px-4 h-[72px] flex items-center justify-between">
+    <a routerLink="/" class="flex items-center">
+      <svg width="88" height="28" viewBox="0 0 88 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24.2173 9.84827C23.1358 12.1286 19.5784 14.1223 18.132 13.2753C17.7281 13.0407 17.8845 12.8192 18.8748 12.1937C20.7773 10.9819 21.3636 8.98824 19.813 8.98824C15.4608 8.98824 14.3923 2.8379 18.523 1.56091C23.4746 0.0363475 26.6801 4.70122 24.2173 9.84827Z" fill="#1A1A1A"/>
+        <path d="M73.2428 26.5898C69.5175 26.5898 67.8936 23.1989 67.8936 20.3333C67.8936 14.9363 73.9114 12.3572 79.4993 10.0647C79.977 9.87368 80.168 9.53936 80.168 9.06176C80.1202 5.71852 79.7382 2.80513 76.2039 2.80513C73.3383 2.80513 73.0517 4.90659 73.0994 7.19909C73.0994 8.34536 72.6219 9.82593 70.9025 9.82593C69.3741 9.82593 68.7532 8.5364 68.7532 7.19909C68.7532 3.95138 72.0488 0.990234 76.968 0.990234C83.6545 0.990234 84.4665 4.23795 84.4665 9.2528V20.9063C84.4665 22.3392 84.8486 23.0556 85.4695 23.0556C85.8037 23.0556 86.1381 22.8645 86.6635 22.387C87.0455 22.0048 87.4276 21.8616 87.7619 22.1481C88.0485 22.387 88.0963 22.769 87.7619 23.1989C86.6635 24.6794 84.8963 26.5421 82.7949 26.5421C81.0277 26.5421 80.4068 25.2048 80.2636 23.772C80.2158 23.1034 79.9292 22.9601 79.4993 23.3421C77.78 24.8705 75.8696 26.5898 73.2428 26.5898ZM72.2398 18.9959C72.2398 21.0974 73.3383 23.3421 75.392 23.3421C76.586 23.3421 77.971 22.578 79.6904 21.1452C80.0247 20.8586 80.168 20.5243 80.168 20.0944V12.7394C80.168 12.1185 79.6427 11.8796 78.8784 12.214C75.1532 13.8855 72.2398 15.5572 72.2398 18.9959Z" fill="#1A1A1A"/>
+        <path d="M60.1612 4.81167C59.4448 4.81167 58.3463 6.14896 57.2955 8.29819C57.1045 8.68027 57.0567 9.01459 57.0567 9.39668V18.6622C57.0567 22.5785 57.0567 24.2024 59.2059 24.4412C59.7313 24.489 60.0179 24.8233 60.0179 25.3487C60.0179 25.8741 59.6836 26.2084 59.2059 26.2084H50.6568C50.1792 26.2084 49.8449 25.8741 49.8449 25.3487C49.8449 24.8233 50.1315 24.489 50.6568 24.4412C52.806 24.2024 52.806 22.5785 52.806 18.6622V9.77876C52.806 6.38777 52.7583 4.66839 50.7046 5.14599C50.036 5.28928 49.6061 5.19375 49.3673 4.71615C49.1763 4.23854 49.4628 3.80869 50.0837 3.52214L52.8538 2.28036L55.2896 1.22963C56.006 0.895308 57.0567 0.704265 57.0567 1.85052V4.14303C57.0567 4.95495 57.5821 5.09823 58.0598 4.38182C59.3493 2.32812 60.8298 0.990829 62.788 0.990829C64.6507 0.990829 66.4656 2.18484 66.4656 4.09526C66.4656 5.8624 64.8417 6.57881 63.7433 6.57881C61.9761 6.57881 61.0686 4.81167 60.1612 4.81167Z" fill="#1A1A1A"/>
+        <path d="M37.1749 3.0917C34.1659 3.0917 32.542 5.95733 32.0645 8.44087C31.9211 9.014 32.2555 9.34832 32.8286 9.34832H40.9479C41.5211 9.34832 41.8554 9.014 41.7598 8.48864C41.4732 5.76628 40.1359 3.0917 37.1749 3.0917ZM28.1959 13.981C28.1959 8.34536 30.9182 0.990234 38.3211 0.990234C44.1479 0.990234 46.8702 5.52748 47.1567 10.208C47.2045 10.7811 46.8702 11.0677 46.3448 11.0677H32.7809C32.2555 11.0677 31.9211 11.3542 31.969 11.9274C32.2077 16.3691 34.4047 22.1003 39.8017 22.1003C43.2404 22.1003 44.8165 19.7602 45.8672 17.3243C46.0583 16.8467 46.3926 16.608 46.727 16.7035C47.0612 16.799 47.2046 17.1332 47.109 17.6586C46.2493 21.5272 43.3836 26.5898 37.748 26.5898C31.2525 26.5898 28.1959 19.9512 28.1959 13.981Z" fill="#1A1A1A"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M12.632 26.4869L14.2543 22.2574C13.8946 21.2359 13.5434 20.1998 13.2715 19.3981C13.0266 18.6757 12.8462 18.1436 12.7823 17.9838L9.1047 8.33614C8.84502 7.64663 8.58869 7.03772 8.36311 6.50183C7.38552 4.1795 6.98529 3.22875 9.39127 3.03472C10.1554 2.98696 10.5375 2.65264 10.5375 2.12727C10.5375 1.6019 10.1077 1.26758 9.39127 1.26758H0.937656C-0.256357 1.26758 -0.351878 2.89143 0.937656 3.13024C1.94063 3.32128 3.23016 4.65858 4.61522 8.33614L11.3017 25.8165C11.4928 26.2463 11.7793 26.4851 12.1614 26.4851C12.3218 26.4851 12.4788 26.4859 12.632 26.4869Z" fill="#1A1A1A"/>
+      </svg>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <div class="flex items-center gap-6">
+    <nav class="flex gap-8 max-md:hidden">
+      <a routerLink="/" class="text-normal text-vera-text transition-colors duration-200 hover:text-vera-dark">Accueil</a>
+    </nav>
+
+    <div class="flex items-center gap-6 max-md:hidden">
+      <a routerLink="/verify" class="bg-[#1e1e1e] border-2 border-[#1e1e1e] text-white py-2 px-5 rounded-full-btn text-small font-medium transition-all duration-200 hover:bg-vera-green hover:text-vera-dark hover:scale-105">{{ 'NAV.TALK_TO_VERA' | translate }}</a>
+      <div class="flex items-center gap-1 text-small">
+        <button (click)="switchLanguage('fr')" class="cursor-pointer bg-transparent border-none p-0" [class.font-semibold]="currentLang === 'fr'" [class.text-vera-text-light]="currentLang !== 'fr'">FR</button>
+        <span class="text-vera-text-light">/</span>
+        <button (click)="switchLanguage('en')" class="cursor-pointer bg-transparent border-none p-0" [class.font-semibold]="currentLang === 'en'" [class.text-vera-text-light]="currentLang !== 'en'">ENG</button>
+      </div>
+    </div>
+  </div>
+    <!-- Mobile Menu Button -->
+    <button class="hidden max-md:flex flex-col gap-[5px] bg-transparent border-none cursor-pointer p-2" (click)="toggleMenu()">
+      <span class="block w-6 h-0.5 bg-vera-dark transition-transform duration-300" [class.rotate-45]="menuOpen" [class.translate-y-[7px]]="menuOpen"></span>
+      <span class="block w-6 h-0.5 bg-vera-dark transition-opacity duration-300" [class.opacity-0]="menuOpen"></span>
+      <span class="block w-6 h-0.5 bg-vera-dark transition-transform duration-300" [class.-rotate-45]="menuOpen" [class.-translate-y-[7px]]="menuOpen"></span>
+    </button>
+  </div>
+
+  <!-- Mobile Navigation -->
+  <nav class="flex-col gap-4 py-6 px-8 max-md:px-6 max-sm:px-4 bg-vera-sugar border-t border-black/10" [class.hidden]="!menuOpen" [class.flex]="menuOpen">
+    <a routerLink="/" class="text-small text-vera-text transition-colors duration-200 hover:text-vera-dark" (click)="toggleMenu()">Accueil</a>
+    <a routerLink="/verify" class="bg-[#1e1e1e] border-2 border-[#1e1e1e] text-white py-2 px-5 rounded-full-btn text-small font-medium transition-all duration-200 hover:bg-vera-green hover:text-vera-dark hover:scale-105 w-fit" (click)="toggleMenu()">{{ 'NAV.TALK_TO_VERA' | translate }}</a>
+    <div class="flex items-center gap-1 text-small">
+      <button (click)="switchLanguage('fr'); toggleMenu()" class="cursor-pointer bg-transparent border-none p-0" [class.font-semibold]="currentLang === 'fr'" [class.text-vera-text-light]="currentLang !== 'fr'">FR</button>
+      <span class="text-vera-text-light">/</span>
+      <button (click)="switchLanguage('en'); toggleMenu()" class="cursor-pointer bg-transparent border-none p-0" [class.font-semibold]="currentLang === 'en'" [class.text-vera-text-light]="currentLang !== 'en'">ENG</button>
+    </div>
+  </nav>
+</header>
+
+<!-- Contenu principal -->
+<main class="pt-[140px] pb-24 relative z-0" [class.pt-[180px]]="showBanner">
+  <div class="max-w-container mx-auto px-8 max-md:px-6 max-sm:px-4">
+    <div>
+      <h1 class="font-heading text-h1 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[28px]">Conditions générales d'utilisation et Mentions Légales</h1>
+      <p class="text-small text-vera-gray mb-8">Dernière mise à jour : 26 novembre 2025.</p>
+
+      <!-- Mentions Légales et Hébergeur -->
+      <section class="mb-10">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Mentions Légales et Hébergeur</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>VERA est éditée par LAREPONSE.TECH, une organisation non gouvernementale (ONG) ayant le statut d'association, dédiée à l'utilisation de la technologie pour le bien commun.</p>
+          <p><strong>Responsable de publication :</strong> LAREPONSE.TECH représentée par Florian Gauthier, en qualité de président de l'association</p>
+          <p><strong>Siège social :</strong> 52 rue du Faubourg Poissonnière, 75010 Paris</p>
+          <p><strong>Contact email :</strong> <a href="mailto:contact@lareponse.tech" class="text-vera-label hover:underline">contact&#64;lareponse.tech</a></p>
+          <p>Si vous rencontrez un défaut d'accessibilité vous empêchant d'accéder à un contenu ou une fonctionnalité du service numérique, vous pouvez nous contacter à cette adresse.</p>
+          <p>Le service de VERA est hébergé par Google Cloud France SARL, dont le siège social est situé à 8 RUE DE LONDRES 75009 PARIS.</p>
+          <p>L'hébergeur est joignable à l'adresse suivante : <a href="https://cloud.google.com/contact/form?hl=fr" target="_blank" class="text-vera-label hover:underline">https://cloud.google.com/contact/form?hl=fr</a>.</p>
+          <p>Le service numérique est protégé par des protocoles de communication sécurisés (HTTPS et WebSocket Secure). Cette protection participe à la confidentialité des échanges. Les données les plus sensibles font l'objet d'un chiffrement. Les accès aux données sont restreints.</p>
+          <p>En aucun cas le service numérique ne sera à l'origine d'envoi de courriels pour demander la saisie d'informations personnelles.</p>
+        </div>
+      </section>
+
+      <!-- Préambule -->
+      <section class="mb-10">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Préambule</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>VERA est un service d'intelligence artificielle créé et possédé par LAREPONSE.TECH, une organisation non gouvernementale (ONG) ayant qualité d'association dédiée à lutter contre la désinformation et promouvoir l'utilisation de la technologie pour le bien commun. LAREPONSE.TECH favorise l'engagement citoyen et développe des solutions innovantes face aux défis climatiques et sociaux.</p>
+          <p>VERA permet aux utilisateurs de poser des questions via WhatsApp, Instagram ou par téléphone. Elle fournit des réponses basées sur des faits qu'elle trouve sur des sites de fact-checking et d'actualité.</p>
+          <p>L'accès et l'utilisation de VERA sont soumis aux présentes Conditions Générales d'Utilisation (CGU), qui peuvent être modifiées à tout moment par LAREPONSE.TECH.</p>
+          <p>Les mineurs de moins de 15 ans doivent obtenir l'autorisation de leurs représentants légaux en vue d'utiliser VERA.</p>
+        </div>
+      </section>
+
+      <!-- Définitions -->
+      <section class="mb-10">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Définitions</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p><strong>Éditeur :</strong> désigne LAREPONSE.TECH, l'organisme propriétaire et responsable du service VERA.</p>
+          <p><strong>Service :</strong> désigne l'application VERA, accessible via WhatsApp, Instagram ou téléphone.</p>
+          <p><strong>Utilisateur :</strong> toute personne accédant à VERA pour poser des questions ou obtenir des réponses.</p>
+          <p><strong>Réponse :</strong> information fournie par VERA, basée sur des sources de fact-checking et d'actualité.</p>
+        </div>
+      </section>
+
+      <!-- Objet de VERA -->
+      <section class="mb-10">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Objet de VERA</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>VERA a pour but de fournir des réponses factuelles basées sur des informations provenant de sites de fact-checking et d'actualité. Elle est disponible pour toute personne via WhatsApp, Instagram et téléphone. Les présentes CGU fixent le cadre juridique de VERA et définissent les conditions d'accès et d'utilisation du Service par l'Utilisateur.</p>
+        </div>
+      </section>
+
+      <!-- Accès et Utilisation de VERA -->
+      <section class="mb-10">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Accès et Utilisation de VERA</h2>
+
+        <h3 class="font-body text-large font-semibold text-vera-dark mb-3 mt-6">Accès géographique et frais</h3>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>VERA est accessible mondialement via téléphone, Instagram et WhatsApp à toute personne. L'utilisation de VERA via WhatsApp et Instagram est gratuite partout dans le monde, sous réserve d'une connexion Internet.</p>
+          <p>Pour les Utilisateurs résidant en France et disposant d'un numéro de téléphone français, l'accès à VERA via un appel téléphonique est gratuit. Toutefois, si un Utilisateur appelle un numéro français depuis l'étranger, des frais supplémentaires peuvent s'appliquer en fonction de la tarification de son opérateur et de sa localisation.</p>
+        </div>
+
+        <h3 class="font-body text-large font-semibold text-vera-dark mb-3 mt-6">Conditions techniques d'accès</h3>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>L'accès à VERA se fait via un numéro de téléphone dédié par WhatsApp ou par appel téléphonique, ou par un compte Instagram.</p>
+          <ul class="list-disc list-inside space-y-2">
+            <li>Pour utiliser VERA via WhatsApp, une connexion Internet et un smartphone sont nécessaires.</li>
+            <li>Pour utiliser VERA via Instagram, une connexion Internet et un compte Instagram sont nécessaires.</li>
+            <li>Pour accéder à VERA via un appel téléphonique, aucune connexion Internet ni smartphone ne sont requis ; tout téléphone capable de passer des appels peut être utilisé.</li>
+          </ul>
+        </div>
+
+        <h3 class="font-body text-large font-semibold text-vera-dark mb-3 mt-6">Poser des questions</h3>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>L'Utilisateur peut poser des questions en envoyant un message Whatsapp, Instagram ou un SMS par téléphone au numéro suivant : <strong>+33 9 74 99 12 95</strong> ; ou en appelant ce même numéro par téléphone.</p>
+          <p>Le Service numérique s'appuie sur l'intelligence artificielle d'OpenAI (GPT4) pour générer les réponses aux questions des Utilisateurs. L'Utilisateur est responsable des données qu'il partage avec VERA, et doit s'assurer de ne pas divulguer d'informations personnelles sensibles, ou confidentielles lors de ses interactions avec le Service.</p>
+          <p>L'Utilisateur s'engage à ne pas mettre en ligne de contenus ou informations contraires aux dispositions légales et réglementaires en vigueur. L'Utilisateur s'engage à ne pas publier, à quelque endroit que ce soit, de messages racistes, sexistes, injurieux, insultants ou contraires à l'ordre public.</p>
+        </div>
+
+        <h3 class="font-body text-large font-semibold text-vera-dark mb-3 mt-6">Interdiction des requêtes automatisées</h3>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>Toute requête automatisée adressée à VERA est interdite, y compris l'utilisation de bots ou d'autres systèmes automatisés visant à interagir avec le service. En cas de non-respect de cette règle, le numéro de téléphone de l'Utilisateur pourra être bloqué sans préavis.</p>
+        </div>
+
+        <h3 class="font-body text-large font-semibold text-vera-dark mb-3 mt-6">Transparence des sources</h3>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>Les sources de fact checking utilisées par VERA sont disponibles <a href="https://www.askvera.org" target="_blank" class="text-vera-label hover:underline">ici</a>.</p>
+        </div>
+
+        <h3 class="font-body text-large font-semibold text-vera-dark mb-3 mt-6">Retours Utilisateurs et signalement</h3>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>Tout Utilisateur peut signaler une source qu'il n'estime pas fiable ou une réponse qu'il estime erronée via ce formulaire ou en écrivant à LAREPONSE.TECH à cette adresse : <a href="mailto:contact@lareponse.tech" class="text-vera-label hover:underline">contact&#64;lareponse.tech</a>.</p>
+          <p>LAREPONSE.TECH s'engage à étudier la demande et à enquêter. Le retrait d'une source interviendra si elle ne répond pas aux critères de fiabilité et de neutralité définis par LAREPONSE.TECH. Pour en savoir plus, l'Utilisateur peut consulter le site <a href="https://www.askvera.org" target="_blank" class="text-vera-label hover:underline">askvera.org</a>.</p>
+        </div>
+
+        <h3 class="font-body text-large font-semibold text-vera-dark mb-3 mt-6">Utilisation exclusive à la vérification des faits et aux discussions connexes</h3>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>VERA est strictement réservée à la vérification des faits et aux discussions autour de ces faits. Toute utilisation de VERA à d'autres fins, telles que l'envoi de requêtes non liées à la vérification d'informations ou à des discussions pertinentes sur ces informations, est interdite. L'utilisation de VERA à des fins illégales, commerciales ou frauduleuses est strictement interdite.</p>
+          <p>En cas de non-respect de cette règle, LAREPONSE.TECH se réserve le droit de restreindre l'accès au service, notamment par le blocage du numéro de téléphone de l'Utilisateur concerné. En cas d'utilisation de VERA à des fins illégales, commerciales ou frauduleuses, le numéro de l'Utilisateur sera bloqué sans préavis.</p>
+        </div>
+      </section>
+
+      <!-- Force majeure -->
+      <section class="mb-10">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Force majeure</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>LAREPONSE.TECH ne pourra être tenue responsable des retards ou manquements dans l'exécution de ses obligations résultant d'événements indépendants de sa volonté, notamment en cas de force majeure, tels que des catastrophes naturelles, des pannes techniques, des interruptions des services de télécommunications, des cyberattaques ou tout autre événement échappant à son contrôle raisonnable.</p>
+        </div>
+      </section>
+
+      <!-- Nullité partielle -->
+      <section class="mb-10">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Nullité partielle</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>Si l'une des dispositions des présentes CGU est jugée nulle ou inapplicable par une juridiction compétente, cela n'affectera en rien la validité ou l'applicabilité des autres dispositions, qui resteront en vigueur.</p>
+        </div>
+      </section>
+
+      <!-- Modifications des CGU -->
+      <section class="mb-10">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Modifications des CGU</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>LAREPONSE.TECH se réserve le droit de modifier les présentes CGU à tout moment. Les modifications seront publiées directement sur le site de VERA. En cas de modifications majeures, LAREPONSE.TECH informera les Utilisateurs via ses réseaux sociaux. L'utilisateur est invité à consulter régulièrement les CGU pour se tenir informé des éventuelles modifications.</p>
+        </div>
+      </section>
+
+      <!-- Limites de responsabilité -->
+      <section class="mb-10">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Limites de responsabilité</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>Bien que LAREPONSE.TECH s'efforce de fournir des informations exactes, les réponses générées par VERA peuvent être erronées, incorrectes ou imprécises en raison du caractère probabiliste des réponses de VERA en tant que système d'intelligence artificielle et de la nature des sources ou de l'interprétation des données.</p>
+          <p>LAREPONSE.TECH ne pourra être tenue responsable des décisions prises par l'Utilisateur sur la base des réponses fournies par VERA.</p>
+          <p>Les réponses fournies par VERA sont purement informatives et ne doivent pas être interprétées comme des conseils professionnels, comme par exemple dans des domaines tels que le droit, la médecine, la psychologie ou les finances.</p>
+          <p>L'Utilisateur est encouragé à vérifier toute information par ses propres moyens et à exercer son propre jugement avant de prendre des décisions basées sur les réponses de VERA.</p>
+        </div>
+      </section>
+
+      <!-- Restrictions d'accès et Blocage -->
+      <section class="mb-10">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Restrictions d'accès et Blocage</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>Toute utilisation contraire aux dispositions légales et règlementaires, ainsi qu'aux présentes CGU est interdite. VERA ne peut être utilisé à des fins commerciales. En cas de non-respect, LAREPONSE.TECH se réserve le droit de bloquer immédiatement le numéro de téléphone de l'Utilisateur ou le compte Instagram de l'Utilisateur sans préavis.</p>
+          <p>L'Editeur fournit les moyens nécessaires et raisonnables pour assurer un accès continu au Service. LAREPONSE.TECH se réserve le droit de restreindre temporairement l'accès à VERA en cas de trop forte affluence ou dans des situations exceptionnelles pouvant affecter la disponibilité du service.</p>
+        </div>
+      </section>
+
+      <!-- Sécurisation du Service -->
+      <section class="mb-10">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Sécurisation du Service</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>L'Editeur s'engage à la sécurisation du Service en prenant toutes les mesures nécessaires dans la limite de ses capacités techniques.</p>
+        </div>
+      </section>
+
+      <!-- Propriété intellectuelle -->
+      <section class="mb-10">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Propriété intellectuelle</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>Les Utilisateurs sont libres d'utiliser, de partager ou de reproduire les réponses fournies par VERA. Il n'y a aucune restriction de propriété intellectuelle sur les informations générées par le Service.</p>
+        </div>
+      </section>
+
+      <!-- Litiges et Juridiction -->
+      <section class="mb-10">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Litiges et Juridiction</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>Les présentes CGU sont régies par la législation française. En cas de litige, les tribunaux compétents seront ceux de Paris.</p>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section>
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Contact</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+          <p>Pour toute question relative aux présentes CGU, veuillez contacter LAREPONSE.TECH à l'adresse suivante : <a href="mailto:dpo@lareponse.tech" class="text-vera-label hover:underline">dpo&#64;lareponse.tech</a></p>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-vera-footer pt-16 pb-8 max-md:pt-12 relative z-0">
+  <div class="max-w-container mx-auto px-8 max-md:px-6 max-sm:px-4">
+    <!-- Footer Main -->
+    <div class="flex justify-between items-start py-12 max-lg:flex-col max-lg:gap-12">
+      <div class="max-w-[400px]">
+        <a routerLink="/" class="inline-block mb-4">
+          <svg width="88" height="28" viewBox="0 0 88 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24.2173 9.84827C23.1358 12.1286 19.5784 14.1223 18.132 13.2753C17.7281 13.0407 17.8845 12.8192 18.8748 12.1937C20.7773 10.9819 21.3636 8.98824 19.813 8.98824C15.4608 8.98824 14.3923 2.8379 18.523 1.56091C23.4746 0.0363475 26.6801 4.70122 24.2173 9.84827Z" fill="#F5ECDE"/>
+            <path d="M73.2428 26.5898C69.5175 26.5898 67.8936 23.1989 67.8936 20.3333C67.8936 14.9363 73.9114 12.3572 79.4993 10.0647C79.977 9.87368 80.168 9.53936 80.168 9.06176C80.1202 5.71852 79.7382 2.80513 76.2039 2.80513C73.3383 2.80513 73.0517 4.90659 73.0994 7.19909C73.0994 8.34536 72.6219 9.82593 70.9025 9.82593C69.3741 9.82593 68.7532 8.5364 68.7532 7.19909C68.7532 3.95138 72.0488 0.990234 76.968 0.990234C83.6545 0.990234 84.4665 4.23795 84.4665 9.2528V20.9063C84.4665 22.3392 84.8486 23.0556 85.4695 23.0556C85.8037 23.0556 86.1381 22.8645 86.6635 22.387C87.0455 22.0048 87.4276 21.8616 87.7619 22.1481C88.0485 22.387 88.0963 22.769 87.7619 23.1989C86.6635 24.6794 84.8963 26.5421 82.7949 26.5421C81.0277 26.5421 80.4068 25.2048 80.2636 23.772C80.2158 23.1034 79.9292 22.9601 79.4993 23.3421C77.78 24.8705 75.8696 26.5898 73.2428 26.5898ZM72.2398 18.9959C72.2398 21.0974 73.3383 23.3421 75.392 23.3421C76.586 23.3421 77.971 22.578 79.6904 21.1452C80.0247 20.8586 80.168 20.5243 80.168 20.0944V12.7394C80.168 12.1185 79.6427 11.8796 78.8784 12.214C75.1532 13.8855 72.2398 15.5572 72.2398 18.9959Z" fill="#F5ECDE"/>
+            <path d="M60.1612 4.81167C59.4448 4.81167 58.3463 6.14896 57.2955 8.29819C57.1045 8.68027 57.0567 9.01459 57.0567 9.39668V18.6622C57.0567 22.5785 57.0567 24.2024 59.2059 24.4412C59.7313 24.489 60.0179 24.8233 60.0179 25.3487C60.0179 25.8741 59.6836 26.2084 59.2059 26.2084H50.6568C50.1792 26.2084 49.8449 25.8741 49.8449 25.3487C49.8449 24.8233 50.1315 24.489 50.6568 24.4412C52.806 24.2024 52.806 22.5785 52.806 18.6622V9.77876C52.806 6.38777 52.7583 4.66839 50.7046 5.14599C50.036 5.28928 49.6061 5.19375 49.3673 4.71615C49.1763 4.23854 49.4628 3.80869 50.0837 3.52214L52.8538 2.28036L55.2896 1.22963C56.006 0.895308 57.0567 0.704265 57.0567 1.85052V4.14303C57.0567 4.95495 57.5821 5.09823 58.0598 4.38182C59.3493 2.32812 60.8298 0.990829 62.788 0.990829C64.6507 0.990829 66.4656 2.18484 66.4656 4.09526C66.4656 5.8624 64.8417 6.57881 63.7433 6.57881C61.9761 6.57881 61.0686 4.81167 60.1612 4.81167Z" fill="#F5ECDE"/>
+            <path d="M37.1749 3.0917C34.1659 3.0917 32.542 5.95733 32.0645 8.44087C31.9211 9.014 32.2555 9.34832 32.8286 9.34832H40.9479C41.5211 9.34832 41.8554 9.014 41.7598 8.48864C41.4732 5.76628 40.1359 3.0917 37.1749 3.0917ZM28.1959 13.981C28.1959 8.34536 30.9182 0.990234 38.3211 0.990234C44.1479 0.990234 46.8702 5.52748 47.1567 10.208C47.2045 10.7811 46.8702 11.0677 46.3448 11.0677H32.7809C32.2555 11.0677 31.9211 11.3542 31.969 11.9274C32.2077 16.3691 34.4047 22.1003 39.8017 22.1003C43.2404 22.1003 44.8165 19.7602 45.8672 17.3243C46.0583 16.8467 46.3926 16.608 46.727 16.7035C47.0612 16.799 47.2046 17.1332 47.109 17.6586C46.2493 21.5272 43.3836 26.5898 37.748 26.5898C31.2525 26.5898 28.1959 19.9512 28.1959 13.981Z" fill="#F5ECDE"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12.632 26.4869L14.2543 22.2574C13.8946 21.2359 13.5434 20.1998 13.2715 19.3981C13.0266 18.6757 12.8462 18.1436 12.7823 17.9838L9.1047 8.33614C8.84502 7.64663 8.58869 7.03772 8.36311 6.50183C7.38552 4.1795 6.98529 3.22875 9.39127 3.03472C10.1554 2.98696 10.5375 2.65264 10.5375 2.12727C10.5375 1.6019 10.1077 1.26758 9.39127 1.26758H0.937656C-0.256357 1.26758 -0.351878 2.89143 0.937656 3.13024C1.94063 3.32128 3.23016 4.65858 4.61522 8.33614L11.3017 25.8165C11.4928 26.2463 11.7793 26.4851 12.1614 26.4851C12.3218 26.4851 12.4788 26.4859 12.632 26.4869Z" fill="#F5ECDE"/>
+          </svg>
+        </a>
+        <p class="font-body text-small text-vera-gray leading-[1.6] mb-6">{{ 'FOOTER.DESCRIPTION' | translate }}</p>
+        <div class="flex gap-6 max-md:flex-col max-md:gap-3">
+          <a routerLink="/legales/cgu" class="text-small text-vera-cream transition-colors duration-200 hover:text-vera-green">{{ 'FOOTER.LEGAL' | translate }}</a>
+          <a routerLink="/legales/politique-confidentialite" class="text-small text-vera-cream transition-colors duration-200 hover:text-vera-green">{{ 'FOOTER.PRIVACY' | translate }}</a>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <h4 class="font-body text-small font-semibold text-vera-cream mb-2">{{ 'FOOTER.ABOUT' | translate }}</h4>
+        <a href="https://www.askvera.org/#comment-ca-marche" target="_blank" class="text-small text-vera-gray transition-colors duration-200 hover:text-vera-cream">{{ 'FOOTER.HOW_IT_WORKS' | translate }}</a>
+        <a href="https://www.askvera.org/#pourquoi-vera" target="_blank" class="text-small text-vera-gray transition-colors duration-200 hover:text-vera-cream">{{ 'FOOTER.WHY_VERA' | translate }}</a>
+        <a href="https://www.askvera.org/#faq" target="_blank" class="text-small text-vera-gray transition-colors duration-200 hover:text-vera-cream">{{ 'NAV.FAQ' | translate }}</a>
+      </div>
+
+      <div class="flex items-start max-lg:order-first">
+        <a routerLink="/verify" class="inline-flex items-center py-3 px-6 border border-vera-cream rounded-full-btn font-body text-small font-medium text-vera-cream transition-all duration-200 hover:bg-vera-cream hover:text-vera-footer">{{ 'HERO.CTA' | translate }}</a>
+      </div>
+    </div>
+
+    <div class="h-px bg-white/10 w-full"></div>
+
+    <!-- Footer Bottom -->
+    <div class="pt-8 flex justify-between items-center max-md:flex-col max-md:gap-4 max-md:text-center">
+      <p class="font-body text-small text-vera-gray">&copy; {{ 'FOOTER.COPYRIGHT' | translate }}</p>
+      <div class="flex gap-4 max-md:justify-center">
+        <a href="whatsapp://send?phone=+33974991295" aria-label="WhatsApp" class="flex items-center justify-center transition-opacity duration-200 hover:opacity-70">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="#F5ECDE"/>
+          </svg>
+        </a>
+        <a href="https://www.instagram.com/askvera_org" target="_blank" aria-label="Instagram" class="flex items-center justify-center transition-opacity duration-200 hover:opacity-70">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" fill="#F5ECDE"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -181,69 +181,130 @@
           <p class="text-[12px] text-vera-text-light">VERA utilise uniquement des sources fiables (fact-checkers, medias reconnus, ONG).</p>
 
           <div class="w-full bg-white rounded-[12px] border border-gray-200 overflow-hidden">
-        <!-- Label -->
-        <div class="px-4 pt-3">
-          <span class="text-[12px] font-medium" style="background: linear-gradient(91deg, #DBF9BE -18.27%, #819370 128.27%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">VERA AI Assistant</span>
-        </div>
-
-        <!-- Input -->
-        <div class="px-4 py-2">
-          <input
-            #fileInput
-            type="file"
-            accept="image/*,video/*,.pdf,.doc,.docx,.txt"
-            (change)="onFileSelected($event)"
-            class="hidden">
-
-          @if (selectedFile()) {
-            <div class="flex items-center gap-2 py-2">
-              <span class="text-[14px] text-vera-text">{{ selectedFile()!.name }}</span>
-              <button (click)="clearSelectedFile()" class="text-vera-text-light hover:text-red-500" [disabled]="isLoading()">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-          } @else {
             <input
-              type="text"
-              [(ngModel)]="textMessage"
-              (keydown)="onKeyDown($event)"
-              (input)="onInputChange()"
-              placeholder="Saisissez votre texte ici, collez un lien ou telechargez un document"
-              class="w-full text-[15px] text-vera-dark placeholder-vera-text-light outline-none bg-transparent py-2"
-              [disabled]="isLoading()">
-          }
-        </div>
+              #fileInput
+              type="file"
+              accept="image/*,video/*,.pdf,.doc,.docx,.txt"
+              (change)="onFileSelected($event)"
+              class="hidden">
 
-        <!-- Actions -->
-        <div class="flex items-center justify-between px-4 pb-3">
-          <button
-            (click)="triggerFileInput()"
-            [disabled]="isLoading()"
-            class="w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 text-vera-text-light bg-[#F9F6F6] hover:opacity-80 transition-opacity disabled:opacity-50">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-            </svg>
-          </button>
+            @if (isSelectingLanguage()) {
+              <!-- Selection de la langue -->
+              <div class="flex flex-col items-center justify-center py-8 gap-4">
+                <p class="text-[14px] text-vera-text">Choisissez votre langue</p>
+                <div class="flex items-center gap-4">
+                  <button
+                    (click)="selectLanguageAndRecord('fr-FR')"
+                    class="flex flex-col items-center gap-2 px-6 py-4 rounded-xl border-2 border-gray-200 hover:border-vera-green hover:bg-vera-green/10 transition-all">
+                    <span class="text-[24px]">🇫🇷</span>
+                    <span class="text-[14px] font-medium text-vera-dark">Francais</span>
+                  </button>
+                  <button
+                    (click)="selectLanguageAndRecord('en-US')"
+                    class="flex flex-col items-center gap-2 px-6 py-4 rounded-xl border-2 border-gray-200 hover:border-vera-green hover:bg-vera-green/10 transition-all">
+                    <span class="text-[24px]">🇺🇸</span>
+                    <span class="text-[14px] font-medium text-vera-dark">English</span>
+                  </button>
+                </div>
+                <button (click)="cancelLanguageSelection()" class="text-[12px] text-vera-text-light hover:text-vera-dark transition-colors">
+                  Annuler
+                </button>
+              </div>
+            } @else if (isRecording()) {
+              <!-- Mode enregistrement vocal -->
+              <div class="flex flex-col items-center justify-center py-8 gap-4">
+                <p class="text-[14px] text-vera-text-light">
+                  @if (selectedLanguage() === 'fr-FR') {
+                    Parlez maintenant...
+                  } @else {
+                    Speak now...
+                  }
+                </p>
+                <div class="relative flex items-center justify-center">
+                  <!-- Cercles de pulsation -->
+                  <span class="absolute w-20 h-20 rounded-full bg-red-400/30 animate-[ping_1.5s_ease-in-out_infinite]"></span>
+                  <span class="absolute w-28 h-28 rounded-full bg-red-300/20 animate-[ping_1.5s_ease-in-out_0.3s_infinite]"></span>
+                  <span class="absolute w-36 h-36 rounded-full bg-red-200/10 animate-[ping_1.5s_ease-in-out_0.6s_infinite]"></span>
+                  <!-- Bouton central -->
+                  <button
+                    (click)="toggleVoiceRecording()"
+                    class="relative z-10 w-20 h-20 flex items-center justify-center rounded-full bg-red-500 text-white shadow-lg hover:bg-red-600 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-8 h-8">
+                      <path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Z"/>
+                      <path d="M19 11a1 1 0 1 0-2 0 5 5 0 0 1-10 0 1 1 0 1 0-2 0 7 7 0 0 0 6 6.93V20H8a1 1 0 1 0 0 2h8a1 1 0 1 0 0-2h-3v-2.07A7 7 0 0 0 19 11Z"/>
+                    </svg>
+                  </button>
+                </div>
+                <p class="text-[12px] text-vera-text-light">
+                  @if (selectedLanguage() === 'fr-FR') {
+                    Cliquez pour arreter
+                  } @else {
+                    Click to stop
+                  }
+                </p>
+              </div>
+            } @else {
+              <!-- Mode normal -->
+              <!-- Label -->
+              <div class="px-4 pt-3">
+                <span class="text-[12px] font-medium" style="background: linear-gradient(91deg, #DBF9BE -18.27%, #819370 128.27%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">VERA AI Assistant</span>
+              </div>
 
-          <div class="flex items-center gap-3">
-            <button class="w-9 h-9 flex items-center justify-center rounded-full text-vera-text-light hover:bg-gray-50 hover:text-vera-dark transition-colors">
-              <img src="assets/icons/Bold/Video, Audio, Sound/Microphone.svg" alt="Micro" class="w-5 h-5 opacity-60">
-            </button>
+              <!-- Input -->
+              <div class="px-4 py-2">
+                @if (selectedFile()) {
+                  <div class="flex items-center gap-2 py-2">
+                    <span class="text-[14px] text-vera-text">{{ selectedFile()!.name }}</span>
+                    <button (click)="clearSelectedFile()" class="text-vera-text-light hover:text-red-500" [disabled]="isLoading()">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                } @else {
+                  <input
+                    type="text"
+                    [(ngModel)]="textMessage"
+                    (keydown)="onKeyDown($event)"
+                    (input)="onInputChange()"
+                    placeholder="Saisissez votre texte ici, collez un lien ou telechargez un document"
+                    class="w-full text-[15px] text-vera-dark placeholder-vera-text-light outline-none bg-transparent py-2"
+                    [disabled]="isLoading()">
+                }
+              </div>
 
-            <button
-              (click)="sendMessage()"
-              [disabled]="isLoading() || (!textMessage().trim() && !selectedFile())"
-              class="flex items-center gap-2 bg-vera-dark text-white px-5 py-2 rounded-full text-[14px] font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-              </svg>
-              Verifier
-            </button>
+              <!-- Actions -->
+              <div class="flex items-center justify-between px-4 pb-3">
+                <button
+                  (click)="triggerFileInput()"
+                  [disabled]="isLoading()"
+                  class="w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 text-vera-text-light bg-[#F9F6F6] hover:opacity-80 transition-opacity disabled:opacity-50">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                  </svg>
+                </button>
+
+                <div class="flex items-center gap-3">
+                  <button
+                    (click)="toggleVoiceRecording()"
+                    [disabled]="isLoading()"
+                    class="w-9 h-9 flex items-center justify-center rounded-full text-vera-text-light hover:bg-gray-50 hover:text-vera-dark transition-colors">
+                    <img src="assets/icons/Bold/Video, Audio, Sound/Microphone.svg" alt="Micro" class="w-5 h-5 opacity-60">
+                  </button>
+
+                  <button
+                    (click)="sendMessage()"
+                    [disabled]="isLoading() || (!textMessage().trim() && !selectedFile())"
+                    class="flex items-center gap-2 bg-vera-dark text-white px-5 py-2 rounded-full text-[14px] font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                    </svg>
+                    Verifier
+                  </button>
+                </div>
+              </div>
+            }
           </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
