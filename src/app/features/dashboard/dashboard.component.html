@@ -5,19 +5,19 @@
   <div class="ml-[84px] min-h-screen p-8">
     <!-- Header -->
     <div class="flex items-center justify-between mb-8">
-      <h1 class="text-[28px] font-heading font-medium text-vera-dark">Dashboard VERA</h1>
+      <h1 class="text-h2 font-heading font-medium text-vera-dark">Dashboard VERA</h1>
 
       <!-- Search Bar -->
       <div class="relative">
         <input
           type="text"
           placeholder="Search"
-          class="w-[240px] h-[40px] pl-10 pr-12 rounded-[8px] border border-gray-200 text-[14px] text-vera-dark placeholder-gray-400 focus:outline-none focus:border-gray-300"
+          class="w-[240px] h-[40px] pl-10 pr-12 rounded-[8px] border border-gray-200 text-small text-vera-dark placeholder-gray-400 focus:outline-none focus:border-gray-300"
         >
         <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
         </svg>
-        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[12px] text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">⌘K</span>
+        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-small text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">⌘K</span>
       </div>
     </div>
 
@@ -28,7 +28,7 @@
         <!-- Vue d'ensemble Card -->
         <div class="col-span-2 bg-white rounded-[16px] p-6" style="border: 1px solid #E5E7EB;">
           <div class="flex items-center justify-between mb-6">
-            <h2 class="text-[18px] font-medium text-vera-dark">Vue d'ensemble</h2>
+            <h2 class="text-large font-medium text-vera-dark">Vue d'ensemble</h2>
             <button class="text-gray-400 hover:text-gray-600">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
@@ -39,10 +39,10 @@
           <!-- Stats Row -->
           <div class="flex items-center justify-between mb-6">
             <div>
-              <p class="text-[14px] text-gray-500 mb-1">Questions sur la periode</p>
+              <p class="text-small text-gray-500 mb-1">Questions sur la periode</p>
               <div class="flex items-center gap-3">
-                <span class="text-[42px] font-medium text-vera-dark leading-none">{{ totalQuestions() | number }}</span>
-                <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[12px] font-medium bg-green-100 text-green-700">
+                <span class="text-large font-medium text-vera-dark leading-none">{{ totalQuestions() | number }}</span>
+                <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-small font-medium bg-green-100 text-green-700">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
                   </svg>
@@ -55,7 +55,7 @@
             <div class="flex items-center gap-2">
               <button
                 (click)="setOverviewPeriod('12m')"
-                class="px-4 py-2 rounded-[8px] text-[14px] font-medium transition-colors"
+                class="px-4 py-2 rounded-[8px] text-small font-medium transition-colors"
                 [class.bg-white]="overviewPeriod() === '12m'"
                 [class.text-vera-dark]="overviewPeriod() === '12m'"
                 [class.border]="overviewPeriod() === '12m'"
@@ -66,7 +66,7 @@
               </button>
               <button
                 (click)="setOverviewPeriod('30d')"
-                class="px-4 py-2 rounded-[8px] text-[14px] font-medium transition-colors"
+                class="px-4 py-2 rounded-[8px] text-small font-medium transition-colors"
                 [class.bg-white]="overviewPeriod() === '30d'"
                 [class.text-vera-dark]="overviewPeriod() === '30d'"
                 [class.border]="overviewPeriod() === '30d'"
@@ -77,7 +77,7 @@
               </button>
               <button
                 (click)="setOverviewPeriod('7d')"
-                class="px-4 py-2 rounded-[8px] text-[14px] font-medium transition-colors"
+                class="px-4 py-2 rounded-[8px] text-small font-medium transition-colors"
                 [class.bg-white]="overviewPeriod() === '7d'"
                 [class.text-vera-dark]="overviewPeriod() === '7d'"
                 [class.border]="overviewPeriod() === '7d'"
@@ -88,7 +88,7 @@
               </button>
               <button
                 (click)="setOverviewPeriod('custom')"
-                class="px-4 py-2 rounded-[8px] text-[14px] font-medium transition-colors flex items-center gap-2"
+                class="px-4 py-2 rounded-[8px] text-small font-medium transition-colors flex items-center gap-2"
                 [class.bg-white]="overviewPeriod() === 'custom'"
                 [class.text-vera-dark]="overviewPeriod() === 'custom'"
                 [class.border]="overviewPeriod() === 'custom'"
@@ -115,7 +115,7 @@
         <!-- Langues principales Card -->
         <div class="bg-white rounded-[16px] p-6" style="border: 1px solid #E5E7EB;">
           <div class="flex items-center justify-between mb-6">
-            <h2 class="text-[18px] font-medium text-vera-dark">Langues principales</h2>
+            <h2 class="text-large font-medium text-vera-dark">Langues principales</h2>
             <button class="text-gray-400 hover:text-gray-600">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
@@ -128,7 +128,7 @@
             @if (languageStats().length > 0) {
               <div echarts [options]="languageChartOptions()" class="w-full h-full"></div>
             } @else {
-              <div class="h-full flex items-center justify-center text-gray-400 text-[14px]">Chargement...</div>
+              <div class="h-full flex items-center justify-center text-gray-400 text-small">Chargement...</div>
             }
           </div>
         </div>
@@ -139,7 +139,7 @@
         <!-- Repartition par pays Card -->
         <div class="bg-white rounded-[16px] p-6" style="border: 1px solid #E5E7EB;">
           <div class="flex items-center justify-between mb-6">
-            <h2 class="text-[18px] font-medium text-vera-dark">Repartition par pays</h2>
+            <h2 class="text-large font-medium text-vera-dark">Repartition par pays</h2>
             <button class="text-gray-400 hover:text-gray-600">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
@@ -152,7 +152,7 @@
             @if (countryStats().length > 0) {
               <div echarts [options]="countryChartOptions()" class="w-full h-full"></div>
             } @else {
-              <div class="h-full flex items-center justify-center text-gray-400 text-[14px]">Chargement...</div>
+              <div class="h-full flex items-center justify-center text-gray-400 text-small">Chargement...</div>
             }
           </div>
         </div>
@@ -160,8 +160,8 @@
         <!-- Stats rapides -->
         <div class="col-span-2 flex items-center justify-center">
           <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-[16px] p-6 text-white min-w-[200px]">
-            <p class="text-[13px] opacity-80 mb-1">Total questions</p>
-            <p class="text-[36px] font-medium leading-none">{{ totalQuestions() | number }}</p>
+            <p class="text-small opacity-80 mb-1">Total questions</p>
+            <p class="text-h3 font-medium leading-none">{{ totalQuestions() | number }}</p>
           </div>
         </div>
       </div>
@@ -171,10 +171,10 @@
         <!-- Header -->
         <div class="flex items-center justify-between mb-6">
           <div class="flex items-center gap-3">
-            <h2 class="text-[18px] font-medium text-vera-dark">Questions frequentes</h2>
-            <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-gray-100 text-gray-600">Top 10 sujets</span>
+            <h2 class="text-large font-medium text-vera-dark">Questions frequentes</h2>
+            <span class="px-3 py-1 rounded-full text-small font-medium bg-gray-100 text-gray-600">Top 10 sujets</span>
           </div>
-          <button (click)="exportData()" class="flex items-center gap-2 px-4 py-2 rounded-[8px] border border-gray-200 text-[14px] font-medium text-vera-dark hover:bg-gray-50 transition-colors">
+          <button (click)="exportData()" class="flex items-center gap-2 px-4 py-2 rounded-[8px] border border-gray-200 text-small font-medium text-vera-dark hover:bg-gray-50 transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
             </svg>
@@ -188,7 +188,7 @@
           <div class="flex items-center gap-2">
             <button
               (click)="setQuestionsPeriod('12m')"
-              class="px-4 py-2 rounded-[8px] text-[14px] font-medium transition-colors"
+              class="px-4 py-2 rounded-[8px] text-small font-medium transition-colors"
               [class.bg-white]="questionsPeriod() === '12m'"
               [class.text-vera-dark]="questionsPeriod() === '12m'"
               [class.border]="questionsPeriod() === '12m'"
@@ -199,7 +199,7 @@
             </button>
             <button
               (click)="setQuestionsPeriod('30d')"
-              class="px-4 py-2 rounded-[8px] text-[14px] font-medium transition-colors"
+              class="px-4 py-2 rounded-[8px] text-small font-medium transition-colors"
               [class.bg-white]="questionsPeriod() === '30d'"
               [class.text-vera-dark]="questionsPeriod() === '30d'"
               [class.border]="questionsPeriod() === '30d'"
@@ -210,7 +210,7 @@
             </button>
             <button
               (click)="setQuestionsPeriod('7d')"
-              class="px-4 py-2 rounded-[8px] text-[14px] font-medium transition-colors"
+              class="px-4 py-2 rounded-[8px] text-small font-medium transition-colors"
               [class.bg-white]="questionsPeriod() === '7d'"
               [class.text-vera-dark]="questionsPeriod() === '7d'"
               [class.border]="questionsPeriod() === '7d'"
@@ -221,7 +221,7 @@
             </button>
             <button
               (click)="setQuestionsPeriod('custom')"
-              class="px-4 py-2 rounded-[8px] text-[14px] font-medium transition-colors flex items-center gap-2"
+              class="px-4 py-2 rounded-[8px] text-small font-medium transition-colors flex items-center gap-2"
               [class.bg-white]="questionsPeriod() === 'custom'"
               [class.text-vera-dark]="questionsPeriod() === 'custom'"
               [class.border]="questionsPeriod() === 'custom'"
@@ -241,12 +241,12 @@
               type="text"
               placeholder="Search"
               [(ngModel)]="searchQuery"
-              class="w-[200px] h-[40px] pl-10 pr-12 rounded-[8px] border border-gray-200 text-[14px] text-vera-dark placeholder-gray-400 focus:outline-none focus:border-gray-300"
+              class="w-[200px] h-[40px] pl-10 pr-12 rounded-[8px] border border-gray-200 text-small text-vera-dark placeholder-gray-400 focus:outline-none focus:border-gray-300"
             >
             <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
             </svg>
-            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[12px] text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">⌘K</span>
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-small text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">⌘K</span>
           </div>
         </div>
 
@@ -255,40 +255,40 @@
           <table class="w-full">
             <thead>
               <tr class="border-b border-gray-100">
-                <th class="text-left py-3 px-4 text-[12px] font-medium text-gray-500 uppercase tracking-wider w-16"></th>
-                <th class="text-left py-3 px-4 text-[12px] font-medium text-gray-500 uppercase tracking-wider">Sujet</th>
-                <th class="text-left py-3 px-4 text-[12px] font-medium text-gray-500 uppercase tracking-wider">Occurrences :</th>
-                <th class="text-left py-3 px-4 text-[12px] font-medium text-gray-500 uppercase tracking-wider">Date :</th>
-                <th class="text-left py-3 px-4 text-[12px] font-medium text-gray-500 uppercase tracking-wider">Langue :</th>
-                <th class="text-left py-3 px-4 text-[12px] font-medium text-gray-500 uppercase tracking-wider">Derniere activite :</th>
-                <th class="text-right py-3 px-4 text-[12px] font-medium text-gray-500 uppercase tracking-wider"></th>
+                <th class="text-left py-3 px-4 text-small font-medium text-gray-500 uppercase tracking-wider w-16"></th>
+                <th class="text-left py-3 px-4 text-small font-medium text-gray-500 uppercase tracking-wider">Sujet</th>
+                <th class="text-left py-3 px-4 text-small font-medium text-gray-500 uppercase tracking-wider">Occurrences :</th>
+                <th class="text-left py-3 px-4 text-small font-medium text-gray-500 uppercase tracking-wider">Date :</th>
+                <th class="text-left py-3 px-4 text-small font-medium text-gray-500 uppercase tracking-wider">Langue :</th>
+                <th class="text-left py-3 px-4 text-small font-medium text-gray-500 uppercase tracking-wider">Derniere activite :</th>
+                <th class="text-right py-3 px-4 text-small font-medium text-gray-500 uppercase tracking-wider"></th>
               </tr>
             </thead>
             <tbody>
               @for (question of frequentQuestions(); track question.id; let i = $index) {
                 <tr class="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
                   <td class="py-4 px-4">
-                    <span class="text-[14px] font-medium text-orange-500">#{{ i + 1 }}</span>
+                    <span class="text-small font-medium text-orange-500">#{{ i + 1 }}</span>
                   </td>
                   <td class="py-4 px-4">
-                    <span class="text-[14px] text-vera-dark">{{ question.subject }}</span>
+                    <span class="text-small text-vera-dark">{{ question.subject }}</span>
                   </td>
                   <td class="py-4 px-4">
-                    <span class="text-[14px] text-vera-dark">{{ question.occurrences }}</span>
+                    <span class="text-small text-vera-dark">{{ question.occurrences }}</span>
                   </td>
                   <td class="py-4 px-4">
-                    <span class="text-[14px] text-vera-dark">{{ question.date }}</span>
+                    <span class="text-small text-vera-dark">{{ question.date }}</span>
                   </td>
                   <td class="py-4 px-4">
-                    <span class="text-[14px] text-vera-dark">{{ question.lang }}</span>
+                    <span class="text-small text-vera-dark">{{ question.lang }}</span>
                   </td>
                   <td class="py-4 px-4">
-                    <span class="text-[14px] text-gray-500">{{ question.lastActivity }}</span>
+                    <span class="text-small text-gray-500">{{ question.lastActivity }}</span>
                   </td>
                   <td class="py-4 px-4 text-right">
                     <button
                       (click)="askVera(question.subject)"
-                      class="px-4 py-2 rounded-[8px] border border-gray-200 text-[14px] font-medium text-vera-dark hover:bg-gray-50 transition-colors">
+                      class="px-4 py-2 rounded-[8px] border border-gray-200 text-small font-medium text-vera-dark hover:bg-gray-50 transition-colors">
                       Demander a VERA
                     </button>
                   </td>
@@ -313,9 +313,9 @@
       @if (surveyError()) {
         <div class="bg-white rounded-[16px] p-6" style="border: 1px solid #E5E7EB;">
           <div class="bg-red-50 border border-red-200 rounded-lg p-4">
-            <p class="text-[14px] text-red-700">{{ surveyError() }}</p>
+            <p class="text-small text-red-700">{{ surveyError() }}</p>
           </div>
-          <button (click)="loadSurveyStats()" class="mt-4 px-4 py-2 rounded-[8px] bg-vera-dark text-white text-[14px] font-medium hover:opacity-90 transition-opacity">
+          <button (click)="loadSurveyStats()" class="mt-4 px-4 py-2 rounded-[8px] bg-vera-dark text-white text-small font-medium hover:opacity-90 transition-opacity">
             Reessayer
           </button>
         </div>
@@ -327,12 +327,12 @@
           <!-- Stats Cards -->
           <div class="grid grid-cols-2 gap-6">
             <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-[16px] p-6 text-white">
-              <p class="text-[14px] opacity-80 mb-2">Reponses totales</p>
-              <p class="text-[42px] font-medium leading-none">{{ surveyStats()?.totalResponses || 0 }}</p>
+              <p class="text-small opacity-80 mb-2">Reponses totales</p>
+              <p class="text-h2 font-medium leading-none">{{ surveyStats()?.totalResponses || 0 }}</p>
             </div>
             <div class="bg-gradient-to-br from-gray-600 to-gray-700 rounded-[16px] p-6 text-white">
-              <p class="text-[14px] opacity-80 mb-2">Questions</p>
-              <p class="text-[42px] font-medium leading-none">{{ questionResponses().length }}</p>
+              <p class="text-small opacity-80 mb-2">Questions</p>
+              <p class="text-h2 font-medium leading-none">{{ questionResponses().length }}</p>
             </div>
           </div>
 
@@ -340,8 +340,8 @@
           @if (surveyStats()?.survey) {
             <div class="bg-white rounded-[16px] p-6" style="border: 1px solid #E5E7EB;">
               <div class="flex items-center justify-between mb-4">
-                <h2 class="text-[18px] font-medium text-vera-dark">Sondage actif</h2>
-                <span class="px-3 py-1 rounded-full text-[12px] font-medium"
+                <h2 class="text-large font-medium text-vera-dark">Sondage actif</h2>
+                <span class="px-3 py-1 rounded-full text-small font-medium"
                   [class.bg-green-100]="surveyStats()?.survey?.is_active"
                   [class.text-green-700]="surveyStats()?.survey?.is_active"
                   [class.bg-gray-100]="!surveyStats()?.survey?.is_active"
@@ -349,8 +349,8 @@
                   {{ surveyStats()?.survey?.is_active ? 'Actif' : 'Inactif' }}
                 </span>
               </div>
-              <h3 class="text-[16px] font-medium text-vera-dark mb-2">{{ surveyStats()?.survey?.title }}</h3>
-              <p class="text-[14px] text-gray-500">{{ surveyStats()?.survey?.description }}</p>
+              <h3 class="text-large font-medium text-vera-dark mb-2">{{ surveyStats()?.survey?.title }}</h3>
+              <p class="text-small text-gray-500">{{ surveyStats()?.survey?.description }}</p>
             </div>
           }
 
@@ -363,8 +363,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25Z" />
                   </svg>
                 </div>
-                <h3 class="text-[16px] font-medium text-vera-dark mb-2">Aucune reponse pour le moment</h3>
-                <p class="text-[14px] text-gray-500">Les resultats apparaitront ici une fois que des utilisateurs auront repondu au sondage.</p>
+                <h3 class="text-large font-medium text-vera-dark mb-2">Aucune reponse pour le moment</h3>
+                <p class="text-small text-gray-500">Les resultats apparaitront ici une fois que des utilisateurs auront repondu au sondage.</p>
               </div>
             }
             @for (question of questionResponses(); track question.questionId; let i = $index) {
@@ -372,14 +372,14 @@
                 <!-- Header de la question -->
                 <div class="flex items-start justify-between mb-6">
                   <div class="flex gap-4">
-                    <span class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-orange-100 text-orange-600 text-[16px] font-semibold">{{ i + 1 }}</span>
+                    <span class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-orange-100 text-orange-600 text-normal font-semibold">{{ i + 1 }}</span>
                     <div>
-                      <h3 class="text-[16px] font-medium text-vera-dark mb-1">{{ question.questionText }}</h3>
+                      <h3 class="text-large font-medium text-vera-dark mb-1">{{ question.questionText }}</h3>
                       <div class="flex items-center gap-3">
-                        <span class="inline-block px-2 py-0.5 rounded text-[12px] bg-gray-100 text-gray-600">
+                        <span class="inline-block px-2 py-0.5 rounded text-small bg-gray-100 text-gray-600">
                           {{ question.questionType === 'multiple_choice' ? 'Choix multiple' : question.questionType === 'text' ? 'Texte libre' : 'Notation' }}
                         </span>
-                        <span class="text-[13px] text-gray-500">{{ question.totalResponses }} reponses</span>
+                        <span class="text-small text-gray-500">{{ question.totalResponses }} reponses</span>
                       </div>
                     </div>
                   </div>
@@ -402,11 +402,11 @@
                       <div class="flex items-center justify-between p-3 rounded-[8px] bg-gray-50">
                         <div class="flex items-center gap-3">
                           <span class="w-3 h-3 rounded-full" [style.background-color]="j === 0 ? '#F97316' : j === 1 ? '#FB923C' : j === 2 ? '#FDBA74' : j === 3 ? '#FED7AA' : '#6B7280'"></span>
-                          <span class="text-[14px] text-vera-dark">{{ response.option }}</span>
+                          <span class="text-small text-vera-dark">{{ response.option }}</span>
                         </div>
                         <div class="flex items-center gap-2">
-                          <span class="text-[14px] font-medium text-vera-dark">{{ response.count }}</span>
-                          <span class="text-[12px] text-gray-500">({{ getResponsePercentage(response.count, question.totalResponses) }}%)</span>
+                          <span class="text-small font-medium text-vera-dark">{{ response.count }}</span>
+                          <span class="text-small text-gray-500">({{ getResponsePercentage(response.count, question.totalResponses) }}%)</span>
                         </div>
                       </div>
                     }
@@ -425,8 +425,8 @@
                 </svg>
               </div>
               <div>
-                <h3 class="text-[16px] font-medium text-vera-dark">Gerer les sondages</h3>
-                <p class="text-[14px] text-gray-500">Voir tous les sondages</p>
+                <h3 class="text-large font-medium text-vera-dark">Gerer les sondages</h3>
+                <p class="text-small text-gray-500">Voir tous les sondages</p>
               </div>
             </a>
             <a routerLink="/survey" class="flex items-center gap-4 p-6 bg-white rounded-[16px] hover:shadow-md transition-shadow" style="border: 1px solid #E5E7EB;">
@@ -437,8 +437,8 @@
                 </svg>
               </div>
               <div>
-                <h3 class="text-[16px] font-medium text-vera-dark">Voir le sondage</h3>
-                <p class="text-[14px] text-gray-500">Apercu du formulaire</p>
+                <h3 class="text-large font-medium text-vera-dark">Voir le sondage</h3>
+                <p class="text-small text-gray-500">Apercu du formulaire</p>
               </div>
             </a>
           </div>
@@ -450,7 +450,7 @@
     <div class="fixed bottom-8 left-1/2 -translate-x-1/2 ml-[42px] flex items-center gap-2 p-1 bg-white rounded-full shadow-lg" style="border: 1px solid #E5E7EB;">
       <button
         (click)="setView('overview')"
-        class="px-6 py-2 rounded-full text-[14px] font-medium transition-colors"
+        class="px-6 py-2 rounded-full text-small font-medium transition-colors"
         [class.bg-vera-dark]="currentView() === 'overview'"
         [class.text-white]="currentView() === 'overview'"
         [class.text-gray-500]="currentView() !== 'overview'"
@@ -459,7 +459,7 @@
       </button>
       <button
         (click)="setView('survey')"
-        class="px-6 py-2 rounded-full text-[14px] font-medium transition-colors"
+        class="px-6 py-2 rounded-full text-small font-medium transition-colors"
         [class.bg-vera-dark]="currentView() === 'survey'"
         [class.text-white]="currentView() === 'survey'"
         [class.text-gray-500]="currentView() !== 'survey'"

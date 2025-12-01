@@ -17,8 +17,7 @@ interface QuestionForm {
   selector: 'app-survey-create',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink, Navbar],
-  templateUrl: './survey-create.component.html',
-  styleUrl: './survey-create.component.css'
+  templateUrl: './survey-create.component.html'
 })
 export class SurveyCreateComponent {
   private surveyService = inject(SurveyService);
