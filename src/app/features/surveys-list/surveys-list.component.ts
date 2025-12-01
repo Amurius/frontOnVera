@@ -9,8 +9,7 @@ import { Navbar } from '../../shared/navbar/navbar';
   selector: 'app-surveys-list',
   standalone: true,
   imports: [CommonModule, RouterLink, Navbar],
-  templateUrl: './surveys-list.component.html',
-  styleUrl: './surveys-list.component.css'
+  templateUrl: './surveys-list.component.html'
 })
 export class SurveysListComponent implements OnInit {
   private surveyService = inject(SurveyService);

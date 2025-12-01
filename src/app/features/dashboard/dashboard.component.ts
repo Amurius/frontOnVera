@@ -45,8 +45,7 @@ type PeriodFilter = '12m' | '30d' | '7d' | 'custom';
   standalone: true,
   imports: [CommonModule, RouterLink, FormsModule, Navbar, NgxEchartsDirective],
   providers: [provideEchartsCore({ echarts })],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
   authService = inject(AuthService);

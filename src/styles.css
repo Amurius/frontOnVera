@@ -1,6 +1,61 @@
 @import "tailwindcss";
 
 /* ============================================
+   FONTS - Chargement des polices
+   ============================================ */
+
+@font-face {
+  font-family: 'Lastik';
+  src: url('/assets/fonts/Lastik-Regular.woff2') format('woff2'),
+       url('/assets/fonts/Lastik-Regular.woff') format('woff'),
+       url('/assets/fonts/Lastik-Regular.ttf') format('truetype'),
+       url('/assets/fonts/Lastik-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fustat';
+  src: url('/assets/fonts/fustat-latin-400-normal.woff2') format('woff2'),
+       url('/assets/fonts/fustat-latin-400-normal.woff') format('woff'),
+       url('/assets/fonts/fustat-latin-400-normal.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fustat';
+  src: url('/assets/fonts/fustat-latin-500-normal.woff2') format('woff2'),
+       url('/assets/fonts/fustat-latin-500-normal.woff') format('woff'),
+       url('/assets/fonts/fustat-latin-500-normal.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fustat';
+  src: url('/assets/fonts/fustat-latin-600-normal.woff2') format('woff2'),
+       url('/assets/fonts/fustat-latin-600-normal.woff') format('woff'),
+       url('/assets/fonts/fustat-latin-600-normal.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fustat';
+  src: url('/assets/fonts/fustat-latin-700-normal.woff2') format('woff2'),
+       url('/assets/fonts/fustat-latin-700-normal.woff') format('woff'),
+       url('/assets/fonts/fustat-latin-700-normal.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================
    THEME TAILWIND - Configuration des couleurs
    ============================================ */
 
