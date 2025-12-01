@@ -28,6 +28,7 @@ module.exports = {
         'vera-label': '#2E3626',
       },
       fontFamily: {
+        'sans': ['Fustat', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
         'heading': ['Lastik', 'Georgia', 'serif'],
         'body': ['Fustat', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
       },
