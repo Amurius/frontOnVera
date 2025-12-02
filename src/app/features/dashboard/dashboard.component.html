@@ -207,7 +207,6 @@
       <!-- ==================== VUE CLUSTERING (AVEC FILTRES) ==================== -->
       @if (currentView() === 'clustering') {
         
-        <!-- --- SECTION FILTRES AJOUTÉE --- -->
         <div class="page-card filters-container">
           <div class="filters-header">
             <h3 class="card-title" style="font-size: 1rem; margin-bottom: 0;">Filtrer les resultats</h3>
@@ -237,15 +236,18 @@
               </div>
             }
 
+            
+
             <!-- Filtre Pays -->
             <div class="filter-group">
               <label class="filter-label">Pays</label>
               <select (change)="onFilterChange('country', $any($event.target).value)" class="form-select">
                 <option value="">Tous les pays</option>
-                <option value="FR">France</option>
-                <option value="US">Etats-Unis</option>
-                <option value="BE">Belgique</option>
-                <option value="CA">Canada</option>
+                
+                <!-- 👇 BOUCLE DYNAMIQUE ICI 👇 -->
+                @for (code of availableCountries(); track code) {
+                  <option [value]="code">{{ getCountryName(code) }}</option>
+                }
               </select>
             </div>
 
@@ -254,9 +256,11 @@
               <label class="filter-label">Langue</label>
               <select (change)="onFilterChange('lang', $any($event.target).value)" class="form-select">
                 <option value="">Toutes les langues</option>
-                <option value="fr">Francais</option>
-                <option value="en">Anglais</option>
-                <option value="es">Espagnol</option>
+                
+                <!-- 👇 BOUCLE DYNAMIQUE ICI 👇 -->
+                @for (code of availableLanguages(); track code) {
+                  <option [value]="code">{{ getLanguageName(code) }}</option>
+                }
               </select>
             </div>
             
@@ -327,36 +331,56 @@
               </div>
             } @else {
               <div class="clusters-list">
-                @for (cluster of topClusters(); track cluster.id; let i = $index) {
+                @for (cluster of topClusters(); track $index; let i = $index) {
                   <div class="cluster-item">
                     <div class="cluster-rank" [class.rank-1]="i === 0" [class.rank-2]="i === 1" [class.rank-3]="i === 2">
                       #{{ i + 1 }}
                     </div>
+                    
                     <div class="cluster-content">
-                      <p class="cluster-text">"{{ cluster.representativeText }}"</p>
+                      <p class="cluster-text">"{{ cluster.question || cluster.question_text || cluster.representativeText || 'Question sans texte' }}"</p>
+                      
                       <div class="cluster-meta">
+                        <!-- 2. FRÉQUENCE -->
                         <span class="meta-item">
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
                           </svg>
-                          <strong>{{ cluster.questionCount }}</strong> fois posee
+                          <strong>{{ cluster.frequency || cluster.questionCount || 0 }}</strong> fois
                         </span>
-                        <span class="meta-item">
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
-                          </svg>
-                          {{ cluster.questionsToday }} aujourd'hui
-                        </span>
+
+                        <!-- 3. DATE -->
                         <span class="meta-item">
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
-                          {{ formatDateShort(cluster.lastActivityAt) }}
+                          {{ formatDateShort(cluster.lastActivityAt || cluster.created_at || cluster.createdAt) }}
                         </span>
+
+                        <!-- 4. PAYS & LANGUE -->
+                        @if (cluster.country && cluster.country !== 'XX') {
+                          <span class="badge badge-gray" style="margin-left: 0.5rem; font-size: 0.75rem; text-transform: uppercase;">
+                            {{ cluster.country }}
+                            @if (cluster.language && cluster.language !== 'xx') { 
+                              <span style="opacity: 0.5; margin: 0 0.25rem">|</span> {{ cluster.language }} 
+                            }
+                          </span>
+                        }
+
+                        <!-- 5. SCORE IA -->
+                        @if (cluster.similarityScore) {
+                          <span class="meta-item" style="color: #10b981; margin-left: auto;" title="Confiance du regroupement IA">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+                            </svg>
+                            {{ (cluster.similarityScore * 100) | number:'1.0-0' }}% IA
+                          </span>
+                        }
                       </div>
                     </div>
+                    
                     <div class="cluster-count">
-                      <span class="badge badge-info">{{ cluster.questionCount }}</span>
+                      <span class="badge badge-info">{{ cluster.frequency || cluster.questionCount || 0 }}</span>
                     </div>
                   </div>
                 }

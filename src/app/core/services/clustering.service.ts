@@ -50,13 +50,29 @@ export interface GlobalStats {
   overallAvgSimilarity: number;
 }
 
+// Interface complète pour le Dashboard
 export interface TopCluster {
-  id: string;
-  representativeText: string;
-  questionCount: number;
-  questionsToday: number;
-  createdAt: string;
+  // Champs principaux (Nouveau Backend)
+  question: string;
+  frequency: number;
   lastActivityAt: string;
+  
+  // Champs optionnels (Clustering & Localisation)
+  clusterId?: string;
+  similarityScore?: number;
+  country?: string;
+  language?: string;
+
+  // Champs de rétro-compatibilité (Ancien Backend / Autres formats)
+  id?: string;
+  representativeText?: string;
+  questionCount?: number;
+  questionsToday?: number;
+  createdAt?: string;
+  
+  // Champs tolérés pour le template HTML (évite les erreurs TS2339)
+  question_text?: string; 
+  created_at?: string;    
 }
 
 @Injectable({
@@ -65,7 +81,6 @@ export interface TopCluster {
 export class ClusteringService {
   private http = inject(HttpClient);
   private readonly API_URL = `${environment.apiUrl}/clustering`;
-  // Ajout de l'URL pour le dashboard (là où on a créé la route avec filtres)
   private readonly DASHBOARD_API_URL = `${environment.apiUrl}/dashboard`;
 
   getTrendingClusters(days: number = 7, limit: number = 3): Observable<TrendingResponse> {
@@ -75,10 +90,14 @@ export class ClusteringService {
     );
   }
 
-  submitQuestion(question: string): Observable<QuestionSubmitResponse> {
+  submitQuestion(question: string, country: string = 'XX', lang: string = 'xx'): Observable<QuestionSubmitResponse> {
     return this.http.post<QuestionSubmitResponse>(
       `${this.API_URL}/questions`,
-      { question }
+      { 
+        question, 
+        country, 
+        lang 
+      }
     );
   }
 
@@ -88,7 +107,6 @@ export class ClusteringService {
     );
   }
 
-   
   getTopClusters(limit: number = 10, filters?: any): Observable<any> {
     let params = new HttpParams().set('limit', limit.toString());
 
@@ -103,6 +121,13 @@ export class ClusteringService {
     return this.http.get<any>(
       `${this.DASHBOARD_API_URL}/top-questions`,
       { params }
+    );
+  }
+
+  // 👇 LA MÉTHODE MANQUANTE QUI CORRIGE L'ERREUR TS2339 👇
+  getFilterOptions(): Observable<{ countries: string[], languages: string[] }> {
+    return this.http.get<{ countries: string[], languages: string[] }>(
+      `${this.DASHBOARD_API_URL}/filters`
     );
   }
 }
