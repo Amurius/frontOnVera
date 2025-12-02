@@ -14,6 +14,10 @@ export const serverRoutes: ServerRoute[] = [
     path: 'surveys/create',
     renderMode: RenderMode.Client
   },
+  {
+    path: 'surveys/results/:id',
+    renderMode: RenderMode.Client
+  },
   // Routes publiques - pre-rendu
   {
     path: '**',
