@@ -25,7 +25,7 @@
   <div class="flex-1 flex flex-col min-h-screen ml-[84px]">
     <!-- Header -->
     <div class="flex justify-end items-center gap-3 p-6">
-      <a routerLink="/" class="px-5 py-2.5 bg-vera-dark rounded-full text-normal text-white font-medium hover:opacity-90 transition-opacity">Comment ca marche ?</a>
+      <a routerLink="/" class="px-5 py-2.5 bg-vera-dark rounded-full text-normal text-white font-medium hover:opacity-90 transition-opacity">Comment ça marche ?</a>
       <a href="#" class="px-5 py-2.5 border border-vera-dark rounded-full text-normal text-vera-dark font-medium hover:bg-vera-dark hover:text-white transition-colors">Nous aider</a>
     </div>
 
@@ -35,8 +35,8 @@
         <!-- Etat d'accueil -->
         <div class="flex-1 flex flex-col items-center justify-center text-center">
           <h1 class="font-heading text-h1 font-medium text-vera-dark mb-4 max-md:text-[32px]">Bienvenue sur <span class="bg-vera-green px-2 rounded">VERA</span></h1>
-          <p class="text-h3 text-vera-text mb-1">Verifie une info en quelques secondes</p>
-          <p class="text-large text-vera-text-light">Colle un lien, un extrait de texte ou resume ce que tu as vu.</p>
+          <p class="text-h3 text-vera-text mb-1">Vérifie une info en quelques secondes</p>
+          <p class="text-large text-vera-text-light">Colle un lien Youtube, un extrait de texte ou résume ce que tu as vu.</p>
         </div>
 
       } @else {
@@ -143,7 +143,7 @@
                   <div class="h-4 bg-gray-200 rounded w-1/2"></div>
                 </div>
               } @else if (recentQuestions().length === 0) {
-                <p class="text-normal text-vera-text-light col-span-3">Aucune question recente</p>
+                <p class="text-normal text-vera-text-light col-span-3">Aucune question récente</p>
               } @else {
                 @for (question of recentQuestions(); track question.id) {
                   <button
@@ -160,7 +160,7 @@
 
         <!-- Input -->
         <div class="w-full flex flex-col items-start gap-[13px] p-[16px_12px_12px_12px] rounded-[12px] bg-cta-gradient" style="box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);">
-          <p class="text-small text-vera-text-light">VERA utilise uniquement des sources fiables (fact-checkers, medias reconnus, ONG).</p>
+          <p class="text-small text-vera-text-light">VERA utilise uniquement des sources fiables (fact-checkers, médias reconnus, ONG).</p>
 
           <div class="w-full bg-white rounded-[12px] border border-gray-200 overflow-hidden">
             <input
@@ -171,7 +171,7 @@
               class="hidden">
 
             @if (isSelectingLanguage()) {
-              <!-- Selection de la langue -->
+              <!-- Sélection de la langue -->
               <div class="flex flex-col items-center justify-center py-8 gap-4">
                 <p class="text-normal text-vera-text">Choisissez votre langue</p>
                 <div class="flex items-center gap-4">
@@ -179,7 +179,7 @@
                     (click)="selectLanguageAndRecord('fr-FR')"
                     class="flex flex-col items-center gap-2 px-6 py-4 rounded-xl border-2 border-gray-200 hover:border-vera-green hover:bg-vera-green/10 transition-all">
                     <span class="text-[24px]">🇫🇷</span>
-                    <span class="text-normal font-medium text-vera-dark">Francais</span>
+                    <span class="text-normal font-medium text-vera-dark">Français</span>
                   </button>
                   <button
                     (click)="selectLanguageAndRecord('en-US')"
@@ -219,7 +219,7 @@
                 </div>
                 <p class="text-small text-vera-text-light">
                   @if (selectedLanguage() === 'fr-FR') {
-                    Cliquez pour arreter
+                    Cliquez pour arrêter
                   } @else {
                     Click to stop
                   }
@@ -249,7 +249,7 @@
                     [(ngModel)]="textMessage"
                     (keydown)="onKeyDown($event)"
                     (input)="onInputChange()"
-                    placeholder="Saisissez votre texte ici, collez un lien ou telechargez un document"
+                    placeholder="Saisissez votre texte ici, collez un lien Youtube ou téléchargez un document"
                     class="w-full text-normal text-vera-dark placeholder-vera-text-light outline-none bg-transparent py-2"
                     [disabled]="isLoading()">
                 }
@@ -281,7 +281,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
                       <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                     </svg>
-                    Verifier
+                    Vérifier
                   </button>
                 </div>
               </div>

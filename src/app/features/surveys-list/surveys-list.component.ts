@@ -2,6 +2,7 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { SurveyService } from '../../core/services/survey.service';
+import { CryptoService } from '../../core/services/crypto.service';
 import { SurveyListItem } from '../../core/models/survey.model';
 import { Navbar } from '../../shared/navbar/navbar';
 
@@ -13,6 +14,7 @@ import { Navbar } from '../../shared/navbar/navbar';
 })
 export class SurveysListComponent implements OnInit {
   private surveyService = inject(SurveyService);
+  private cryptoService = inject(CryptoService);
 
   surveys = signal<SurveyListItem[]>([]);
   loading = signal(true);
@@ -110,5 +112,11 @@ export class SurveysListComponent implements OnInit {
       month: 'short',
       day: 'numeric'
     });
+  }
+
+  // Retourne l'URL cryptee pour les resultats d'un sondage
+  getResultsUrl(surveyId: string): string {
+    const encryptedId = this.cryptoService.encryptId(surveyId);
+    return `/surveys/results/${encryptedId}`;
   }
 }

@@ -18,7 +18,7 @@
             <p class="text-small text-red-700">{{ error() }}</p>
           </div>
           <a routerLink="/" class="inline-block mt-4 px-4 py-2 rounded-[8px] bg-orange-500 text-white text-small font-medium hover:bg-orange-600 transition-colors">
-            Retour a l'accueil
+            Retour à l'accueil
           </a>
         </div>
       }
@@ -32,7 +32,7 @@
             </svg>
           </div>
           <h2 class="text-h3 font-medium text-green-700 mb-2">Merci pour votre participation !</h2>
-          <p class="text-small text-green-600 mb-1">Votre reponse a ete enregistree avec succes.</p>
+          <p class="text-small text-green-600 mb-1">Votre réponse a été enregistrée avec succès.</p>
           <p class="text-small text-gray-500">Redirection vers l'accueil...</p>
         </div>
       }
@@ -115,7 +115,7 @@
                 <select
                   [formControlName]="question.id"
                   class="w-full h-[44px] px-4 rounded-[8px] border border-gray-200 text-small text-vera-dark focus:outline-none focus:border-orange-400 focus:ring-1 focus:ring-orange-400 mt-2">
-                  <option value="">Selectionnez une option</option>
+                  <option value="">Sélectionnez une option</option>
                   @for (option of question.options; track option) {
                     <option [value]="option">{{ option }}</option>
                   }
@@ -128,7 +128,7 @@
                   type="text"
                   [formControlName]="question.id"
                   class="w-full h-[44px] px-4 rounded-[8px] border border-gray-200 text-small text-vera-dark placeholder-gray-400 focus:outline-none focus:border-orange-400 focus:ring-1 focus:ring-orange-400 mt-2"
-                  placeholder="Votre reponse...">
+                  placeholder="Votre réponse...">
               }
 
               <!-- Textarea Type -->
@@ -152,14 +152,14 @@
           <button
             type="submit"
             [disabled]="submitting()"
-            class="w-full py-3.5 rounded-[8px] bg-orange-500 text-small font-medium text-white hover:bg-orange-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center">
+            class="w-full py-3.5 rounded-[8px] bg-[#F2AA4B] text-small cursor-pointer font-medium text-white hover:bg-orange-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center">
             @if (submitting()) {
               <span class="flex items-center gap-2">
                 <span class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
                 Envoi en cours...
               </span>
             } @else {
-              Envoyer mes reponses
+              Envoyer mes réponses
             }
           </button>
         </form>
@@ -171,8 +171,8 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
             </svg>
             <div>
-              <p class="text-small font-medium text-orange-800 mb-0.5">Vos donnees sont protegees</p>
-              <p class="text-small text-orange-700">Vos reponses sont anonymes et stockees en toute securite.</p>
+              <p class="text-small font-medium text-orange-800 mb-0.5">Vos données sont protégées</p>
+              <p class="text-small text-orange-700">Vos réponses sont anonymes et stockées en toute sécurité.</p>
             </div>
           </div>
         </div>

@@ -75,6 +75,7 @@ export class DashboardComponent implements OnInit {
   countryChartOptions = signal<EChartsOption | null>(null);
   languageChartOptions = signal<EChartsOption | null>(null);
   areaChartOptions = signal<EChartsOption | null>(null);
+  timeSeriesData = signal<{ date: string; label: string; count: number }[]>([]);
 
   // --- SONDAGES ---
   activeSurveyId = signal<string | null>(null);
@@ -292,6 +293,7 @@ export class DashboardComponent implements OnInit {
     this.clusteringService.getTimeSeriesStats(this.currentFilters.period).subscribe({
       next: (response: { success: boolean; period: string; data: { date: string; label: string; count: number }[] }) => {
         if (response.success && response.data) {
+          this.timeSeriesData.set(response.data);
           this.updateAreaChart(response.data);
         }
       },
@@ -449,9 +451,132 @@ export class DashboardComponent implements OnInit {
     console.log('Demander a VERA:', question);
   }
 
+  // Exporte toutes les questions frequentes en CSV selon les filtres pays/langue
   exportData(): void {
-    // TODO: Exporter les donnees
-    console.log('Export des donnees');
+    const clusters = this.topClusters();
+    if (clusters.length === 0) {
+      console.warn('Aucune donnee a exporter');
+      return;
+    }
+
+    // Construire les donnees CSV
+    const csvLines: string[] = [];
+    const csvHeaders = ['Rang', 'Sujet', 'Occurrences', 'Derniere activite', 'Pays filtre', 'Langue filtre'];
+    csvLines.push(csvHeaders.join(';'));
+
+    const paysFiltre = this.currentFilters.country ? this.getCountryName(this.currentFilters.country) : 'Tous';
+    const langueFiltre = this.currentFilters.lang ? this.getLanguageName(this.currentFilters.lang) : 'Toutes';
+
+    // Parcourir toutes les questions du top
+    for (let i = 0; i < clusters.length; i++) {
+      const cluster = clusters[i];
+      const csvData = [
+        (i + 1).toString(),
+        `"${(cluster.question || cluster.representativeText || 'Question sans texte').replace(/"/g, '""')}"`,
+        (cluster.frequency || cluster.questionCount || 0).toString(),
+        this.formatDateShort(cluster.lastActivityAt || cluster.createdAt || ''),
+        paysFiltre,
+        langueFiltre
+      ];
+      csvLines.push(csvData.join(';'));
+    }
+
+    // Creer le contenu CSV avec BOM UTF-8
+    const csvContent = '\ufeff' + csvLines.join('\n');
+
+    // Telecharger le fichier
+    this.downloadCsv(csvContent, 'questions_frequentes.csv');
+  }
+
+  // Exporte le nombre de questions sur la periode en CSV
+  exportTimeSeriesData(): void {
+    const data = this.timeSeriesData();
+    if (data.length === 0) {
+      console.warn('Aucune donnee temporelle a exporter');
+      return;
+    }
+
+    // Construire les donnees CSV
+    const csvLines: string[] = [];
+    const csvHeaders = ['Date', 'Periode', 'Nombre de questions'];
+    csvLines.push(csvHeaders.join(';'));
+
+    // Calculer le total
+    let total = 0;
+    for (const item of data) {
+      const csvData = [
+        item.date,
+        item.label,
+        item.count.toString()
+      ];
+      csvLines.push(csvData.join(';'));
+      total += item.count;
+    }
+
+    // Ajouter une ligne de total
+    csvLines.push(['', 'TOTAL', total.toString()].join(';'));
+
+    // Creer le contenu CSV avec BOM UTF-8
+    const csvContent = '\ufeff' + csvLines.join('\n');
+
+    // Nom du fichier avec la periode
+    const periodLabel = this.currentFilters.period === '12m' ? '12_mois' :
+                        this.currentFilters.period === '30d' ? '30_jours' : '7_jours';
+    this.downloadCsv(csvContent, `questions_periode_${periodLabel}.csv`);
+  }
+
+  // Exporte les resultats du sondage en CSV
+  exportSurveyResults(): void {
+    const responses = this.questionResponses();
+    if (responses.length === 0) {
+      console.warn('Aucun resultat de sondage a exporter');
+      return;
+    }
+
+    // Construire les donnees CSV
+    const csvLines: string[] = [];
+    const csvHeaders = ['Question', 'Type', 'Option', 'Nombre de reponses', 'Pourcentage'];
+    csvLines.push(csvHeaders.join(';'));
+
+    for (const question of responses) {
+      for (const response of question.responses) {
+        const percentage = question.totalResponses > 0
+          ? Math.round((response.count / question.totalResponses) * 100)
+          : 0;
+
+        const line = [
+          `"${question.questionText.replace(/"/g, '""')}"`,
+          question.questionType,
+          `"${response.option.replace(/"/g, '""')}"`,
+          response.count.toString(),
+          percentage + '%'
+        ];
+        csvLines.push(line.join(';'));
+      }
+    }
+
+    // Creer le contenu CSV avec BOM UTF-8
+    const csvContent = '\ufeff' + csvLines.join('\n');
+
+    // Telecharger le fichier
+    const surveyTitle = this.surveyStats()?.survey?.title || 'sondage';
+    const filename = `resultats_${surveyTitle.replace(/[^a-zA-Z0-9]/g, '_')}.csv`;
+    this.downloadCsv(csvContent, filename);
+  }
+
+  // Methode utilitaire pour telecharger un fichier CSV
+  private downloadCsv(content: string, filename: string): void {
+    const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+
+    link.setAttribute('href', url);
+    link.setAttribute('download', filename);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   }
 
   // --- HELPERS D'AFFICHAGE ---

@@ -7,17 +7,21 @@
     <div class="flex items-center justify-between mb-8">
       <h1 class="text-h2 font-heading font-medium text-vera-dark">Dashboard VERA</h1>
 
-      <!-- Search Bar -->
-      <div class="relative">
-        <input
-          type="text"
-          placeholder="Search"
-          class="w-[240px] h-[40px] pl-10 pr-12 rounded-[8px] border border-gray-200 text-small text-vera-dark placeholder-gray-400 focus:outline-none focus:border-gray-300"
-        >
-        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-        </svg>
-        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-small text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">⌘K</span>
+      <!-- Boutons Sondage -->
+      <div class="flex items-center gap-3">
+        <a routerLink="/surveys" class="flex items-center gap-2 px-4 py-2 rounded-[8px] border border-gray-200 text-small font-medium text-vera-dark hover:bg-gray-50 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25Z" />
+          </svg>
+          Gérer sondage
+        </a>
+        <a routerLink="/survey" class="flex items-center gap-2 px-4 py-2 rounded-[8px] bg-vera-dark text-small font-medium text-white hover:opacity-90 transition-opacity">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+          </svg>
+          Voir sondage
+        </a>
       </div>
     </div>
 
@@ -29,17 +33,18 @@
         <div class="col-span-2 bg-white rounded-[16px] p-6" style="border: 1px solid #E5E7EB;">
           <div class="flex items-center justify-between mb-6">
             <h2 class="text-large font-medium text-vera-dark">Vue d'ensemble</h2>
-            <button class="text-gray-400 hover:text-gray-600">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+            <button (click)="exportTimeSeriesData()" class="flex items-center gap-2 px-4 py-2 rounded-[8px] border border-gray-200 text-small font-medium text-vera-dark hover:bg-gray-50 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
               </svg>
+              Export CSV
             </button>
           </div>
 
           <!-- Stats Row -->
           <div class="flex items-center justify-between mb-6">
             <div>
-              <p class="text-small text-gray-500 mb-1">Questions sur la periode</p>
+              <p class="text-small text-gray-500 mb-1">Questions sur la période</p>
               <div class="flex items-center gap-3">
                 <span class="text-large font-medium text-vera-dark leading-none">{{ clusteringStats()?.totalQuestions || 0 }}</span>
                 <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-small font-medium bg-green-100 text-green-700">
@@ -124,12 +129,12 @@
         </div>
       </div>
 
-      <!-- Second Row: Pays + Questions frequentes -->
+      <!-- Second Row: Pays + Questions fréquentes -->
       <div class="grid grid-cols-3 gap-6 mb-8">
-        <!-- Repartition par pays Card -->
+        <!-- Répartition par pays Card -->
         <div class="bg-white rounded-[16px] p-6" style="border: 1px solid #E5E7EB;">
           <div class="flex items-center justify-between mb-6">
-            <h2 class="text-large font-medium text-vera-dark">Repartition par pays</h2>
+            <h2 class="text-large font-medium text-vera-dark">Répartition par pays</h2>
             <button class="text-gray-400 hover:text-gray-600">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
@@ -147,19 +152,19 @@
           </div>
         </div>
 
-        <!-- Questions frequentes Card (col-span-2) -->
+        <!-- Questions fréquentes Card (col-span-2) -->
         <div class="col-span-2 bg-white rounded-[16px] p-6" style="border: 1px solid #E5E7EB;">
           <!-- Header -->
           <div class="flex items-center justify-between mb-6">
             <div class="flex items-center gap-3">
-              <h2 class="text-large font-medium text-vera-dark">Questions frequentes</h2>
+              <h2 class="text-large font-medium text-vera-dark">Questions fréquentes</h2>
               <span class="px-3 py-1 rounded-full text-small font-medium bg-gray-100 text-gray-600">Top 10 sujets</span>
             </div>
             <button (click)="exportData()" class="flex items-center gap-2 px-4 py-2 rounded-[8px] border border-gray-200 text-small font-medium text-vera-dark hover:bg-gray-50 transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
               </svg>
-              Export
+              Export CSV
             </button>
           </div>
 
@@ -196,7 +201,7 @@
                   <th class="text-left py-3 px-4 text-small font-medium text-gray-500 uppercase tracking-wider w-16"></th>
                   <th class="text-left py-3 px-4 text-small font-medium text-gray-500 uppercase tracking-wider">Sujet</th>
                   <th class="text-left py-3 px-4 text-small font-medium text-gray-500 uppercase tracking-wider">Occurrences</th>
-                  <th class="text-left py-3 px-4 text-small font-medium text-gray-500 uppercase tracking-wider">Derniere activite</th>
+                  <th class="text-left py-3 px-4 text-small font-medium text-gray-500 uppercase tracking-wider">Dernière activité</th>
                   <th class="text-right py-3 px-4 text-small font-medium text-gray-500 uppercase tracking-wider"></th>
                 </tr>
               </thead>
@@ -219,7 +224,7 @@
                       <button
                         (click)="askVera(cluster.question || cluster.representativeText || '')"
                         class="px-4 py-2 rounded-[8px] border border-gray-200 text-small font-medium text-vera-dark hover:bg-gray-50 transition-colors">
-                        Demander a VERA
+                        Demander à VERA
                       </button>
                     </td>
                   </tr>
@@ -229,7 +234,7 @@
                       @if (clusteringLoading()) {
                         Chargement des questions...
                       } @else {
-                        Aucune question trouvee
+                        Aucune question trouvée
                       }
                     </td>
                   </tr>
@@ -255,7 +260,7 @@
             <p class="text-small text-red-700">{{ surveyError() }}</p>
           </div>
           <button (click)="loadSurveyStats()" class="mt-4 px-4 py-2 rounded-[8px] bg-vera-dark text-white text-small font-medium hover:opacity-90 transition-opacity">
-            Reessayer
+            Réessayer
           </button>
         </div>
       } @else {
@@ -264,7 +269,7 @@
           <!-- Stats Cards -->
           <div class="grid grid-cols-2 gap-6">
             <div class="bg-[#C07926] rounded-[16px] p-6 text-white">
-              <p class="text-small opacity-80 mb-2">Reponses totales</p>
+              <p class="text-small opacity-80 mb-2">Réponses totales</p>
               <p class="text-h2 font-medium leading-none">{{ surveyStats()?.totalResponses || 0 }}</p>
             </div>
             <div class="bg-[#403637] rounded-[16px] p-6 text-white">
@@ -278,13 +283,21 @@
             <div class="bg-white rounded-[16px] p-6" style="border: 1px solid #E5E7EB;">
               <div class="flex items-center justify-between mb-4">
                 <h2 class="text-large font-medium text-vera-dark">Sondage actif</h2>
-                <span class="px-3 py-1 rounded-full text-small font-medium"
-                  [class.bg-green-100]="surveyStats()?.survey?.is_active"
-                  [class.text-green-700]="surveyStats()?.survey?.is_active"
-                  [class.bg-gray-100]="!surveyStats()?.survey?.is_active"
-                  [class.text-gray-600]="!surveyStats()?.survey?.is_active">
-                  {{ surveyStats()?.survey?.is_active ? 'Actif' : 'Inactif' }}
-                </span>
+                <div class="flex items-center gap-3">
+                  <button (click)="exportSurveyResults()" class="flex items-center gap-2 px-4 py-2 rounded-[8px] border border-gray-200 text-small font-medium text-vera-dark hover:bg-gray-50 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                    </svg>
+                    Export CSV
+                  </button>
+                  <span class="px-3 py-1 rounded-full text-small font-medium"
+                    [class.bg-green-100]="surveyStats()?.survey?.is_active"
+                    [class.text-green-700]="surveyStats()?.survey?.is_active"
+                    [class.bg-gray-100]="!surveyStats()?.survey?.is_active"
+                    [class.text-gray-600]="!surveyStats()?.survey?.is_active">
+                    {{ surveyStats()?.survey?.is_active ? 'Actif' : 'Inactif' }}
+                  </span>
+                </div>
               </div>
               <h3 class="text-large font-medium text-vera-dark mb-2">{{ surveyStats()?.survey?.title }}</h3>
               <p class="text-small text-gray-500">{{ surveyStats()?.survey?.description }}</p>
@@ -300,8 +313,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25Z" />
                   </svg>
                 </div>
-                <h3 class="text-large font-medium text-vera-dark mb-2">Aucune reponse pour le moment</h3>
-                <p class="text-small text-gray-500">Les resultats apparaitront ici une fois que des utilisateurs auront repondu au sondage.</p>
+                <h3 class="text-large font-medium text-vera-dark mb-2">Aucune réponse pour le moment</h3>
+                <p class="text-small text-gray-500">Les résultats apparaîtront ici une fois que des utilisateurs auront répondu au sondage.</p>
               </div>
             } @else {
               @for (question of questionResponses(); track question.questionId) {
@@ -309,7 +322,7 @@
                   <!-- Question Header -->
                   <div class="flex items-center justify-between mb-4">
                     <h3 class="text-large font-medium text-vera-dark">{{ question.questionText }}</h3>
-                    <span class="px-3 py-1 rounded-full text-small font-medium bg-gray-100 text-gray-600">{{ question.totalResponses }} reponses</span>
+                    <span class="px-3 py-1 rounded-full text-small font-medium bg-gray-100 text-gray-600">{{ question.totalResponses }} réponses</span>
                   </div>
 
                   <!-- Graphique -->
@@ -317,7 +330,7 @@
                     <div echarts [options]="getQuestionChartOptions(question)" class="w-full h-full"></div>
                   </div>
 
-                  <!-- Resume des reponses -->
+                  <!-- Résumé des réponses -->
                   <div class="mt-6 pt-6 border-t border-gray-100">
                     <div class="grid grid-cols-2 gap-4 max-md:grid-cols-1">
                       @for (response of question.responses; track response.option; let j = $index) {
@@ -340,7 +353,7 @@
           </div>
 
           <!-- Quick Actions -->
-          <div class="grid grid-cols-2 gap-6">
+          <div class="grid grid-cols-2 gap-6 mb-8">
             <a routerLink="/surveys" class="flex items-center gap-4 p-6 bg-white rounded-[16px] hover:shadow-md transition-shadow" style="border: 1px solid #E5E7EB;">
               <div class="w-12 h-12 flex items-center justify-center rounded-full bg-orange-100 text-orange-600">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -348,7 +361,7 @@
                 </svg>
               </div>
               <div>
-                <h3 class="text-large font-medium text-vera-dark">Gerer les sondages</h3>
+                <h3 class="text-large font-medium text-vera-dark">Gérer les sondages</h3>
                 <p class="text-small text-gray-500">Voir tous les sondages</p>
               </div>
             </a>
@@ -361,7 +374,7 @@
               </div>
               <div>
                 <h3 class="text-large font-medium text-vera-dark">Voir le sondage</h3>
-                <p class="text-small text-gray-500">Apercu du formulaire</p>
+                <p class="text-small text-gray-500">Aperçu du formulaire</p>
               </div>
             </a>
           </div>
@@ -370,7 +383,7 @@
     }
 
     <!-- Navigation Tabs (bottom) -->
-    <div class="fixed bottom-8 left-1/2 -translate-x-1/2 ml-[42px] flex items-center gap-2 p-1 bg-white rounded-full shadow-lg" style="border: 1px solid #E5E7EB;">
+    <div class="fixed bottom-2 left-1/2 -translate-x-1/2 ml-[42px] flex items-center gap-2 p-1 bg-white rounded-full shadow-lg" style="border: 1px solid #E5E7EB;">
       <button
         (click)="setView('overview')"
         class="px-6 py-2 rounded-full text-small font-medium transition-colors"
@@ -387,7 +400,7 @@
         [class.text-white]="currentView() === 'survey'"
         [class.text-gray-500]="currentView() !== 'survey'"
         [class.hover:text-vera-dark]="currentView() !== 'survey'">
-        Resultats sondage
+        Résultats sondage
       </button>
     </div>
   </div>

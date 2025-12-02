@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { provideHttpClient, withInterceptors, withFetch, HttpClient } from '@angular/common/http';
 import { provideTranslateService, TranslateLoader, TranslationObject } from '@ngx-translate/core';
 import { inject } from '@angular/core';
@@ -30,7 +30,13 @@ const httpLoaderFactory = (): TranslateLoader => {
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes),
+    provideRouter(
+      routes,
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'top',
+        anchorScrolling: 'enabled'
+      })
+    ),
     provideClientHydration(withEventReplay()),
     provideHttpClient(
       withFetch(),
