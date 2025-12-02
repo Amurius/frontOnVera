@@ -16,16 +16,16 @@ import type { EChartsOption } from 'echarts';
 
 echarts.use([LineChart, PieChart, BarChart, GridComponent, TooltipComponent, LegendComponent, CanvasRenderer]);
 
-// Palette de couleurs orange/gris
+// Palette de couleurs VERA - Graphiques
 const CHART_COLORS = [
-  '#F97316', // Orange principal
-  '#FB923C', // Orange clair
-  '#FDBA74', // Orange tres clair
-  '#FED7AA', // Peche
-  '#6B7280', // Gris
-  '#9CA3AF', // Gris clair
-  '#D1D5DB', // Gris tres clair
-  '#E5E7EB', // Gris pale
+  '#F2AA4B', // Orange (principal)
+  '#44A594', // Vert turquoise
+  '#F27C82', // Rouge/rose
+  '#4B8BD4', // Bleu assorti
+  '#D9923F', // Orange plus fonce
+  '#3A8F80', // Vert plus fonce
+  '#E85D63', // Rouge plus fonce
+  '#3D7AC2', // Bleu plus fonce
 ];
 
 interface QuestionResponse {
@@ -69,6 +69,18 @@ export class DashboardComponent implements OnInit {
   clusteringLoading = signal(true);
   clusteringError = signal<string | null>(null);
 
+  // --- STATS PAR PAYS/LANGUE ---
+  countryStats = signal<{ country: string; count: number }[]>([]);
+  languageStats = signal<{ lang: string; count: number }[]>([]);
+  countryChartOptions = signal<EChartsOption | null>(null);
+  languageChartOptions = signal<EChartsOption | null>(null);
+  areaChartOptions = signal<EChartsOption | null>(null);
+
+  // --- SONDAGES ---
+  activeSurveyId = signal<string | null>(null);
+  questionResponses = signal<QuestionResponse[]>([]);
+  questionChartOptions = new Map<string, EChartsOption>();
+
   // --- FILTRES ---
   currentFilters = {
     period: '7d',
@@ -87,6 +99,7 @@ export class DashboardComponent implements OnInit {
     this.loadSurveyStats();
     this.loadClusteringStats();
     this.loadFilters(); // Charge les pays/langues dispos en BDD
+    this.loadTimeSeriesStats(); // Charge les données du graphique d'évolution
   }
 
   // --- NAVIGATION ---
@@ -123,12 +136,18 @@ export class DashboardComponent implements OnInit {
     if ((key === 'startDate' || key === 'endDate')) {
       if (this.currentFilters.period === 'custom' && this.currentFilters.startDate && this.currentFilters.endDate) {
         this.loadClusteringStats();
+        this.loadTimeSeriesStats();
       }
       return;
     }
 
     // Rechargement immédiat pour Pays, Langue, ou Période standard
     this.loadClusteringStats();
+
+    // Si c'est un changement de période, recharger aussi le graphique temporel
+    if (key === 'period') {
+      this.loadTimeSeriesStats();
+    }
   }
 
   // --- CHARGEMENT DES DONNÉES ---
@@ -234,7 +253,7 @@ export class DashboardComponent implements OnInit {
         }
         this.clusteringLoading.set(false);
       },
-      error: (err) => {
+      error: (err: Error) => {
         console.error('Erreur top questions:', err);
         this.clusteringError.set('Impossible de charger les questions populaires.');
         this.clusteringLoading.set(false);
@@ -243,28 +262,105 @@ export class DashboardComponent implements OnInit {
 
     // Charger les stats par pays
     this.clusteringService.getCountryStats().subscribe({
-      next: (response) => {
+      next: (response: { success: boolean; countries: { country: string; count: number }[] }) => {
         if (response.success && response.countries) {
           this.countryStats.set(response.countries);
           this.updateCountryChart(response.countries);
         }
       },
-      error: (err) => {
+      error: (err: Error) => {
         console.error('Erreur stats pays:', err);
       }
     });
 
     // Charger les stats par langue
     this.clusteringService.getLanguageStats().subscribe({
-      next: (response) => {
+      next: (response: { success: boolean; languages: { lang: string; count: number }[] }) => {
         if (response.success && response.languages) {
           this.languageStats.set(response.languages);
           this.updateLanguageChart(response.languages);
         }
       },
-      error: (err) => {
+      error: (err: Error) => {
         console.error('Erreur stats langues:', err);
       }
+    });
+  }
+
+  // Charge les données du graphique d'évolution temporelle
+  loadTimeSeriesStats(): void {
+    this.clusteringService.getTimeSeriesStats(this.currentFilters.period).subscribe({
+      next: (response: { success: boolean; period: string; data: { date: string; label: string; count: number }[] }) => {
+        if (response.success && response.data) {
+          this.updateAreaChart(response.data);
+        }
+      },
+      error: (err: Error) => {
+        console.error('Erreur stats temporelles:', err);
+      }
+    });
+  }
+
+  // Construit les options du graphique d'évolution (Area Chart)
+  updateAreaChart(data: { date: string; label: string; count: number }[]): void {
+    const labels = data.map(d => d.label);
+    const values = data.map(d => Number(d.count));
+
+    this.areaChartOptions.set({
+      tooltip: {
+        trigger: 'axis',
+        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+        borderColor: '#e5e7eb',
+        borderWidth: 1,
+        textStyle: { color: '#374151' },
+        formatter: (params: any) => {
+          const point = params[0];
+          return `${point.name}: <strong>${point.value}</strong> questions`;
+        }
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '10%',
+        top: '10%',
+        containLabel: true
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: labels,
+        axisLine: { show: false },
+        axisTick: { show: false },
+        axisLabel: { color: '#6B7280', fontSize: 11 }
+      },
+      yAxis: {
+        type: 'value',
+        axisLine: { show: false },
+        axisTick: { show: false },
+        splitLine: { lineStyle: { color: '#f3f4f6' } },
+        axisLabel: { color: '#9CA3AF', fontSize: 11 }
+      },
+      series: [{
+        name: 'Questions',
+        type: 'line',
+        smooth: true,
+        symbol: 'circle',
+        symbolSize: 6,
+        sampling: 'lttb',
+        itemStyle: { color: '#F2AA4B' },
+        lineStyle: { width: 2, color: '#F2AA4B' },
+        areaStyle: {
+          color: {
+            type: 'linear',
+            x: 0, y: 0, x2: 0, y2: 1,
+            colorStops: [
+              { offset: 0, color: 'rgba(242, 170, 75, 0.3)' },
+              { offset: 1, color: 'rgba(242, 170, 75, 0.05)' }
+            ]
+          }
+        },
+        data: values
+      }]
     });
   }
 
@@ -525,6 +621,11 @@ export class DashboardComponent implements OnInit {
 
     this.questionChartOptions.set(question.questionId, options);
     return options;
+  }
+
+  // Retourne la couleur du graphique pour un index donne
+  getChartColor(index: number): string {
+    return CHART_COLORS[index % CHART_COLORS.length];
   }
 
   // Calcule le pourcentage d'une reponse

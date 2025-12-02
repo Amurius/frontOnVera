@@ -124,10 +124,32 @@ export class ClusteringService {
     );
   }
 
-  // 👇 LA MÉTHODE MANQUANTE QUI CORRIGE L'ERREUR TS2339 👇
+  // Récupère les options de filtres disponibles
   getFilterOptions(): Observable<{ countries: string[], languages: string[] }> {
     return this.http.get<{ countries: string[], languages: string[] }>(
       `${this.DASHBOARD_API_URL}/filters`
+    );
+  }
+
+  // Statistiques par pays
+  getCountryStats(): Observable<{ success: boolean; countries: { country: string; count: number }[] }> {
+    return this.http.get<{ success: boolean; countries: { country: string; count: number }[] }>(
+      `${this.DASHBOARD_API_URL}/stats/countries`
+    );
+  }
+
+  // Statistiques par langue
+  getLanguageStats(): Observable<{ success: boolean; languages: { lang: string; count: number }[] }> {
+    return this.http.get<{ success: boolean; languages: { lang: string; count: number }[] }>(
+      `${this.DASHBOARD_API_URL}/stats/languages`
+    );
+  }
+
+  // Statistiques temporelles (graphique d'évolution)
+  getTimeSeriesStats(period: string = '7d'): Observable<{ success: boolean; period: string; data: { date: string; label: string; count: number }[] }> {
+    return this.http.get<{ success: boolean; period: string; data: { date: string; label: string; count: number }[] }>(
+      `${this.DASHBOARD_API_URL}/stats/timeseries`,
+      { params: { period } }
     );
   }
 }

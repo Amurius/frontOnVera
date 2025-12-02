@@ -13,6 +13,8 @@ module.exports = {
       colors: {
         'vera-green': '#DBF9BE',
         'vera-sugar': '#FEF2E4',
+        'vera-pink': '#FFD5D8',
+        'vera-blue': '#B4D2FF',
         'vera-dark': '#1A1A1A',
         'vera-text': '#414651',
         'vera-text-light': '#717680',
