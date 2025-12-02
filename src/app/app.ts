@@ -26,7 +26,7 @@ export class App {
 
   showNavbar = computed(() => {
     const url = this.currentUrl()?.url || this.router.url;
-    const excludedRoutes = ['/', '/verify', '/login'];
+    const excludedRoutes = ['/', '/login', '/legales/politique-confidentialite', '/legales/cgu'];
     const isExcluded = excludedRoutes.some(route => url === route || url.startsWith(route + '?'));
     return this.authService.isAuthenticated() && !isExcluded;
   });
