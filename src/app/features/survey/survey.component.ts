@@ -27,8 +27,7 @@ interface Survey {
   selector: 'app-survey',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink, Navbar],
-  templateUrl: './survey.component.html',
-  styleUrl: './survey.component.css'
+  templateUrl: './survey.component.html'
 })
 export class SurveyComponent implements OnInit {
   survey = signal<Survey | null>(null);
