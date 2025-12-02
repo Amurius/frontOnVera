@@ -1,6 +1,26 @@
 <div class="fixed inset-0 bg-newspaper bg-cover bg-center -z-10"></div>
 <div class="flex min-h-screen">
+ <!-- Sidebar gauche -->
+  @if (!authService.isAuthenticated()) {
+  <div class="w-[60px] bg-vera-sugar flex flex-col justify-between py-6 px-2 fixed left-3 top-3 h-[calc(100vh-24px)] z-50 rounded-[12px]" style="border: 0.5px solid rgba(10, 13, 18, 0.12);">
+    <!-- Logo en haut -->
+    <div class="flex flex-col items-center">
+      <a routerLink="/" class="mb-6 p-1 rounded-md bg-vera-sugar" style="border: 0.2px solid rgba(10, 13, 18, 0.12); box-shadow: 0 -0.5px 0.5px 0 rgba(10, 13, 18, 0.10) inset, 0 1px 1px -0.5px rgba(10, 13, 18, 0.13), 0 1px 3px 0 rgba(10, 13, 18, 0.10), 0 1px 2px 0 rgba(10, 13, 18, 0.06);">
+        <img src="assets/icons/Logo/Mini.svg" alt="VERA" class="w-6 h-6">
+      </a>
+    </div>
 
+    <!-- Icones en bas -->
+    <div class="flex flex-col items-center gap-2">
+        <a routerLink="/login" class="w-10 h-10 flex items-center justify-center rounded-lg text-vera-text-light hover:bg-gray-100 hover:text-vera-dark transition-colors" title="Connexion">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+          </svg>
+        </a>
+    </div>
+  </div>
+  }
+  
   <!-- Contenu principal -->
   <div class="flex-1 flex flex-col min-h-screen ml-[84px]">
     <!-- Header -->
