@@ -157,11 +157,12 @@
           </div>
         </div>
 
-        <!-- Stats rapides -->
-        <div class="col-span-2 flex items-center justify-center">
-          <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-[16px] p-6 text-white min-w-[200px]">
-            <p class="text-small opacity-80 mb-1">Total questions</p>
-            <p class="text-h3 font-medium leading-none">{{ totalQuestions() | number }}</p>
+      <!-- ==================== VUE CLUSTERING (AVEC FILTRES) ==================== -->
+      @if (currentView() === 'clustering') {
+        
+        <div class="page-card filters-container">
+          <div class="filters-header">
+            <h3 class="card-title" style="font-size: 1rem; margin-bottom: 0;">Filtrer les resultats</h3>
           </div>
         </div>
       </div>
@@ -182,71 +183,39 @@
           </button>
         </div>
 
-        <!-- Filters Row -->
-        <div class="flex items-center justify-between mb-6">
-          <!-- Period Filters -->
-          <div class="flex items-center gap-2">
-            <button
-              (click)="setQuestionsPeriod('12m')"
-              class="px-4 py-2 rounded-[8px] text-small font-medium transition-colors"
-              [class.bg-white]="questionsPeriod() === '12m'"
-              [class.text-vera-dark]="questionsPeriod() === '12m'"
-              [class.border]="questionsPeriod() === '12m'"
-              [class.border-gray-200]="questionsPeriod() === '12m'"
-              [class.text-gray-500]="questionsPeriod() !== '12m'"
-              [class.hover:text-vera-dark]="questionsPeriod() !== '12m'">
-              12 months
-            </button>
-            <button
-              (click)="setQuestionsPeriod('30d')"
-              class="px-4 py-2 rounded-[8px] text-small font-medium transition-colors"
-              [class.bg-white]="questionsPeriod() === '30d'"
-              [class.text-vera-dark]="questionsPeriod() === '30d'"
-              [class.border]="questionsPeriod() === '30d'"
-              [class.border-gray-200]="questionsPeriod() === '30d'"
-              [class.text-gray-500]="questionsPeriod() !== '30d'"
-              [class.hover:text-vera-dark]="questionsPeriod() !== '30d'">
-              30 days
-            </button>
-            <button
-              (click)="setQuestionsPeriod('7d')"
-              class="px-4 py-2 rounded-[8px] text-small font-medium transition-colors"
-              [class.bg-white]="questionsPeriod() === '7d'"
-              [class.text-vera-dark]="questionsPeriod() === '7d'"
-              [class.border]="questionsPeriod() === '7d'"
-              [class.border-gray-200]="questionsPeriod() === '7d'"
-              [class.text-gray-500]="questionsPeriod() !== '7d'"
-              [class.hover:text-vera-dark]="questionsPeriod() !== '7d'">
-              7 days
-            </button>
-            <button
-              (click)="setQuestionsPeriod('custom')"
-              class="px-4 py-2 rounded-[8px] text-small font-medium transition-colors flex items-center gap-2"
-              [class.bg-white]="questionsPeriod() === 'custom'"
-              [class.text-vera-dark]="questionsPeriod() === 'custom'"
-              [class.border]="questionsPeriod() === 'custom'"
-              [class.border-gray-200]="questionsPeriod() === 'custom'"
-              [class.text-gray-500]="questionsPeriod() !== 'custom'"
-              [class.hover:text-vera-dark]="questionsPeriod() !== 'custom'">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-              </svg>
-              Custom
-            </button>
-          </div>
+            
 
-          <!-- Search -->
-          <div class="relative">
-            <input
-              type="text"
-              placeholder="Search"
-              [(ngModel)]="searchQuery"
-              class="w-[200px] h-[40px] pl-10 pr-12 rounded-[8px] border border-gray-200 text-small text-vera-dark placeholder-gray-400 focus:outline-none focus:border-gray-300"
-            >
-            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-            </svg>
-            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-small text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">⌘K</span>
+            <!-- Filtre Pays -->
+            <div class="filter-group">
+              <label class="filter-label">Pays</label>
+              <select (change)="onFilterChange('country', $any($event.target).value)" class="form-select">
+                <option value="">Tous les pays</option>
+                
+                <!-- 👇 BOUCLE DYNAMIQUE ICI 👇 -->
+                @for (code of availableCountries(); track code) {
+                  <option [value]="code">{{ getCountryName(code) }}</option>
+                }
+              </select>
+            </div>
+
+            <!-- Filtre Langue -->
+            <div class="filter-group">
+              <label class="filter-label">Langue</label>
+              <select (change)="onFilterChange('lang', $any($event.target).value)" class="form-select">
+                <option value="">Toutes les langues</option>
+                
+                <!-- 👇 BOUCLE DYNAMIQUE ICI 👇 -->
+                @for (code of availableLanguages(); track code) {
+                  <option [value]="code">{{ getLanguageName(code) }}</option>
+                }
+              </select>
+            </div>
+            
+            <div class="filter-actions">
+              <button (click)="loadClusteringStats()" class="btn-action btn-action-primary" style="height: 42px; margin-top: auto;">
+                Actualiser
+              </button>
+            </div>
           </div>
         </div>
 
@@ -366,21 +335,58 @@
                 <h3 class="text-large font-medium text-vera-dark mb-2">Aucune reponse pour le moment</h3>
                 <p class="text-small text-gray-500">Les resultats apparaitront ici une fois que des utilisateurs auront repondu au sondage.</p>
               </div>
-            }
-            @for (question of questionResponses(); track question.questionId; let i = $index) {
-              <div class="bg-white rounded-[16px] p-6" style="border: 1px solid #E5E7EB;">
-                <!-- Header de la question -->
-                <div class="flex items-start justify-between mb-6">
-                  <div class="flex gap-4">
-                    <span class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-orange-100 text-orange-600 text-normal font-semibold">{{ i + 1 }}</span>
-                    <div>
-                      <h3 class="text-large font-medium text-vera-dark mb-1">{{ question.questionText }}</h3>
-                      <div class="flex items-center gap-3">
-                        <span class="inline-block px-2 py-0.5 rounded text-small bg-gray-100 text-gray-600">
-                          {{ question.questionType === 'multiple_choice' ? 'Choix multiple' : question.questionType === 'text' ? 'Texte libre' : 'Notation' }}
+            } @else {
+              <div class="clusters-list">
+                @for (cluster of topClusters(); track $index; let i = $index) {
+                  <div class="cluster-item">
+                    <div class="cluster-rank" [class.rank-1]="i === 0" [class.rank-2]="i === 1" [class.rank-3]="i === 2">
+                      #{{ i + 1 }}
+                    </div>
+                    
+                    <div class="cluster-content">
+                      <p class="cluster-text">"{{ cluster.question || cluster.question_text || cluster.representativeText || 'Question sans texte' }}"</p>
+                      
+                      <div class="cluster-meta">
+                        <!-- 2. FRÉQUENCE -->
+                        <span class="meta-item">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
+                          </svg>
+                          <strong>{{ cluster.frequency || cluster.questionCount || 0 }}</strong> fois
                         </span>
-                        <span class="text-small text-gray-500">{{ question.totalResponses }} reponses</span>
+
+                        <!-- 3. DATE -->
+                        <span class="meta-item">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          {{ formatDateShort(cluster.lastActivityAt || cluster.created_at || cluster.createdAt) }}
+                        </span>
+
+                        <!-- 4. PAYS & LANGUE -->
+                        @if (cluster.country && cluster.country !== 'XX') {
+                          <span class="badge badge-gray" style="margin-left: 0.5rem; font-size: 0.75rem; text-transform: uppercase;">
+                            {{ cluster.country }}
+                            @if (cluster.language && cluster.language !== 'xx') { 
+                              <span style="opacity: 0.5; margin: 0 0.25rem">|</span> {{ cluster.language }} 
+                            }
+                          </span>
+                        }
+
+                        <!-- 5. SCORE IA -->
+                        @if (cluster.similarityScore) {
+                          <span class="meta-item" style="color: #10b981; margin-left: auto;" title="Confiance du regroupement IA">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+                            </svg>
+                            {{ (cluster.similarityScore * 100) | number:'1.0-0' }}% IA
+                          </span>
+                        }
                       </div>
+                    </div>
+                    
+                    <div class="cluster-count">
+                      <span class="badge badge-info">{{ cluster.frequency || cluster.questionCount || 0 }}</span>
                     </div>
                   </div>
                   <button class="text-gray-400 hover:text-gray-600">

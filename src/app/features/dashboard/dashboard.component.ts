@@ -48,171 +48,90 @@ type PeriodFilter = '12m' | '30d' | '7d' | 'custom';
   templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
+  // Injection des services
   authService = inject(AuthService);
   private surveyService = inject(SurveyService);
-  private clusteringService = inject(ClusteringService);
+  // On met clusteringService en public pour que le template puisse l'utiliser si besoin
+  public clusteringService = inject(ClusteringService);
 
-  // Vue active - "overview" par defaut (anciennement "clustering")
+  // --- ÉTAT GLOBAL ---
   currentView = signal<ViewMode>('overview');
+  currentUser = computed(() => this.authService.currentUser());
 
-  // Stats sondage
+  // --- STATS SONDAGES ---
   surveyStats = signal<DashboardStats | null>(null);
   surveyLoading = signal(true);
   surveyError = signal<string | null>(null);
 
-  // Stats clustering / overview
+  // --- STATS CLUSTERING (Vera) ---
   clusteringStats = signal<GlobalStats | null>(null);
   topClusters = signal<TopCluster[]>([]);
   clusteringLoading = signal(true);
   clusteringError = signal<string | null>(null);
 
-  // Filtres
-  overviewPeriod = signal<PeriodFilter>('12m');
-  questionsPeriod = signal<PeriodFilter>('12m');
-  searchQuery = signal('');
-
-  // Stats par pays et langue
-  countryStats = signal<{ country: string; count: number }[]>([]);
-  languageStats = signal<{ lang: string; count: number }[]>([]);
-
-  // Total questions (calcule depuis clusteringStats)
-  totalQuestions = computed(() => this.clusteringStats()?.totalQuestions || 0);
-  percentageChange = signal(12.7); // TODO: calculer depuis les vraies donnees
-
-  currentUser = computed(() => this.authService.currentUser());
-
-  // Graphique des pays (dynamique)
-  countryChartOptions = signal<EChartsOption>({});
-
-  // Configuration du graphique d'area (Vue d'ensemble)
-  areaChartOptions: EChartsOption = {
-    tooltip: {
-      trigger: 'axis',
-      backgroundColor: 'rgba(255, 255, 255, 0.95)',
-      borderColor: '#e5e7eb',
-      borderWidth: 1,
-      textStyle: {
-        color: '#374151'
-      }
-    },
-    grid: {
-      left: '3%',
-      right: '3%',
-      bottom: '10%',
-      top: '5%',
-      containLabel: true
-    },
-    xAxis: {
-      type: 'category',
-      boundaryGap: false,
-      data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-      axisLine: {
-        show: false
-      },
-      axisTick: {
-        show: false
-      },
-      axisLabel: {
-        color: '#9ca3af',
-        fontSize: 12
-      }
-    },
-    yAxis: {
-      type: 'value',
-      show: false
-    },
-    series: [
-      {
-        name: 'Questions',
-        type: 'line',
-        smooth: true,
-        symbol: 'none',
-        lineStyle: {
-          color: '#F97316',
-          width: 3
-        },
-        areaStyle: {
-          color: {
-            type: 'linear',
-            x: 0,
-            y: 0,
-            x2: 0,
-            y2: 1,
-            colorStops: [
-              { offset: 0, color: 'rgba(249, 115, 22, 0.3)' },
-              { offset: 1, color: 'rgba(249, 115, 22, 0.05)' }
-            ]
-          }
-        },
-        data: [120, 180, 150, 220, 280, 320, 380, 350, 420, 480, 520, 580]
-      },
-      {
-        name: 'Tendance',
-        type: 'line',
-        smooth: true,
-        symbol: 'none',
-        lineStyle: {
-          color: '#94a3b8',
-          width: 2
-        },
-        areaStyle: {
-          color: {
-            type: 'linear',
-            x: 0,
-            y: 0,
-            x2: 0,
-            y2: 1,
-            colorStops: [
-              { offset: 0, color: 'rgba(148, 163, 184, 0.2)' },
-              { offset: 1, color: 'rgba(148, 163, 184, 0.02)' }
-            ]
-          }
-        },
-        data: [80, 120, 100, 160, 200, 240, 280, 260, 320, 380, 400, 450]
-      }
-    ]
+  // --- FILTRES ---
+  currentFilters = {
+    period: '7d',
+    startDate: '',
+    endDate: '',
+    country: '',
+    lang: ''
   };
 
-  // Configuration du graphique donut (Langues) - dynamique
-  languageChartOptions = signal<EChartsOption>({});
+  // Listes pour les menus déroulants dynamiques
+  availableCountries = signal<string[]>([]);
+  availableLanguages = signal<string[]>([]);
 
-  // Questions frequentes (donnees reelles depuis topClusters)
-  frequentQuestions = computed(() => {
-    return this.topClusters().map((cluster, index) => ({
-      id: index + 1,
-      subject: cluster.representativeText,
-      occurrences: cluster.questionCount,
-      date: this.formatDateShort(cluster.createdAt),
-      lang: 'FR', // TODO: recuperer depuis les donnees
-      lastActivity: this.formatRelativeTime(cluster.lastActivityAt)
-    }));
-  });
-
-  // Donnees reelles pour les reponses aux questions du sondage
-  questionResponses = signal<QuestionResponse[]>([]);
-  activeSurveyId = signal<string | null>(null);
-
-  // Cache pour les options de graphiques par question
-  questionChartOptions: Map<string, EChartsOption> = new Map();
-
+  // --- INITIALISATION ---
   ngOnInit(): void {
     this.loadSurveyStats();
     this.loadClusteringStats();
+    this.loadFilters(); // Charge les pays/langues dispos en BDD
   }
 
+  // --- NAVIGATION ---
   setView(view: ViewMode): void {
     this.currentView.set(view);
   }
 
-  setOverviewPeriod(period: PeriodFilter): void {
-    this.overviewPeriod.set(period);
-    // TODO: Recharger les donnees avec la nouvelle periode
+  // --- LOGIQUE FILTRES ---
+  
+  // Charge les options depuis le backend
+  loadFilters(): void {
+    // Vérifie si la méthode existe dans ton service (on l'a ajoutée tout à l'heure)
+    if (this.clusteringService.getFilterOptions) {
+      this.clusteringService.getFilterOptions().subscribe({
+        next: (data) => {
+          this.availableCountries.set(data.countries || []);
+          this.availableLanguages.set(data.languages || []);
+        },
+        error: (err) => console.error('Erreur chargement filtres:', err)
+      });
+    }
   }
 
-  setQuestionsPeriod(period: PeriodFilter): void {
-    this.questionsPeriod.set(period);
-    // TODO: Recharger les donnees avec la nouvelle periode
+  // Gère le changement d'un filtre par l'utilisateur
+  onFilterChange(key: string, value: string): void {
+    // @ts-ignore
+    this.currentFilters[key] = value;
+
+    // Logique intelligente de rechargement
+    if (key === 'period' && value === 'custom') {
+      return; // On attend les dates
+    }
+
+    if ((key === 'startDate' || key === 'endDate')) {
+      if (this.currentFilters.period === 'custom' && this.currentFilters.startDate && this.currentFilters.endDate) {
+        this.loadClusteringStats();
+      }
+      return;
+    }
+
+    // Rechargement immédiat pour Pays, Langue, ou Période standard
+    this.loadClusteringStats();
   }
+
+  // --- CHARGEMENT DES DONNÉES ---
 
   loadSurveyStats(): void {
     this.surveyLoading.set(true);
@@ -232,7 +151,7 @@ export class DashboardComponent implements OnInit {
       },
       error: (err) => {
         console.error('Erreur stats sondage:', err);
-        this.surveyError.set('Erreur lors du chargement des statistiques du sondage');
+        this.surveyError.set('Erreur chargement stats sondage');
         this.surveyLoading.set(false);
       }
     });
@@ -292,19 +211,20 @@ export class DashboardComponent implements OnInit {
     this.clusteringLoading.set(true);
     this.clusteringError.set(null);
 
+    // 1. Stats globales (Cartes colorées)
     this.clusteringService.getGlobalStats().subscribe({
       next: (response) => {
         if (response.success) {
           this.clusteringStats.set(response.stats);
         }
       },
-      error: (err) => {
-        console.error('Erreur stats clustering:', err);
-      }
+      error: (err) => console.error('Erreur stats globales:', err)
     });
 
-    this.clusteringService.getTopClusters(10).subscribe({
+    // 2. Top Questions (Tableau) avec filtres
+    this.clusteringService.getTopClusters(10, this.currentFilters).subscribe({
       next: (response: any) => {
+        // Gestion souple du format de réponse (Tableau ou Objet)
         if (Array.isArray(response)) {
           this.topClusters.set(response);
         } else if (response.clusters) {
@@ -315,7 +235,7 @@ export class DashboardComponent implements OnInit {
         this.clusteringLoading.set(false);
       },
       error: (err) => {
-        console.error('Erreur top clusters:', err);
+        console.error('Erreur top questions:', err);
         this.clusteringError.set('Impossible de charger les questions populaires.');
         this.clusteringLoading.set(false);
       }
@@ -438,7 +358,30 @@ export class DashboardComponent implements OnInit {
     console.log('Export des donnees');
   }
 
+  // --- HELPERS D'AFFICHAGE ---
+
+  // Convertit "FR" en "France"
+  getCountryName(code: string): string {
+    try {
+      const regionNames = new Intl.DisplayNames(['fr'], { type: 'region' });
+      return regionNames.of(code) || code;
+    } catch {
+      return code;
+    }
+  }
+
+  // Convertit "fr" en "Français"
+  getLanguageName(code: string): string {
+    try {
+      const languageNames = new Intl.DisplayNames(['fr'], { type: 'language' });
+      return languageNames.of(code) || code;
+    } catch {
+      return code;
+    }
+  }
+
   formatDate(date: Date | string): string {
+    if (!date) return '-';
     return new Date(date).toLocaleDateString('fr-FR', {
       year: 'numeric',
       month: 'long',
@@ -446,7 +389,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  formatDateShort(date: string): string {
+  formatDateShort(date: string | undefined): string {
     if (!date) return '-';
     return new Date(date).toLocaleDateString('fr-FR', {
       day: '2-digit',
