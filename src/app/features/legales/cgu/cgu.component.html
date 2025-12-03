@@ -50,7 +50,7 @@
   <nav class="flex-col gap-4 py-6 px-8 max-md:px-6 max-sm:px-4 bg-vera-sugar border-t border-black/10" [class.hidden]="!menuOpen" [class.flex]="menuOpen">
     <a routerLink="/" class="text-small text-vera-text transition-colors duration-200 hover:text-vera-dark" (click)="toggleMenu()">Accueil</a>
     <a routerLink="/verify" class="bg-[#1e1e1e] border-2 border-[#1e1e1e] text-white py-2 px-5 rounded-full-btn text-small font-medium transition-all duration-200 hover:bg-vera-green hover:text-vera-dark hover:scale-105 w-fit" (click)="toggleMenu()">{{ 'NAV.TALK_TO_VERA' | translate }}</a>
-    <div class="flex items-center gap-1 text-small">
+    <div class="flex items-center gap-1 text-small pt-2 border-t border-black/10">
       <button (click)="switchLanguage('fr'); toggleMenu()" class="cursor-pointer bg-transparent border-none p-0" [class.font-semibold]="currentLang === 'fr'" [class.text-vera-text-light]="currentLang !== 'fr'">FR</button>
       <span class="text-vera-text-light">/</span>
       <button (click)="switchLanguage('en'); toggleMenu()" class="cursor-pointer bg-transparent border-none p-0" [class.font-semibold]="currentLang === 'en'" [class.text-vera-text-light]="currentLang !== 'en'">ENG</button>
@@ -59,16 +59,16 @@
 </header>
 
 <!-- Contenu principal -->
-<main class="pt-[140px] pb-24 relative z-0" [class.pt-[180px]]="showBanner">
+<main class="pt-[140px] pb-24 relative z-0 max-md:pt-[120px] max-md:pb-16 max-sm:pb-12" [class.pt-[180px]]="showBanner">
   <div class="max-w-container mx-auto px-8 max-md:px-6 max-sm:px-4">
     <div>
-      <h1 class="font-heading text-h1 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[28px]">Conditions générales d'utilisation et Mentions Légales</h1>
-      <p class="text-small text-vera-gray mb-8">Dernière mise à jour : 26 novembre 2025.</p>
+      <h1 class="font-heading text-h1 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[24px] max-sm:text-[20px] max-md:tracking-[-1px]">Conditions générales d'utilisation et Mentions Légales</h1>
+      <p class="text-small text-vera-gray mb-8 max-md:mb-6">Dernière mise à jour : 26 novembre 2025.</p>
 
       <!-- Mentions Légales et Hébergeur -->
-      <section class="mb-10">
-        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Mentions Légales et Hébergeur</h2>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+      <section class="mb-10 max-md:mb-8">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[18px] max-md:tracking-[-1px] max-md:mb-3">Mentions Légales et Hébergeur</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>VERA est éditée par LAREPONSE.TECH, une organisation non gouvernementale (ONG) ayant le statut d'association, dédiée à l'utilisation de la technologie pour le bien commun.</p>
           <p><strong>Responsable de publication :</strong> LAREPONSE.TECH représentée par Florian Gauthier, en qualité de président de l'association</p>
           <p><strong>Siège social :</strong> 52 rue du Faubourg Poissonnière, 75010 Paris</p>
@@ -82,9 +82,9 @@
       </section>
 
       <!-- Préambule -->
-      <section class="mb-10">
-        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Préambule</h2>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+      <section class="mb-10 max-md:mb-8">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[18px] max-md:tracking-[-1px] max-md:mb-3">Préambule</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>VERA est un service d'intelligence artificielle créé et possédé par LAREPONSE.TECH, une organisation non gouvernementale (ONG) ayant qualité d'association dédiée à lutter contre la désinformation et promouvoir l'utilisation de la technologie pour le bien commun. LAREPONSE.TECH favorise l'engagement citoyen et développe des solutions innovantes face aux défis climatiques et sociaux.</p>
           <p>VERA permet aux utilisateurs de poser des questions via WhatsApp, Instagram ou par téléphone. Elle fournit des réponses basées sur des faits qu'elle trouve sur des sites de fact-checking et d'actualité.</p>
           <p>L'accès et l'utilisation de VERA sont soumis aux présentes Conditions Générales d'Utilisation (CGU), qui peuvent être modifiées à tout moment par LAREPONSE.TECH.</p>
@@ -93,9 +93,9 @@
       </section>
 
       <!-- Définitions -->
-      <section class="mb-10">
-        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Définitions</h2>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+      <section class="mb-10 max-md:mb-8">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[18px] max-md:tracking-[-1px] max-md:mb-3">Définitions</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p><strong>Éditeur :</strong> désigne LAREPONSE.TECH, l'organisme propriétaire et responsable du service VERA.</p>
           <p><strong>Service :</strong> désigne l'application VERA, accessible via WhatsApp, Instagram ou téléphone.</p>
           <p><strong>Utilisateur :</strong> toute personne accédant à VERA pour poser des questions ou obtenir des réponses.</p>
@@ -104,25 +104,25 @@
       </section>
 
       <!-- Objet de VERA -->
-      <section class="mb-10">
-        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Objet de VERA</h2>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+      <section class="mb-10 max-md:mb-8">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[18px] max-md:tracking-[-1px] max-md:mb-3">Objet de VERA</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>VERA a pour but de fournir des réponses factuelles basées sur des informations provenant de sites de fact-checking et d'actualité. Elle est disponible pour toute personne via WhatsApp, Instagram et téléphone. Les présentes CGU fixent le cadre juridique de VERA et définissent les conditions d'accès et d'utilisation du Service par l'Utilisateur.</p>
         </div>
       </section>
 
       <!-- Accès et Utilisation de VERA -->
-      <section class="mb-10">
-        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Accès et Utilisation de VERA</h2>
+      <section class="mb-10 max-md:mb-8">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[18px] max-md:tracking-[-1px] max-md:mb-3">Accès et Utilisation de VERA</h2>
 
         <h3 class="font-body text-large font-semibold text-vera-dark mb-3 mt-6">Accès géographique et frais</h3>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>VERA est accessible mondialement via téléphone, Instagram et WhatsApp à toute personne. L'utilisation de VERA via WhatsApp et Instagram est gratuite partout dans le monde, sous réserve d'une connexion Internet.</p>
           <p>Pour les Utilisateurs résidant en France et disposant d'un numéro de téléphone français, l'accès à VERA via un appel téléphonique est gratuit. Toutefois, si un Utilisateur appelle un numéro français depuis l'étranger, des frais supplémentaires peuvent s'appliquer en fonction de la tarification de son opérateur et de sa localisation.</p>
         </div>
 
         <h3 class="font-body text-large font-semibold text-vera-dark mb-3 mt-6">Conditions techniques d'accès</h3>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>L'accès à VERA se fait via un numéro de téléphone dédié par WhatsApp ou par appel téléphonique, ou par un compte Instagram.</p>
           <ul class="list-disc list-inside space-y-2">
             <li>Pour utiliser VERA via WhatsApp, une connexion Internet et un smartphone sont nécessaires.</li>
@@ -132,63 +132,63 @@
         </div>
 
         <h3 class="font-body text-large font-semibold text-vera-dark mb-3 mt-6">Poser des questions</h3>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>L'Utilisateur peut poser des questions en envoyant un message Whatsapp, Instagram ou un SMS par téléphone au numéro suivant : <strong>+33 9 74 99 12 95</strong> ; ou en appelant ce même numéro par téléphone.</p>
           <p>Le Service numérique s'appuie sur l'intelligence artificielle d'OpenAI (GPT4) pour générer les réponses aux questions des Utilisateurs. L'Utilisateur est responsable des données qu'il partage avec VERA, et doit s'assurer de ne pas divulguer d'informations personnelles sensibles, ou confidentielles lors de ses interactions avec le Service.</p>
           <p>L'Utilisateur s'engage à ne pas mettre en ligne de contenus ou informations contraires aux dispositions légales et réglementaires en vigueur. L'Utilisateur s'engage à ne pas publier, à quelque endroit que ce soit, de messages racistes, sexistes, injurieux, insultants ou contraires à l'ordre public.</p>
         </div>
 
         <h3 class="font-body text-large font-semibold text-vera-dark mb-3 mt-6">Interdiction des requêtes automatisées</h3>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>Toute requête automatisée adressée à VERA est interdite, y compris l'utilisation de bots ou d'autres systèmes automatisés visant à interagir avec le service. En cas de non-respect de cette règle, le numéro de téléphone de l'Utilisateur pourra être bloqué sans préavis.</p>
         </div>
 
         <h3 class="font-body text-large font-semibold text-vera-dark mb-3 mt-6">Transparence des sources</h3>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>Les sources de fact checking utilisées par VERA sont disponibles <a href="https://www.askvera.org" target="_blank" class="text-vera-label hover:underline">ici</a>.</p>
         </div>
 
         <h3 class="font-body text-large font-semibold text-vera-dark mb-3 mt-6">Retours Utilisateurs et signalement</h3>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>Tout Utilisateur peut signaler une source qu'il n'estime pas fiable ou une réponse qu'il estime erronée via ce formulaire ou en écrivant à LAREPONSE.TECH à cette adresse : <a href="mailto:contact@lareponse.tech" class="text-vera-label hover:underline">contact&#64;lareponse.tech</a>.</p>
           <p>LAREPONSE.TECH s'engage à étudier la demande et à enquêter. Le retrait d'une source interviendra si elle ne répond pas aux critères de fiabilité et de neutralité définis par LAREPONSE.TECH. Pour en savoir plus, l'Utilisateur peut consulter le site <a href="https://www.askvera.org" target="_blank" class="text-vera-label hover:underline">askvera.org</a>.</p>
         </div>
 
         <h3 class="font-body text-large font-semibold text-vera-dark mb-3 mt-6">Utilisation exclusive à la vérification des faits et aux discussions connexes</h3>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>VERA est strictement réservée à la vérification des faits et aux discussions autour de ces faits. Toute utilisation de VERA à d'autres fins, telles que l'envoi de requêtes non liées à la vérification d'informations ou à des discussions pertinentes sur ces informations, est interdite. L'utilisation de VERA à des fins illégales, commerciales ou frauduleuses est strictement interdite.</p>
           <p>En cas de non-respect de cette règle, LAREPONSE.TECH se réserve le droit de restreindre l'accès au service, notamment par le blocage du numéro de téléphone de l'Utilisateur concerné. En cas d'utilisation de VERA à des fins illégales, commerciales ou frauduleuses, le numéro de l'Utilisateur sera bloqué sans préavis.</p>
         </div>
       </section>
 
       <!-- Force majeure -->
-      <section class="mb-10">
-        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Force majeure</h2>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+      <section class="mb-10 max-md:mb-8">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[18px] max-md:tracking-[-1px] max-md:mb-3">Force majeure</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>LAREPONSE.TECH ne pourra être tenue responsable des retards ou manquements dans l'exécution de ses obligations résultant d'événements indépendants de sa volonté, notamment en cas de force majeure, tels que des catastrophes naturelles, des pannes techniques, des interruptions des services de télécommunications, des cyberattaques ou tout autre événement échappant à son contrôle raisonnable.</p>
         </div>
       </section>
 
       <!-- Nullité partielle -->
-      <section class="mb-10">
-        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Nullité partielle</h2>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+      <section class="mb-10 max-md:mb-8">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[18px] max-md:tracking-[-1px] max-md:mb-3">Nullité partielle</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>Si l'une des dispositions des présentes CGU est jugée nulle ou inapplicable par une juridiction compétente, cela n'affectera en rien la validité ou l'applicabilité des autres dispositions, qui resteront en vigueur.</p>
         </div>
       </section>
 
       <!-- Modifications des CGU -->
-      <section class="mb-10">
-        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Modifications des CGU</h2>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+      <section class="mb-10 max-md:mb-8">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[18px] max-md:tracking-[-1px] max-md:mb-3">Modifications des CGU</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>LAREPONSE.TECH se réserve le droit de modifier les présentes CGU à tout moment. Les modifications seront publiées directement sur le site de VERA. En cas de modifications majeures, LAREPONSE.TECH informera les Utilisateurs via ses réseaux sociaux. L'utilisateur est invité à consulter régulièrement les CGU pour se tenir informé des éventuelles modifications.</p>
         </div>
       </section>
 
       <!-- Limites de responsabilité -->
-      <section class="mb-10">
-        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Limites de responsabilité</h2>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+      <section class="mb-10 max-md:mb-8">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[18px] max-md:tracking-[-1px] max-md:mb-3">Limites de responsabilité</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>Bien que LAREPONSE.TECH s'efforce de fournir des informations exactes, les réponses générées par VERA peuvent être erronées, incorrectes ou imprécises en raison du caractère probabiliste des réponses de VERA en tant que système d'intelligence artificielle et de la nature des sources ou de l'interprétation des données.</p>
           <p>LAREPONSE.TECH ne pourra être tenue responsable des décisions prises par l'Utilisateur sur la base des réponses fournies par VERA.</p>
           <p>Les réponses fournies par VERA sont purement informatives et ne doivent pas être interprétées comme des conseils professionnels, comme par exemple dans des domaines tels que le droit, la médecine, la psychologie ou les finances.</p>
@@ -197,34 +197,34 @@
       </section>
 
       <!-- Restrictions d'accès et Blocage -->
-      <section class="mb-10">
-        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Restrictions d'accès et Blocage</h2>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+      <section class="mb-10 max-md:mb-8">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[18px] max-md:tracking-[-1px] max-md:mb-3">Restrictions d'accès et Blocage</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>Toute utilisation contraire aux dispositions légales et règlementaires, ainsi qu'aux présentes CGU est interdite. VERA ne peut être utilisé à des fins commerciales. En cas de non-respect, LAREPONSE.TECH se réserve le droit de bloquer immédiatement le numéro de téléphone de l'Utilisateur ou le compte Instagram de l'Utilisateur sans préavis.</p>
           <p>L'Editeur fournit les moyens nécessaires et raisonnables pour assurer un accès continu au Service. LAREPONSE.TECH se réserve le droit de restreindre temporairement l'accès à VERA en cas de trop forte affluence ou dans des situations exceptionnelles pouvant affecter la disponibilité du service.</p>
         </div>
       </section>
 
       <!-- Sécurisation du Service -->
-      <section class="mb-10">
-        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Sécurisation du Service</h2>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+      <section class="mb-10 max-md:mb-8">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[18px] max-md:tracking-[-1px] max-md:mb-3">Sécurisation du Service</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>L'Editeur s'engage à la sécurisation du Service en prenant toutes les mesures nécessaires dans la limite de ses capacités techniques.</p>
         </div>
       </section>
 
       <!-- Propriété intellectuelle -->
-      <section class="mb-10">
-        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Propriété intellectuelle</h2>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+      <section class="mb-10 max-md:mb-8">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[18px] max-md:tracking-[-1px] max-md:mb-3">Propriété intellectuelle</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>Les Utilisateurs sont libres d'utiliser, de partager ou de reproduire les réponses fournies par VERA. Il n'y a aucune restriction de propriété intellectuelle sur les informations générées par le Service.</p>
         </div>
       </section>
 
       <!-- Litiges et Juridiction -->
-      <section class="mb-10">
-        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Litiges et Juridiction</h2>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+      <section class="mb-10 max-md:mb-8">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[18px] max-md:tracking-[-1px] max-md:mb-3">Litiges et Juridiction</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>Les présentes CGU sont régies par la législation française. En cas de litige, les tribunaux compétents seront ceux de Paris.</p>
         </div>
       </section>
@@ -232,7 +232,7 @@
       <!-- Contact -->
       <section>
         <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">Contact</h2>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>Pour toute question relative aux présentes CGU, veuillez contacter LAREPONSE.TECH à l'adresse suivante : <a href="mailto:dpo@lareponse.tech" class="text-vera-label hover:underline">dpo&#64;lareponse.tech</a></p>
         </div>
       </section>

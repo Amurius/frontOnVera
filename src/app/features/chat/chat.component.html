@@ -1,8 +1,9 @@
 <div class="fixed inset-0 bg-newspaper bg-cover bg-center -z-10"></div>
-<div class="flex min-h-screen">
+<div class="flex h-screen overflow-hidden">
  <!-- Sidebar gauche -->
   @if (!authService.isAuthenticated()) {
-  <div class="w-[60px] bg-vera-sugar flex flex-col justify-between py-6 px-2 fixed left-3 top-3 h-[calc(100vh-24px)] z-50 rounded-[12px]" style="border: 0.5px solid rgba(10, 13, 18, 0.12);">
+  <!-- Sidebar desktop -->
+  <div class="w-[60px] bg-vera-sugar flex flex-col justify-between py-6 px-2 fixed left-3 top-3 h-[calc(100vh-24px)] z-50 rounded-[12px] max-md:hidden" style="border: 0.5px solid rgba(10, 13, 18, 0.12);">
     <!-- Logo en haut -->
     <div class="flex flex-col items-center">
       <a routerLink="/" class="mb-6 p-1 rounded-md bg-vera-sugar" style="border: 0.2px solid rgba(10, 13, 18, 0.12); box-shadow: 0 -0.5px 0.5px 0 rgba(10, 13, 18, 0.10) inset, 0 1px 1px -0.5px rgba(10, 13, 18, 0.13), 0 1px 3px 0 rgba(10, 13, 18, 0.10), 0 1px 2px 0 rgba(10, 13, 18, 0.06);">
@@ -19,34 +20,41 @@
         </a>
     </div>
   </div>
+  <!-- Header mobile -->
+  <div class="hidden max-md:flex fixed top-0 left-0 right-0 z-50 bg-vera-sugar/95 backdrop-blur-sm px-4 py-3 items-center justify-between" style="border-bottom: 0.5px solid rgba(10, 13, 18, 0.12);">
+    <a routerLink="/" class="p-1 rounded-md bg-vera-sugar" style="border: 0.2px solid rgba(10, 13, 18, 0.12); box-shadow: 0 -0.5px 0.5px 0 rgba(10, 13, 18, 0.10) inset, 0 1px 1px -0.5px rgba(10, 13, 18, 0.13), 0 1px 3px 0 rgba(10, 13, 18, 0.10), 0 1px 2px 0 rgba(10, 13, 18, 0.06);">
+      <img src="assets/icons/Logo/Mini.svg" alt="VERA" class="w-6 h-6">
+    </a>
+    <a routerLink="/" class="px-3 py-1.5 bg-vera-dark rounded-full text-[12px] text-white font-medium">Comment ça marche ?</a>
+  </div>
   }
-  
+
   <!-- Contenu principal -->
-  <div class="flex-1 flex flex-col min-h-screen ml-[84px]">
-    <!-- Header -->
-    <div class="flex justify-end items-center gap-3 p-6">
+  <div class="flex-1 flex flex-col h-screen overflow-hidden ml-[84px] max-md:ml-0 max-md:pt-14">
+    <!-- Header (fixe en haut) - Desktop uniquement -->
+    <div class="flex-shrink-0 flex justify-end items-center gap-3 p-6 max-md:hidden">
       <a routerLink="/" class="px-5 py-2.5 bg-vera-dark rounded-full text-normal text-white font-medium hover:opacity-90 transition-opacity">Comment ça marche ?</a>
       <a href="#" class="px-5 py-2.5 border border-vera-dark rounded-full text-normal text-vera-dark font-medium hover:bg-vera-dark hover:text-white transition-colors">Nous aider</a>
     </div>
 
-    <!-- Zone des messages -->
-    <div #messagesContainer class="flex-1 overflow-y-auto px-8 max-md:px-4 flex flex-col">
+    <!-- Zone des messages (scrollable) -->
+    <div #messagesContainer class="flex-1 overflow-y-auto px-8 max-md:px-4 flex flex-col min-h-0">
       @if (messages().length === 0) {
         <!-- Etat d'accueil -->
-        <div class="flex-1 flex flex-col items-center justify-center text-center">
-          <h1 class="font-heading text-h1 font-medium text-vera-dark mb-4 max-md:text-[32px]">Bienvenue sur <span class="bg-vera-green px-2 rounded">VERA</span></h1>
-          <p class="text-h3 text-vera-text mb-1">Vérifie une info en quelques secondes</p>
-          <p class="text-large text-vera-text-light">Colle un lien Youtube, un extrait de texte ou résume ce que tu as vu.</p>
+        <div class="flex-1 flex flex-col items-center justify-center text-center px-4">
+          <h1 class="font-heading text-h1 font-medium text-vera-dark mb-4 max-lg:text-h2 max-md:text-[36px] max-sm:text-h3">Bienvenue sur <span class="bg-vera-green px-2 rounded">VERA</span></h1>
+          <p class="text-h3 text-vera-text mb-1 max-md:text-normal">Vérifie une info en quelques secondes</p>
+          <p class="text-large text-vera-text-light max-md:text-small max-w-[500px]">Colle un lien Youtube, un extrait de texte ou résume ce que tu as vu.</p>
         </div>
 
       } @else {
         <!-- Messages -->
-        <div class="max-w-[1280px] w-full mx-auto py-8 px-6">
+        <div class="max-w-[1280px] w-full mx-auto py-8 px-6 max-md:px-2 max-md:py-4">
           @for (message of messages(); track message.id) {
             <div class="mb-8 relative" [class.flex]="true" [class.justify-end]="message.type === 'user'" [class.justify-start]="message.type === 'assistant'">
               <!-- Message utilisateur -->
               @if (message.type === 'user') {
-                <div class="max-w-[60%] bg-white rounded-2xl px-5 py-3 border border-gray-100" style="box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);">
+                <div class="max-w-[60%] max-md:max-w-[85%] bg-white rounded-2xl px-5 py-3 max-md:px-4 max-md:py-2.5 border border-gray-100" style="box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);">
                   <!-- Media Content -->
                   @if (message.contentType === 'file' && message.fileUrl) {
                     <div class="mb-2">
@@ -86,7 +94,7 @@
               <!-- Message assistant (VERA) -->
               @if (message.type === 'assistant') {
                 <div class="w-full">
-                  <div class="text-[16px] text-[#6B7280] leading-relaxed whitespace-pre-wrap">
+                  <div class="text-normal text-[#6B7280] leading-relaxed whitespace-pre-wrap">
                     {{ message.content }}
                     @if (message.isStreaming) {
                       <span class="inline-block w-2 h-4 bg-vera-dark ml-1 animate-pulse"></span>
@@ -100,6 +108,23 @@
                         <path d="M4.40015 7.59834C4.40015 5.78088 4.40015 4.87215 4.9625 4.30753C5.52486 3.74292 6.42995 3.74292 8.24015 3.74292H10.1601C11.9703 3.74292 12.8754 3.74292 13.4378 4.30753C14.0001 4.87215 14.0001 5.78088 14.0001 7.59834V10.8112C14.0001 12.6287 14.0001 13.5374 13.4378 14.102C12.8754 14.6666 11.9703 14.6666 10.1601 14.6666H8.24015C6.42995 14.6666 5.52486 14.6666 4.9625 14.102C4.40015 13.5374 4.40015 12.6287 4.40015 10.8112V7.59834Z" fill="#6B7280"/>
                       </svg>
                     </button>
+                  </div>
+                </div>
+              }
+
+              <!-- Message d'erreur -->
+              @if (message.type === 'error') {
+                <div class="w-full">
+                  <div class="bg-red-50 border border-red-200 rounded-2xl px-5 py-4">
+                    <div class="flex items-end gap-3 flex">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-500 flex-shrink-0 mt-0.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                      </svg>
+                      <div class="text-[16px] text-red-700 leading-relaxed">
+                        Une erreur est survenue. Veuillez réessayer ou contacter le
+                        <a href="mailto:contact@lareponse.tech" class="text-red-600 underline hover:text-red-800 font-medium">support</a>.
+                      </div>
+                    </div>
                   </div>
                 </div>
               }
@@ -121,14 +146,14 @@
       }
     </div>
 
-    <!-- Zone de saisie et questions -->
-    <div class="p-6 pt-0">
-      <div class="max-w-[1280px] w-full mx-auto flex flex-col gap-6">
+    <!-- Zone de saisie et questions (fixe en bas) -->
+    <div class="flex-shrink-0 p-6 pt-0 bg-transparent max-md:p-4 max-md:pt-0 max-sm:p-3 max-sm:pt-0">
+      <div class="max-w-[1280px] w-full mx-auto flex flex-col gap-6 max-md:gap-4">
         <!-- Questions de la semaine -->
         @if (messages().length === 0) {
           <div class="w-full">
-            <h2 class="text-h3 text-vera-dark mb-4 font-heading">Questions de la semaine</h2>
-            <div class="grid grid-cols-3 gap-4 max-md:grid-cols-1">
+            <h2 class="text-h3 text-vera-dark mb-4 font-heading max-sm:text-normal max-md:text-large max-md:mb-3">Questions de la semaine</h2>
+            <div class="grid grid-cols-3 gap-4 max-md:grid-cols-1 max-md:gap-3">
               @if (isLoadingRecent()) {
                 <div class="bg-white rounded-xl p-4 border border-gray-100 animate-pulse">
                   <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
@@ -143,14 +168,14 @@
                   <div class="h-4 bg-gray-200 rounded w-1/2"></div>
                 </div>
               } @else if (recentQuestions().length === 0) {
-                <p class="text-normal text-vera-text-light col-span-3">Aucune question récente</p>
+                <p class="text-normal text-vera-text-light col-span-3 max-sm:text-small ">Aucune question récente</p>
               } @else {
                 @for (question of recentQuestions(); track question.id) {
                   <button
                     (click)="selectRecentQuestion(question.text)"
-                    class="bg-white rounded-xl p-4 border border-gray-100 text-left hover:border-vera-green hover:shadow-md transition-all flex items-center justify-between gap-3 group">
-                    <span class="text-normal text-vera-text leading-relaxed line-clamp-2">{{ question.text }}</span>
-                    <img src="assets/icons/chevron-right-outline.svg" alt="" class="w-5 h-5 opacity-50 group-hover:opacity-100 shrink-0">
+                    class="bg-white rounded-xl p-4 border border-gray-100 text-left hover:border-vera-green hover:shadow-md transition-all flex items-center justify-between gap-3 group max-sm:py-2">
+                    <span class="text-normal text-vera-text leading-relaxed line-clamp-2 max-sm:text-small">{{ question.text }}</span>
+                    <img src="assets/icons/chevron-right-outline.svg" alt="" class="w-5 h-5 opacity-50 group-hover:opacity-100 shrink-0 max-md:w-3 max-md:h-3">
                   </button>
                 }
               }
@@ -159,33 +184,33 @@
         }
 
         <!-- Input -->
-        <div class="w-full flex flex-col items-start gap-[13px] p-[16px_12px_12px_12px] rounded-[12px] bg-cta-gradient" style="box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);">
-          <p class="text-small text-vera-text-light">VERA utilise uniquement des sources fiables (fact-checkers, médias reconnus, ONG).</p>
+        <div class="w-full flex flex-col items-start gap-[13px] p-[16px_12px_12px_12px] max-md:p-[12px_10px_10px_10px] rounded-[12px] bg-cta-gradient" style="box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);">
+          <p class="text-small text-vera-text-light max-md:text-[11px] max-md:leading-tight">VERA utilise uniquement des sources fiables (fact-checkers, médias reconnus, ONG).</p>
 
           <div class="w-full bg-white rounded-[12px] border border-gray-200 overflow-hidden">
             <input
               #fileInput
               type="file"
-              accept="image/*,video/*,.pdf,.doc,.docx,.txt"
+              accept="image/*,video/*,.pdf,.doc,.docx,.odt,.txt"
               (change)="onFileSelected($event)"
               class="hidden">
 
             @if (isSelectingLanguage()) {
               <!-- Sélection de la langue -->
-              <div class="flex flex-col items-center justify-center py-8 gap-4">
-                <p class="text-normal text-vera-text">Choisissez votre langue</p>
-                <div class="flex items-center gap-4">
+              <div class="flex flex-col items-center justify-center py-8 gap-4 max-md:py-6 max-md:gap-3">
+                <p class="text-normal text-vera-text max-md:text-small">Choisissez votre langue</p>
+                <div class="flex items-center gap-4 max-md:gap-3">
                   <button
                     (click)="selectLanguageAndRecord('fr-FR')"
-                    class="flex flex-col items-center gap-2 px-6 py-4 rounded-xl border-2 border-gray-200 hover:border-vera-green hover:bg-vera-green/10 transition-all">
-                    <span class="text-[24px]">🇫🇷</span>
-                    <span class="text-normal font-medium text-vera-dark">Français</span>
+                    class="flex flex-col items-center gap-2 px-6 py-4 max-md:px-4 max-md:py-3 rounded-xl border-2 border-gray-200 hover:border-vera-green hover:bg-vera-green/10 transition-all">
+                    <span class="text-[24px] max-md:text-[20px]">🇫🇷</span>
+                    <span class="text-normal font-medium text-vera-dark max-md:text-small">Français</span>
                   </button>
                   <button
                     (click)="selectLanguageAndRecord('en-US')"
-                    class="flex flex-col items-center gap-2 px-6 py-4 rounded-xl border-2 border-gray-200 hover:border-vera-green hover:bg-vera-green/10 transition-all">
-                    <span class="text-[24px]">🇺🇸</span>
-                    <span class="text-normal font-medium text-vera-dark">English</span>
+                    class="flex flex-col items-center gap-2 px-6 py-4 max-md:px-4 max-md:py-3 rounded-xl border-2 border-gray-200 hover:border-vera-green hover:bg-vera-green/10 transition-all">
+                    <span class="text-[24px] max-md:text-[20px]">🇺🇸</span>
+                    <span class="text-normal font-medium text-vera-dark max-md:text-small">English</span>
                   </button>
                 </div>
                 <button (click)="cancelLanguageSelection()" class="text-[12px] text-vera-text-light hover:text-vera-dark transition-colors">
@@ -194,8 +219,8 @@
               </div>
             } @else if (isRecording()) {
               <!-- Mode enregistrement vocal -->
-              <div class="flex flex-col items-center justify-center py-8 gap-4">
-                <p class="text-normal text-vera-text-light">
+              <div class="flex flex-col items-center justify-center py-8 gap-4 max-md:py-6 max-md:gap-3">
+                <p class="text-normal text-vera-text-light max-md:text-small">
                   @if (selectedLanguage() === 'fr-FR') {
                     Parlez maintenant...
                   } @else {
@@ -232,27 +257,51 @@
                 <span class="text-small font-medium" style="background: linear-gradient(91deg, #DBF9BE -18.27%, #819370 128.27%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">VERA AI Assistant</span>
               </div>
 
-              <!-- Input -->
-              <div class="px-4 py-2">
-                @if (selectedFile()) {
-                  <div class="flex items-center gap-2 py-2">
-                    <span class="text-normal text-vera-text">{{ selectedFile()!.name }}</span>
-                    <button (click)="clearSelectedFile()" class="text-vera-text-light hover:text-red-500" [disabled]="isLoading()">
+              <!-- Prévisualisation du fichier sélectionné -->
+              @if (selectedFile()) {
+                <div class="px-4 pt-2">
+                  <div class="flex items-center gap-2 py-2 px-3 bg-gray-50 rounded-lg border border-gray-200">
+                    @if (isImage(selectedFile()!)) {
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-vera-green">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                      </svg>
+                    } @else if (isVideo(selectedFile()!)) {
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-vera-green">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
+                      </svg>
+                    } @else if (isDocument(selectedFile()!)) {
+                      <!-- Icône document PDF/Word/ODT -->
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-vera-green">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                      </svg>
+                    } @else {
+                      <!-- Icône fichier générique -->
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-vera-green">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                      </svg>
+                    }
+                    <span class="text-normal text-vera-text flex-1 truncate">{{ selectedFile()!.name }}</span>
+                    <span class="text-small text-vera-text-light">{{ formatFileSize(selectedFile()!.size) }}</span>
+                    <button (click)="clearSelectedFile()" class="text-vera-text-light hover:text-red-500 ml-2" [disabled]="isLoading()">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                       </svg>
                     </button>
                   </div>
-                } @else {
-                  <input
-                    type="text"
-                    [(ngModel)]="textMessage"
-                    (keydown)="onKeyDown($event)"
-                    (input)="onInputChange()"
-                    placeholder="Saisissez votre texte ici, collez un lien Youtube ou téléchargez un document"
-                    class="w-full text-normal text-vera-dark placeholder-vera-text-light outline-none bg-transparent py-2"
-                    [disabled]="isLoading()">
-                }
+                </div>
+              }
+
+              <!-- Input texte (toujours visible) -->
+              <div class="px-4 py-2">
+                <textarea
+                  #textInput
+                  [(ngModel)]="textMessage"
+                  (keydown)="onKeyDown($event)"
+                  (input)="onInputChange(); autoResize($event)"
+                  [placeholder]="selectedFile() ? 'Ajoutez une question sur ce fichier (optionnel)' : 'Saisissez votre texte ici, collez un lien Youtube ou téléchargez un document'"
+                  class="w-full text-normal text-vera-dark placeholder-vera-text-light outline-none bg-transparent py-2 resize-none overflow-hidden max-md:min-h-[56px] max-md:overflow-y-auto max-md:max-h-[112px] max-sm:text-small max-sm:p-0"
+                  rows="1"
+                  [disabled]="isLoading()"></textarea>
               </div>
 
               <!-- Actions -->

@@ -4,14 +4,17 @@ import { environment } from '../../../environments/environment';
 
 export interface ChatMessage {
   id: string;
-  type: 'user' | 'assistant' | 'system'; // Rôle : qui parle ?
-  contentType: 'text' | 'image' | 'video' | 'file' | 'youtube'; 
+  type: 'user' | 'assistant' | 'system' | 'error'; // Rôle : qui parle ?
+  contentType: 'text' | 'image' | 'video' | 'file' | 'youtube' | 'error';
   content: string;
-  fileUrl?: string;  
-  fileName?: string; 
+  fileUrl?: string;
+  fileName?: string;
   timestamp: Date;
   isStreaming?: boolean;
 }
+
+// Message d'erreur standardisé
+const ERROR_MESSAGE = "Une erreur est survenue. Veuillez réessayer ou contacter le support.";
 
 @Injectable({
   providedIn: 'root'
@@ -57,25 +60,30 @@ export class ChatService {
 
     } catch (error) {
       console.error('Erreur envoi message:', error);
-      this.addSystemMessage("Erreur lors de l'envoi du message.");
+      this.addErrorMessage();
       this.isLoading.set(false);
     }
   }
 
   /**
-   * Envoi d'un fichier (Image/Vidéo/PDF)
+   * Envoi d'un fichier (Image/Vidéo/PDF) avec question optionnelle
    */
-  async sendFileMessage(file: File): Promise<void> {
+  async sendFileMessage(file: File, userQuestion: string = '', country: string = 'XX', lang: string = 'xx'): Promise<void> {
     const isImage = file.type.startsWith('image/');
     const isVideo = file.type.startsWith('video/');
-    
+
     // Création d'une URL locale pour l'affichage immédiat dans le chat
     const tempUrl = URL.createObjectURL(file);
+
+    // Affichage du message utilisateur avec la question si présente
+    const displayContent = userQuestion
+      ? `${userQuestion}\n\n[${isImage ? 'Image' : isVideo ? 'Vidéo' : 'Fichier'} : ${file.name}]`
+      : (isImage ? 'Image envoyée' : `Fichier : ${file.name}`);
 
     this.addMessage({
       type: 'user',
       contentType: isImage ? 'image' : (isVideo ? 'video' : 'file'),
-      content: isImage ? 'Image envoyée' : `Fichier : ${file.name}`,
+      content: displayContent,
       fileUrl: tempUrl,
       fileName: file.name
     });
@@ -84,10 +92,11 @@ export class ChatService {
 
     const formData = new FormData();
     formData.append('file', file);
-    // On pourrait ajouter country/lang ici aussi si le backend le gère
+    formData.append('userQuestion', userQuestion);
+    formData.append('country', country);
+    formData.append('lang', lang);
 
     try {
-      // Attention: la route doit matcher celle de ton backend (/upload)
       const response = await fetch(`${this.API_URL}/chat/upload`, {
         method: 'POST',
         headers: { 'X-Session-Id': this.sessionId },
@@ -99,19 +108,24 @@ export class ChatService {
 
     } catch (error) {
       console.error('Erreur envoi fichier:', error);
-      this.addSystemMessage("Erreur lors de l'envoi du fichier.");
+      this.addErrorMessage();
       this.isLoading.set(false);
     }
   }
 
   /**
-   * Envoi d'une URL YouTube
+   * Envoi d'une URL YouTube avec question optionnelle
    */
-  async sendYouTubeMessage(url: string): Promise<void> {
+  async sendYouTubeMessage(url: string, userQuestion: string = '', country: string = 'XX', lang: string = 'xx'): Promise<void> {
+    // Affichage du message utilisateur avec la question si présente
+    const displayContent = userQuestion
+      ? `${userQuestion}\n\n[Vidéo YouTube : ${url}]`
+      : url;
+
     this.addMessage({
       type: 'user',
       contentType: 'youtube',
-      content: url
+      content: displayContent
     });
 
     this.isLoading.set(true);
@@ -123,14 +137,14 @@ export class ChatService {
           'Content-Type': 'application/json',
           'X-Session-Id': this.sessionId
         },
-        body: JSON.stringify({ url })
+        body: JSON.stringify({ url, userQuestion, country, lang })
       });
 
       await this.handleStreamResponse(response);
 
     } catch (error) {
       console.error('Erreur YouTube:', error);
-      this.addSystemMessage("Impossible d'analyser la vidéo YouTube.");
+      this.addErrorMessage();
       this.isLoading.set(false);
     }
   }
@@ -167,13 +181,22 @@ export class ChatService {
     this.addMessage({ type: 'system', contentType: 'text', content });
   }
 
+  private addErrorMessage() {
+    this.addMessage({ type: 'error', contentType: 'error', content: ERROR_MESSAGE });
+  }
+
   private async handleStreamResponse(response: Response) {
-    if (!response.body) return;
+    if (!response.body) {
+      this.addErrorMessage();
+      this.isLoading.set(false);
+      return;
+    }
 
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
     let fullContent = '';
-    
+    let hasError = false;
+
     // Création du message assistant vide
     const assistantMsgId = this.generateId();
     this.messages.update(msgs => [
@@ -194,7 +217,7 @@ export class ChatService {
         if (done) break;
 
         const chunk = decoder.decode(value, { stream: true });
-        
+
         // Nettoyage basique si format SSE "data: ..."
         let cleanChunk = chunk;
         if (chunk.includes('data: ')) {
@@ -207,6 +230,11 @@ export class ChatService {
                if (dataStr === '[DONE]') return '';
                try {
                  const json = JSON.parse(dataStr);
+                 // Vérifier si c'est une erreur du backend
+                 if (json.error) {
+                   hasError = true;
+                   return '';
+                 }
                  return json.content || '';
                } catch {
                  return dataStr;
@@ -215,25 +243,38 @@ export class ChatService {
              .join('');
         }
 
+        // Vérifier si le contenu contient une erreur
+        if (cleanChunk.includes('"error"') || cleanChunk.includes('Erreur')) {
+          hasError = true;
+        }
+
         fullContent += cleanChunk;
         this.currentStreamingMessage.set(fullContent);
-        
+
         // Mise à jour temps réel dans la liste
-        this.messages.update(msgs => 
-          msgs.map(msg => 
+        this.messages.update(msgs =>
+          msgs.map(msg =>
             msg.id === assistantMsgId ? { ...msg, content: fullContent } : msg
           )
         );
       }
     } catch (e) {
       console.error("Erreur lecture stream", e);
+      hasError = true;
     } finally {
       this.currentStreamingMessage.set('');
       this.isLoading.set(false);
-      // Marquer comme fini
-      this.messages.update(msgs => 
-        msgs.map(msg => msg.id === assistantMsgId ? { ...msg, isStreaming: false } : msg)
-      );
+
+      if (hasError || !fullContent.trim()) {
+        // Supprimer le message assistant vide et ajouter un message d'erreur
+        this.messages.update(msgs => msgs.filter(msg => msg.id !== assistantMsgId));
+        this.addErrorMessage();
+      } else {
+        // Marquer comme fini
+        this.messages.update(msgs =>
+          msgs.map(msg => msg.id === assistantMsgId ? { ...msg, isStreaming: false } : msg)
+        );
+      }
     }
   }
 

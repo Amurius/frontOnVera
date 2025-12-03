@@ -21,6 +21,7 @@ interface RecentQuestion {
 export class ChatComponent implements AfterViewInit, OnInit {
   @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
   @ViewChild('fileInput') private fileInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('textInput') private textInput!: ElementRef<HTMLTextAreaElement>;
 
   chatService = inject(ChatService);
   authService = inject(AuthService);
@@ -119,12 +120,41 @@ export class ChatComponent implements AfterViewInit, OnInit {
 
   onInputChange(): void {
     const text = this.textMessage();
-    this.isYouTubeLink.set(this.isYouTubeUrl(text));
+    this.isYouTubeLink.set(this.containsYouTubeUrl(text));
   }
 
-  private isYouTubeUrl(text: string): boolean {
-    const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|embed\/|v\/)|youtu\.be\/)[a-zA-Z0-9_-]+/;
+  // Auto-resize du textarea
+  autoResize(event: Event): void {
+    const textarea = event.target as HTMLTextAreaElement;
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+  }
+
+  // Reset la hauteur du textarea après envoi
+  private resetTextareaHeight(): void {
+    if (this.textInput) {
+      this.textInput.nativeElement.style.height = 'auto';
+    }
+  }
+
+  // Vérifie si le texte CONTIENT un lien YouTube (n'importe où)
+  private containsYouTubeUrl(text: string): boolean {
+    const youtubeRegex = /(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|embed\/|v\/|shorts\/)|youtu\.be\/)[a-zA-Z0-9_-]+/;
     return youtubeRegex.test(text.trim());
+  }
+
+  // Extrait l'URL YouTube et la question utilisateur du texte
+  private extractYouTubeAndQuestion(text: string): { url: string; question: string } | null {
+    const youtubeRegex = /(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|embed\/|v\/|shorts\/)|youtu\.be\/)[a-zA-Z0-9_-]+/;
+    const match = text.match(youtubeRegex);
+
+    if (!match) return null;
+
+    const url = match[0];
+    // La question est tout le texte sauf l'URL YouTube
+    const question = text.replace(url, '').trim();
+
+    return { url, question };
   }
 
   onFileSelected(event: Event): void {
@@ -157,23 +187,33 @@ export class ChatComponent implements AfterViewInit, OnInit {
     if (this.isLoading()) return;
 
     const file = this.selectedFile();
+    const text = this.textMessage().trim();
+    const { country, lang } = this.getBrowserInfo();
+
+    // Cas 1 : Fichier (image/vidéo) avec question optionnelle
     if (file) {
-      await this.chatService.sendFileMessage(file);
+      await this.chatService.sendFileMessage(file, text, country, lang);
       this.clearSelectedFile();
+      this.textMessage.set('');
+      this.resetTextareaHeight();
       return;
     }
 
-    const text = this.textMessage().trim();
+    // Cas 2 : Texte seul ou lien YouTube
     if (!text) return;
 
     this.textMessage.set('');
     this.isYouTubeLink.set(false);
+    this.resetTextareaHeight();
 
-    const { country, lang } = this.getBrowserInfo();
+    // Vérifier si le texte contient un lien YouTube (n'importe où dans le texte)
+    const youtubeData = this.extractYouTubeAndQuestion(text);
 
-    if (this.isYouTubeUrl(text)) {
-      await this.chatService.sendYouTubeMessage(text);
+    if (youtubeData) {
+      // Envoyer le lien YouTube avec la question de l'utilisateur
+      await this.chatService.sendYouTubeMessage(youtubeData.url, youtubeData.question, country, lang);
     } else {
+      // Texte simple sans lien YouTube
       await this.chatService.sendTextMessage(text, country, lang);
     }
   }
@@ -195,6 +235,17 @@ export class ChatComponent implements AfterViewInit, OnInit {
 
   isImage(file: File): boolean {
     return file.type.startsWith('image/');
+  }
+
+  isDocument(file: File): boolean {
+    const documentTypes = [
+      'application/pdf',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'application/vnd.oasis.opendocument.text',
+      'text/plain'
+    ];
+    return documentTypes.includes(file.type);
   }
 
   formatFileSize(bytes: number): string {

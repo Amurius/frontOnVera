@@ -50,7 +50,7 @@
   <nav class="flex-col gap-4 py-6 px-8 max-md:px-6 max-sm:px-4 bg-vera-sugar border-t border-black/10" [class.hidden]="!menuOpen" [class.flex]="menuOpen">
     <a routerLink="/" class="text-small text-vera-text transition-colors duration-200 hover:text-vera-dark" (click)="toggleMenu()">Accueil</a>
     <a routerLink="/verify" class="bg-[#1e1e1e] border-2 border-[#1e1e1e] text-white py-2 px-5 rounded-full-btn text-small font-medium transition-all duration-200 hover:bg-vera-green hover:text-vera-dark hover:scale-105 w-fit" (click)="toggleMenu()">{{ 'NAV.TALK_TO_VERA' | translate }}</a>
-    <div class="flex items-center gap-1 text-small">
+    <div class="flex items-center gap-1 text-small pt-2 border-t border-black/10">
       <button (click)="switchLanguage('fr'); toggleMenu()" class="cursor-pointer bg-transparent border-none p-0" [class.font-semibold]="currentLang === 'fr'" [class.text-vera-text-light]="currentLang !== 'fr'">FR</button>
       <span class="text-vera-text-light">/</span>
       <button (click)="switchLanguage('en'); toggleMenu()" class="cursor-pointer bg-transparent border-none p-0" [class.font-semibold]="currentLang === 'en'" [class.text-vera-text-light]="currentLang !== 'en'">ENG</button>
@@ -59,43 +59,43 @@
 </header>
 
 <!-- Contenu principal -->
-<main class="pt-[140px] pb-24 relative z-0" [class.pt-[180px]]="showBanner">
+<main class="pt-[140px] pb-24 relative z-0 max-md:pt-[120px] max-md:pb-16 max-sm:pb-12" [class.pt-[180px]]="showBanner">
   <div class="max-w-container mx-auto px-8 max-md:px-6 max-sm:px-4">
     <div>
-      <h1 class="font-heading text-h1 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[28px]">Politique de confidentialité</h1>
-      <p class="text-small text-vera-gray mb-8">Dernière mise à jour : 26 novembre 2025</p>
+      <h1 class="font-heading text-h1 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[24px] max-sm:text-[20px] max-md:tracking-[-1px]">Politique de confidentialité</h1>
+      <p class="text-small text-vera-gray mb-8 max-md:mb-6">Dernière mise à jour : 26 novembre 2025</p>
 
       <!-- Introduction -->
-      <section class="mb-10">
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+      <section class="mb-10 max-md:mb-8">
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>Cette Politique de Confidentialité décrit la manière dont LAREPONSE.TECH (ci-après « nous » ou « LAREPONSE.TECH ») collecte, utilise et protège les données à caractère personnel présentes sur le service VERA. LAREPONSE.TECH est responsable de traitement en application de l'article 4 du Règlement Général sur la Protection des Données (RGPD). Nous nous engageons à respecter la confidentialité et la protection des données personnelles conformément à la réglementation en vigueur, en particulier le RGPD.</p>
           <p>LAREPONSE.TECH traite les données à caractère personnel en se basant sur l'exécution d'un contrat auquel la personne concernée est partie au sens de l'article 6)b) du RGPD et sur les intérêts légitimes en ce qui concerne l'analyse des usages et l'amélioration du produit, au sens de l'article 6)f) du RGPD. Le contrat est accessible à cette adresse : <a href="https://www.askvera.org/legales/cgu" target="_blank" class="text-vera-label hover:underline">www.askvera.org/legales/cgu</a></p>
         </div>
       </section>
 
       <!-- 1. Données personnelles -->
-      <section class="mb-10">
-        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">1. Données à caractère personnel, finalités & durées de conservation</h2>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
-          <div class="overflow-x-auto">
-            <table class="w-full border-collapse border border-gray-300 text-small">
+      <section class="mb-10 max-md:mb-8">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[18px] max-md:tracking-[-1px] max-md:mb-3">1. Données à caractère personnel, finalités & durées de conservation</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
+          <div class="overflow-x-auto -mx-4 px-4 max-md:-mx-6 max-md:px-6 max-sm:-mx-4 max-sm:px-4">
+            <table class="w-full border-collapse border border-gray-300 text-small min-w-[600px]">
               <thead>
                 <tr class="bg-gray-100">
-                  <th class="border border-gray-300 p-3 text-left font-semibold">Données personnelles</th>
-                  <th class="border border-gray-300 p-3 text-left font-semibold">Durée de conservation</th>
-                  <th class="border border-gray-300 p-3 text-left font-semibold">Finalités</th>
+                  <th class="border border-gray-300 p-3 max-md:p-2 text-left font-semibold min-w-[150px]">Données personnelles</th>
+                  <th class="border border-gray-300 p-3 max-md:p-2 text-left font-semibold min-w-[100px]">Durée de conservation</th>
+                  <th class="border border-gray-300 p-3 max-md:p-2 text-left font-semibold">Finalités</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td class="border border-gray-300 p-3">Numéro de téléphone</td>
-                  <td class="border border-gray-300 p-3">Quelques secondes</td>
-                  <td class="border border-gray-300 p-3">Permettre aux utilisateurs de recevoir des réponses factuelles en vue de vérifier les informations transmises par les utilisateurs</td>
+                  <td class="border border-gray-300 p-3 max-md:p-2">Numéro de téléphone</td>
+                  <td class="border border-gray-300 p-3 max-md:p-2">Quelques secondes</td>
+                  <td class="border border-gray-300 p-3 max-md:p-2">Permettre aux utilisateurs de recevoir des réponses factuelles en vue de vérifier les informations transmises par les utilisateurs</td>
                 </tr>
                 <tr>
-                  <td class="border border-gray-300 p-3">Identifiants du compte Instagram</td>
-                  <td class="border border-gray-300 p-3" rowspan="4">24 mois</td>
-                  <td class="border border-gray-300 p-3" rowspan="4">
+                  <td class="border border-gray-300 p-3 max-md:p-2">Identifiants du compte Instagram</td>
+                  <td class="border border-gray-300 p-3 max-md:p-2" rowspan="4">24 mois</td>
+                  <td class="border border-gray-300 p-3 max-md:p-2" rowspan="4">
                     <ul class="list-disc list-inside space-y-1">
                       <li>Améliorer et optimiser les performances du service Vera</li>
                       <li>Analyser l'utilisation du service via des outils d'analytics afin de comprendre les tendances d'utilisation et les besoins des utilisateurs, y compris à différentes échelles (locale, nationale, supra-nationale)</li>
@@ -103,13 +103,13 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="border border-gray-300 p-3">Messages (y compris vocaux) ou conversations téléphoniques pouvant contenir des données à caractère personnel si l'utilisateur en mentionne</td>
+                  <td class="border border-gray-300 p-3 max-md:p-2">Messages (y compris vocaux) ou conversations téléphoniques pouvant contenir des données à caractère personnel si l'utilisateur en mentionne</td>
                 </tr>
                 <tr>
-                  <td class="border border-gray-300 p-3">Indicatif téléphonique international</td>
+                  <td class="border border-gray-300 p-3 max-md:p-2">Indicatif téléphonique international</td>
                 </tr>
                 <tr>
-                  <td class="border border-gray-300 p-3">Identifiant de l'utilisateur généré à partir du numéro de téléphone chiffré</td>
+                  <td class="border border-gray-300 p-3 max-md:p-2">Identifiant de l'utilisateur généré à partir du numéro de téléphone chiffré</td>
                 </tr>
               </tbody>
             </table>
@@ -119,9 +119,9 @@
       </section>
 
       <!-- 2. Partage des données -->
-      <section class="mb-10">
-        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">2. Partage des données</h2>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+      <section class="mb-10 max-md:mb-8">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[18px] max-md:tracking-[-1px] max-md:mb-3">2. Partage des données</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>Nous nous engageons à ne pas vendre, louer ou partager vos données personnelles à des tiers, sauf dans les cas suivants :</p>
           <ul class="list-disc list-inside space-y-2">
             <li>Avec des fournisseurs de services mentionnés comme sous-traitants, uniquement pour le fonctionnement et l'analyse du service VERA.</li>
@@ -131,9 +131,9 @@
       </section>
 
       <!-- 3. Droits des utilisateurs -->
-      <section class="mb-10">
-        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">3. Droits des utilisateurs</h2>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+      <section class="mb-10 max-md:mb-8">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[18px] max-md:tracking-[-1px] max-md:mb-3">3. Droits des utilisateurs</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>Conformément au RGPD, vous disposez des droits suivants concernant vos données :</p>
           <ul class="list-disc list-inside space-y-2">
             <li><strong>Accès :</strong> Vous avez le droit de savoir quelles données sont collectées et comment elles sont utilisées.</li>
@@ -151,9 +151,9 @@
       </section>
 
       <!-- 4. Sous-traitants -->
-      <section class="mb-10">
-        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">4. Sous-traitants</h2>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+      <section class="mb-10 max-md:mb-8">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[18px] max-md:tracking-[-1px] max-md:mb-3">4. Sous-traitants</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>Dans le cadre du service VERA, des données à caractère personnel sont traitées par des tiers pour le compte de LAREPONSE.TECH :</p>
           <ul class="list-disc list-inside space-y-3">
             <li><strong>WhatsApp Ireland Limited :</strong> les questions et réponses vous sont transmises via Whatsapp dès lors que vous utilisez VERA via ce service. Pour plus d'informations, veuillez consulter les mesures de protection des données personnelles de WhatsApp.</li>
@@ -169,44 +169,44 @@
       </section>
 
       <!-- 5. Sécurité des données -->
-      <section class="mb-10">
-        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">5. Sécurité des données</h2>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+      <section class="mb-10 max-md:mb-8">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[18px] max-md:tracking-[-1px] max-md:mb-3">5. Sécurité des données</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>Nous prenons des mesures techniques et organisationnelles appropriées pour protéger les données que nous collectons contre toute perte, vol, accès non autorisé ou altération.</p>
           <p>Si vous découvrez une faille de sécurité ou suspectez une vulnérabilité affectant VERA, vous pouvez nous en informer à l'adresse suivante : <a href="mailto:security@lareponse.tech" class="text-vera-label hover:underline">security&#64;lareponse.tech</a>. Nous nous engageons à enquêter rapidement et à prendre les mesures appropriées pour corriger toute faille identifiée.</p>
         </div>
       </section>
 
       <!-- 6. DPO -->
-      <section class="mb-10">
-        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">6. Délégué à la Protection des Données (DPO)</h2>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+      <section class="mb-10 max-md:mb-8">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[18px] max-md:tracking-[-1px] max-md:mb-3">6. Délégué à la Protection des Données (DPO)</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>Conformément aux exigences du RGPD, LAREPONSE.TECH a désigné un Délégué à la Protection des Données (DPO). Le DPO est responsable de veiller à ce que les pratiques de gestion des données personnelles soient conformes aux lois en vigueur et d'assurer la protection de vos droits en matière de données.</p>
           <p>Si vous avez des questions concernant la gestion de vos données personnelles ou souhaitez exercer vos droits (accès, rectification, suppression, etc.), vous pouvez contacter notre DPO à l'adresse suivante : <a href="mailto:dpo@lareponse.tech" class="text-vera-label hover:underline">dpo&#64;lareponse.tech</a></p>
         </div>
       </section>
 
       <!-- 7. Cookies -->
-      <section class="mb-10">
-        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">7. Cookies</h2>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+      <section class="mb-10 max-md:mb-8">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[18px] max-md:tracking-[-1px] max-md:mb-3">7. Cookies</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>VERA n'utilise pas de cookies dans son fonctionnement direct.</p>
           <p>Des cookies et des données de connexion peuvent être collectés par des services tiers comme WhatsApp, Instagram et Twilio pour assurer la performance de leur service.</p>
         </div>
       </section>
 
       <!-- 8. Modifications -->
-      <section class="mb-10">
-        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">8. Modifications de la Politique de Confidentialité</h2>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+      <section class="mb-10 max-md:mb-8">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[18px] max-md:tracking-[-1px] max-md:mb-3">8. Modifications de la Politique de Confidentialité</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>Nous nous réservons le droit de modifier cette Politique de Confidentialité à tout moment. Les modifications seront publiées sur notre site web et, le cas échéant, nous vous en informerons via nos réseaux sociaux. Nous vous encourageons à consulter cette Politique régulièrement pour rester informés des éventuels changements.</p>
         </div>
       </section>
 
       <!-- 9. Réclamation -->
       <section>
-        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[20px]">9. Réclamation</h2>
-        <div class="space-y-3 text-normal text-vera-body leading-relaxed">
+        <h2 class="font-heading text-h2 tracking-[-2px] font-medium text-vera-dark mb-4 max-md:text-[18px] max-md:tracking-[-1px] max-md:mb-3">9. Réclamation</h2>
+        <div class="space-y-3 text-normal text-vera-body leading-relaxed max-md:text-small max-md:space-y-2">
           <p>Vous pouvez introduire une réclamation auprès de la <a href="https://www.cnil.fr" target="_blank" class="text-vera-label hover:underline">CNIL</a>.</p>
         </div>
       </section>
