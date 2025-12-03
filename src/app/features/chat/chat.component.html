@@ -42,7 +42,7 @@
       @if (messages().length === 0) {
         <!-- Etat d'accueil -->
         <div class="flex-1 flex flex-col items-center justify-center text-center px-4">
-          <h1 class="font-heading text-h1 font-medium text-vera-dark mb-4 max-lg:text-h2 max-md:text-[36px] max-sm:text-h3">Bienvenue sur <span class="bg-vera-green px-2 rounded">VERA</span></h1>
+          <h1 class="font-heading text-h1 font-medium text-vera-dark mb-4 max-lg:text-h2 max-md:text-[36px] max-sm:text-h3">Bienvenue sur <span class="bg-vera-green pt-4 rounded-md max-sm:px-1.5 max-lg:pt-2">VERA</span></h1>
           <p class="text-h3 text-vera-text mb-1 max-md:text-normal">Vérifie une info en quelques secondes</p>
           <p class="text-large text-vera-text-light max-md:text-small max-w-[500px]">Colle un lien Youtube, un extrait de texte ou résume ce que tu as vu.</p>
         </div>
@@ -185,7 +185,8 @@
 
         <!-- Input -->
         <div class="w-full flex flex-col items-start gap-[13px] p-[16px_12px_12px_12px] max-md:p-[12px_10px_10px_10px] rounded-[12px] bg-cta-gradient" style="box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);">
-          <p class="text-small text-vera-text-light max-md:text-[11px] max-md:leading-tight">VERA utilise uniquement des sources fiables (fact-checkers, médias reconnus, ONG).</p>
+          <p class="text-small text-vera-text-tertiary max-md:hidden max-md:leading-tight">VERA utilise uniquement des sources fiables (fact-checkers, médias reconnus, ONG).</p>
+          <p class="hidden text-small text-vera-text-tertiary max-md:flex max-md:leading-tight">VERA utilise uniquement des sources fiables</p>
 
           <div class="w-full bg-white rounded-[12px] border border-gray-200 overflow-hidden">
             <input
