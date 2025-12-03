@@ -7,6 +7,7 @@ import { SurveyService } from '../../core/services/survey.service';
 import { ClusteringService, GlobalStats, TopCluster } from '../../core/services/clustering.service';
 import { DashboardStats } from '../../core/models/survey.model';
 import { Navbar } from '../../shared/navbar/navbar';
+import { InviteModalComponent } from '../../shared/components/invite-modal/invite-modal.component';
 import { NgxEchartsDirective, provideEchartsCore } from 'ngx-echarts';
 import * as echarts from 'echarts/core';
 import { LineChart, PieChart, BarChart } from 'echarts/charts';
@@ -43,7 +44,7 @@ type PeriodFilter = '12m' | '30d' | '7d' | 'custom';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, Navbar, NgxEchartsDirective],
+  imports: [CommonModule, RouterLink, FormsModule, Navbar, NgxEchartsDirective, InviteModalComponent],
   providers: [provideEchartsCore({ echarts })],
   templateUrl: './dashboard.component.html'
 })
@@ -57,6 +58,7 @@ export class DashboardComponent implements OnInit {
   // --- ÉTAT GLOBAL ---
   currentView = signal<ViewMode>('overview');
   currentUser = computed(() => this.authService.currentUser());
+  showInviteModal = signal(false);
 
   // --- STATS SONDAGES ---
   surveyStats = signal<DashboardStats | null>(null);

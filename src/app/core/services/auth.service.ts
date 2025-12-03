@@ -87,4 +87,11 @@ export class AuthService {
   getProfile(): Observable<{ user: User }> {
     return this.http.get<{ user: User }>(`${this.API_URL}/profile`);
   }
+
+  inviteModerator(email: string, firstName?: string): Observable<{ message: string; warning?: string }> {
+    return this.http.post<{ message: string; warning?: string }>(`${this.API_URL}/invite`, {
+      email,
+      firstName
+    });
+  }
 }
