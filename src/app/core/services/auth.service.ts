@@ -94,4 +94,12 @@ export class AuthService {
       firstName
     });
   }
+
+  acceptInvitation(token: string, password: string, lastName?: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(`${this.API_URL}/accept-invite`, {
+      token,
+      password,
+      lastName
+    });
+  }
 }

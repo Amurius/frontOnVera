@@ -13,6 +13,11 @@ export const routes: Routes = [
       .then(m => m.LoginComponent)
   },
   {
+    path: 'accept-invite',
+    loadComponent: () => import('./features/auth/accept-invite/accept-invite.component')
+      .then(m => m.AcceptInviteComponent)
+  },
+  {
     path: 'verify',
     loadComponent: () => import('./features/chat/chat.component')
       .then(m => m.ChatComponent)
