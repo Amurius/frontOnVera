@@ -38,7 +38,7 @@
     </div>
 
     <!-- Zone des messages (scrollable) -->
-    <div #messagesContainer class="flex-1 overflow-y-auto px-8 max-md:px-4 flex flex-col min-h-0">
+    <div #messagesContainer class="flex-1 overflow-y-auto wrap-anywhere px-8 max-md:px-4 flex flex-col min-h-0">
       @if (messages().length === 0) {
         <!-- Etat d'accueil -->
         <div class="flex-1 flex flex-col items-center justify-center text-center px-4">
@@ -49,7 +49,7 @@
 
       } @else {
         <!-- Messages -->
-        <div class="max-w-[1280px] w-full mx-auto py-8 px-6 max-md:px-2 max-md:py-4">
+        <div class="max-w-[1440px] w-full mx-auto py-8 px-6 max-md:px-2 max-md:py-4">
           @for (message of messages(); track message.id) {
             <div class="mb-8 relative" [class.flex]="true" [class.justify-end]="message.type === 'user'" [class.justify-start]="message.type === 'assistant'">
               <!-- Message utilisateur -->
