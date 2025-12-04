@@ -122,50 +122,6 @@
 </section>
 <!-- Fin Section 1 -->
 
-<!-- Section 2 : Trust + Feature Tabs -->
-<section id="trust-section" class="flex py-24 flex-col items-center gap-16 bg-white max-md:py-16 max-md:gap-12 relative z-0">
-  <div class="flex w-full max-w-container mx-auto px-8 max-md:px-6 max-sm:px-4 flex-col items-start gap-8">
-    <h2 class="font-heading text-h2 font-normal leading-[110%] text-vera-heading tracking-[0px] max-lg:text-[36px] max-sm:text-3xl">{{ 'TRUST.TITLE' | translate }}</h2>
-    <p class="font-body text-h3 font-normal leading-[30px] text-vera-body max-md:text-normal">{{ 'TRUST.SUBTITLE' | translate }}</p>
-  </div>
-  <div class="flex max-w-container mx-auto px-8 max-md:px-6 max-sm:px-4 items-center gap-16 max-md:flex-col max-md:gap-10">
-    <div class="flex-1 flex flex-col gap-8">
-      <div class="flex flex-col gap-4">
-        <div class="flex py-4 pl-6 flex-col items-start gap-4 border-l-4 border-[#e0e0e0] transition-colors duration-200 cursor-pointer hover:border-vera-green">
-          <h3 class="text-large font-semibold text-vera-dark ">{{ 'TRUST.PROBLEM_TITLE' | translate }}</h3>
-          <p class="text-small text-vera-text leading-[1.7]">{{ 'TRUST.PROBLEM_TEXT' | translate }}</p>
-        </div>
-
-        <div class="flex py-4 pl-6 flex-col items-start gap-4 border-l-4 border-[#e0e0e0] transition-colors duration-200 cursor-pointer hover:border-vera-green">
-          <h3 class="text-large font-semibold text-vera-dark">{{ 'TRUST.RESULT_TITLE' | translate }}</h3>
-          <p class="text-small text-vera-text leading-[1.7]">{{ 'TRUST.RESULT_TEXT' | translate }}</p>
-        </div>
-
-        <div class="flex py-4 pl-6 flex-col items-start gap-4 border-l-4 border-[#e0e0e0] transition-colors duration-200 cursor-pointer hover:border-vera-green">
-          <h3 class="text-large font-semibold text-vera-dark">{{ 'TRUST.MISSING_TITLE' | translate }}</h3>
-          <p class="text-small text-vera-text leading-[1.7]">{{ 'TRUST.MISSING_TEXT' | translate }}</p>
-          <p class="text-small font-medium text-vera-dark italic">{{ 'TRUST.VERA_IS' | translate }}</p>
-        </div>
-      </div>
-    </div>
-    <div class="flex-1">
-      <img src="assets/images/hommeTel.png" alt="Homme avec téléphone" class="max-w-full h-auto rounded-2xl shadow-image-green">
-    </div>
-  </div>
-</section>
-
-<!-- Instinct + VERA Section -->
-<section class="flex flex-col items-center py-20 bg-transparent text-center max-md:py-16 relative z-0">
-  <div class="flex max-w-container mx-auto px-8 max-md:px-6 max-sm:px-4 flex-col items-center gap-8">
-    <div class="flex flex-col items-center gap-4">
-      <h2 class="font-heading text-h2 font-normal leading-[110%] text-vera-heading w-full max-lg:text-[36px] max-sm:text-[24px] ">{{ 'INSTINCT.TITLE_1' | translate }} <span class="bg-vera-green px-2 pt-4 rounded-md max-sm:px-1.5 max-sm:pt-2">VERA</span> {{ 'INSTINCT.TITLE_2' | translate }}</h2>
-      <p class="font-body text-h3 font-normal leading-[150%] text-vera-body w-full max-md:text-normal">{{ 'INSTINCT.SUBTITLE' | translate }}</p>
-    </div>
-    <a routerLink="/verify" class="btn-dark inline-flex items-center gap-2 bg-[#1e1e1e] border-2 border-[#1e1e1e] text-white py-2 px-6 rounded-full-btn text-large font-medium w-fit transition-all duration-200 hover:bg-vera-green hover:text-vera-dark hover:scale-105 max-sm:text-normal max-sm:py-2.5 max-sm:px-5">
-      {{ 'HERO.CTA' | translate }}
-    </a>
-  </div>
-</section>
 
 <!-- Features Section -->
 <section class="flex py-24 flex-col items-center gap-16 bg-white overflow-hidden max-md:py-16 max-md:gap-12 relative z-0" id="how-it-works">
@@ -244,8 +200,21 @@
   </div>
 </section>
 
+<!-- Instinct + VERA Section -->
+<section class="flex flex-col items-center py-20 bg-transparent text-center max-md:py-16 relative z-0">
+  <div class="flex max-w-container mx-auto px-8 max-md:px-6 max-sm:px-4 flex-col items-center gap-8">
+    <div class="flex flex-col items-center gap-4">
+      <h2 class="font-heading text-h2 font-normal leading-[110%] text-vera-heading w-full max-lg:text-[36px] max-sm:text-[24px] ">{{ 'INSTINCT.TITLE_1' | translate }} <span class="bg-vera-green px-2 pt-4 rounded-md max-sm:px-1.5 max-sm:pt-2">VERA</span> {{ 'INSTINCT.TITLE_2' | translate }}</h2>
+      <p class="font-body text-h3 font-normal leading-[150%] text-vera-body w-full max-md:text-normal">{{ 'INSTINCT.SUBTITLE' | translate }}</p>
+    </div>
+    <a routerLink="/verify" class="btn-dark inline-flex items-center gap-2 bg-[#1e1e1e] border-2 border-[#1e1e1e] text-white py-2 px-6 rounded-full-btn text-large font-medium w-fit transition-all duration-200 hover:bg-vera-green hover:text-vera-dark hover:scale-105 max-sm:text-normal max-sm:py-2.5 max-sm:px-5">
+      {{ 'HERO.CTA' | translate }}
+    </a>
+  </div>
+</section>
+
 <!-- CTA Section Green -->
-<section class="flex py-24 flex-col justify-center items-center gap-16 max-md:py-16 max-sm:py-12 relative z-0">
+<section class="flex bg-white py-24 flex-col justify-center items-center gap-16 max-md:py-16 max-sm:py-12 relative z-0">
   <div class="max-w-container w-full px-8 max-md:px-6 max-sm:px-4">
     <div class="flex items-center rounded-4xl bg-cta-gradient shadow-xl-custom overflow-hidden max-lg:flex-col max-sm:rounded-2xl">
       <div class="flex px-16 pb-24 pt-20 flex-col justify-center items-start gap-12 flex-1 max-lg:p-8 max-md:gap-8 max-sm:p-6 max-sm:gap-6">
@@ -291,16 +260,10 @@
 </section>
 
 <!-- Footer with Final CTA -->
-<footer class="bg-vera-footer pt-16 pb-8 max-md:pt-12 max-sm:pt-10 relative z-0">
+<footer class="bg-vera-footer pb-8 max-md:pt-12 max-sm:pt-10 relative z-0">
   <div class="max-w-container mx-auto px-8 max-md:px-6 max-sm:px-4">
     <!-- Final CTA Section -->
-    <div class="text-center pb-16 max-md:pb-12 max-sm:pb-10">
-      <h2 class="font-heading text-[42px] font-normal leading-[1.2] text-vera-cream tracking-[-1px] mb-4 max-lg:text-[32px] max-md:text-[28px] max-sm:text-[22px]">{{ 'FOOTER.FINAL_TITLE_1' | translate }}<br>{{ 'FOOTER.FINAL_TITLE_2' | translate }}</h2>
-      <p class="font-body text-normal text-vera-gray mb-8 max-sm:mb-6 max-sm:text-small">{{ 'FOOTER.FINAL_SUBTITLE' | translate }}</p>
-      <a routerLink="/verify" class="inline-flex py-3 px-8 max-sm:py-2.5 max-sm:px-6 items-center justify-center rounded-full-btn bg-vera-green font-body text-normal max-sm:text-small font-medium text-[#1E1E1E] transition-all duration-200 hover:scale-105">{{ 'FOOTER.FINAL_CTA' | translate }}</a>
-    </div>
 
-    <div class="h-px bg-white/10 w-full"></div>
 
     <!-- Footer Main -->
     <div class="flex justify-between items-start py-12 max-lg:flex-col max-lg:gap-12">

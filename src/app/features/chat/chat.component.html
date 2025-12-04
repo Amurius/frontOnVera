@@ -34,7 +34,7 @@
     <!-- Header (fixe en haut) - Desktop uniquement -->
     <div class="flex-shrink-0 flex justify-end items-center gap-3 p-6 max-md:hidden">
       <a routerLink="/" class="px-5 py-2.5 bg-vera-dark rounded-full text-normal text-white font-medium hover:opacity-90 transition-opacity">Comment ça marche ?</a>
-      <a href="#" class="px-5 py-2.5 border border-vera-dark rounded-full text-normal text-vera-dark font-medium hover:bg-vera-dark hover:text-white transition-colors">Nous aider</a>
+      <a href="/survey" class="px-5 py-2.5 border border-vera-dark rounded-full text-normal text-vera-dark font-medium hover:bg-vera-dark hover:text-white transition-colors">Nous aider</a>
     </div>
 
     <!-- Zone des messages (scrollable) -->
@@ -50,7 +50,7 @@
       } @else {
         <!-- Messages -->
         <div class="max-w-[1440px] w-full mx-auto py-8 px-6 max-md:px-2 max-md:py-4">
-          @for (message of messages(); track message.id) {
+          @for (message of messages(); track message.id; let i = $index) {
             <div class="mb-8 relative" [class.flex]="true" [class.justify-end]="message.type === 'user'" [class.justify-start]="message.type === 'assistant'">
               <!-- Message utilisateur -->
               @if (message.type === 'user') {
@@ -80,8 +80,11 @@
                     <p class="text-[16px] text-vera-dark leading-relaxed">{{ message.content }}</p>
                   }
                   <!-- Bouton copier -->
-                  <div class="flex justify-end mt-2">
-                    <button (click)="copyToClipboard(message.content)" class="opacity-60 hover:opacity-100 transition-opacity" title="Copier">
+                  <div class="flex justify-end mt-2 items-center gap-2">
+                    @if (copiedMessageIndex() === i) {
+                      <span class="text-[12px] text-vera-text-light animate-fadeIn">Copied!</span>
+                    }
+                    <button (click)="copyToClipboard(message.content, i)" class="opacity-60 hover:opacity-100 transition-opacity" title="Copier">
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10.16 1.33325H7.56389C6.38773 1.33324 5.45612 1.33323 4.72703 1.43165C3.97668 1.53294 3.36935 1.74635 2.8904 2.22722C2.41144 2.7081 2.19889 3.31787 2.09801 4.07123C1.99998 4.80325 1.99999 5.7386 2 6.91948V10.8112C2 11.8166 2.6133 12.6782 3.48478 13.0394C3.43992 12.4331 3.43996 11.5824 3.44 10.8746L3.44 7.59831L3.44 7.53486C3.43995 6.68042 3.43991 5.94421 3.51886 5.35466C3.60346 4.72284 3.79426 4.1172 4.28353 3.62596C4.77281 3.13472 5.37603 2.94315 6.00532 2.85821C6.59251 2.77894 7.32578 2.77899 8.1768 2.77903L8.24 2.77904H10.16L10.2232 2.77903C11.0742 2.77899 11.8059 2.77894 12.3931 2.85821C12.0418 1.96511 11.1744 1.33325 10.16 1.33325Z" fill="#6B7280"/>
                         <path d="M4.40015 7.59834C4.40015 5.78088 4.40015 4.87215 4.9625 4.30753C5.52486 3.74292 6.42995 3.74292 8.24015 3.74292H10.1601C11.9703 3.74292 12.8754 3.74292 13.4378 4.30753C14.0001 4.87215 14.0001 5.78088 14.0001 7.59834V10.8112C14.0001 12.6287 14.0001 13.5374 13.4378 14.102C12.8754 14.6666 11.9703 14.6666 10.1601 14.6666H8.24015C6.42995 14.6666 5.52486 14.6666 4.9625 14.102C4.40015 13.5374 4.40015 12.6287 4.40015 10.8112V7.59834Z" fill="#6B7280"/>
@@ -101,13 +104,16 @@
                     }
                   </div>
                   <!-- Bouton copier -->
-                  <div class="flex justify-start mt-2">
-                    <button (click)="copyToClipboard(message.content)" class="opacity-60 hover:opacity-100 transition-opacity" title="Copier">
+                  <div class="flex justify-start mt-2 items-center gap-2">
+                    <button (click)="copyToClipboard(message.content, i)" class="opacity-60 hover:opacity-100 transition-opacity" title="Copier">
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10.16 1.33325H7.56389C6.38773 1.33324 5.45612 1.33323 4.72703 1.43165C3.97668 1.53294 3.36935 1.74635 2.8904 2.22722C2.41144 2.7081 2.19889 3.31787 2.09801 4.07123C1.99998 4.80325 1.99999 5.7386 2 6.91948V10.8112C2 11.8166 2.6133 12.6782 3.48478 13.0394C3.43992 12.4331 3.43996 11.5824 3.44 10.8746L3.44 7.59831L3.44 7.53486C3.43995 6.68042 3.43991 5.94421 3.51886 5.35466C3.60346 4.72284 3.79426 4.1172 4.28353 3.62596C4.77281 3.13472 5.37603 2.94315 6.00532 2.85821C6.59251 2.77894 7.32578 2.77899 8.1768 2.77903L8.24 2.77904H10.16L10.2232 2.77903C11.0742 2.77899 11.8059 2.77894 12.3931 2.85821C12.0418 1.96511 11.1744 1.33325 10.16 1.33325Z" fill="#6B7280"/>
                         <path d="M4.40015 7.59834C4.40015 5.78088 4.40015 4.87215 4.9625 4.30753C5.52486 3.74292 6.42995 3.74292 8.24015 3.74292H10.1601C11.9703 3.74292 12.8754 3.74292 13.4378 4.30753C14.0001 4.87215 14.0001 5.78088 14.0001 7.59834V10.8112C14.0001 12.6287 14.0001 13.5374 13.4378 14.102C12.8754 14.6666 11.9703 14.6666 10.1601 14.6666H8.24015C6.42995 14.6666 5.52486 14.6666 4.9625 14.102C4.40015 13.5374 4.40015 12.6287 4.40015 10.8112V7.59834Z" fill="#6B7280"/>
                       </svg>
                     </button>
+                    @if (copiedMessageIndex() === i) {
+                      <span class="text-[12px] text-vera-text-light animate-fadeIn">Copied!</span>
+                    }
                   </div>
                 </div>
               }

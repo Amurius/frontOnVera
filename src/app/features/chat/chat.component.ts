@@ -40,6 +40,9 @@ export class ChatComponent implements AfterViewInit, OnInit {
   isRecording = signal(false);
   isSelectingLanguage = signal(false);
   selectedLanguage = signal<'fr-FR' | 'en-US'>('fr-FR');
+
+  // Feedback copie
+  copiedMessageIndex = signal<number | null>(null);
   private recognition: any = null;
   private silenceTimeout: any = null;
   private finalTranscript = '';
@@ -263,10 +266,12 @@ export class ChatComponent implements AfterViewInit, OnInit {
     this.isYouTubeLink.set(false);
   }
 
-  copyToClipboard(text: string): void {
+  copyToClipboard(text: string, index: number): void {
     navigator.clipboard.writeText(text).then(() => {
-      // Optionnel: afficher un feedback visuel
-      console.log('Message copie dans le presse-papiers');
+      this.copiedMessageIndex.set(index);
+      setTimeout(() => {
+        this.copiedMessageIndex.set(null);
+      }, 1000);
     }).catch(err => {
       console.error('Erreur lors de la copie:', err);
     });
