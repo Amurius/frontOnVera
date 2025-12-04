@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* ============================================
    FONTS - Chargement des polices
@@ -6,10 +6,11 @@
 
 @font-face {
   font-family: 'Lastik';
-  src: url('/assets/fonts/Lastik-Regular.woff2') format('woff2'),
-       url('/assets/fonts/Lastik-Regular.woff') format('woff'),
-       url('/assets/fonts/Lastik-Regular.ttf') format('truetype'),
-       url('/assets/fonts/Lastik-Regular.otf') format('opentype');
+  src:
+    url('/assets/fonts/Lastik-Regular.woff2') format('woff2'),
+    url('/assets/fonts/Lastik-Regular.woff') format('woff'),
+    url('/assets/fonts/Lastik-Regular.ttf') format('truetype'),
+    url('/assets/fonts/Lastik-Regular.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -17,9 +18,10 @@
 
 @font-face {
   font-family: 'Fustat';
-  src: url('/assets/fonts/fustat-latin-400-normal.woff2') format('woff2'),
-       url('/assets/fonts/fustat-latin-400-normal.woff') format('woff'),
-       url('/assets/fonts/fustat-latin-400-normal.ttf') format('truetype');
+  src:
+    url('/assets/fonts/fustat-latin-400-normal.woff2') format('woff2'),
+    url('/assets/fonts/fustat-latin-400-normal.woff') format('woff'),
+    url('/assets/fonts/fustat-latin-400-normal.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -27,9 +29,10 @@
 
 @font-face {
   font-family: 'Fustat';
-  src: url('/assets/fonts/fustat-latin-500-normal.woff2') format('woff2'),
-       url('/assets/fonts/fustat-latin-500-normal.woff') format('woff'),
-       url('/assets/fonts/fustat-latin-500-normal.ttf') format('truetype');
+  src:
+    url('/assets/fonts/fustat-latin-500-normal.woff2') format('woff2'),
+    url('/assets/fonts/fustat-latin-500-normal.woff') format('woff'),
+    url('/assets/fonts/fustat-latin-500-normal.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -37,9 +40,10 @@
 
 @font-face {
   font-family: 'Fustat';
-  src: url('/assets/fonts/fustat-latin-600-normal.woff2') format('woff2'),
-       url('/assets/fonts/fustat-latin-600-normal.woff') format('woff'),
-       url('/assets/fonts/fustat-latin-600-normal.ttf') format('truetype');
+  src:
+    url('/assets/fonts/fustat-latin-600-normal.woff2') format('woff2'),
+    url('/assets/fonts/fustat-latin-600-normal.woff') format('woff'),
+    url('/assets/fonts/fustat-latin-600-normal.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -47,9 +51,10 @@
 
 @font-face {
   font-family: 'Fustat';
-  src: url('/assets/fonts/fustat-latin-700-normal.woff2') format('woff2'),
-       url('/assets/fonts/fustat-latin-700-normal.woff') format('woff'),
-       url('/assets/fonts/fustat-latin-700-normal.ttf') format('truetype');
+  src:
+    url('/assets/fonts/fustat-latin-700-normal.woff2') format('woff2'),
+    url('/assets/fonts/fustat-latin-700-normal.woff') format('woff'),
+    url('/assets/fonts/fustat-latin-700-normal.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -108,23 +113,23 @@
   /* ============================================
      COULEURS VERA - Landing Page
      ============================================ */
-  --color-vera-green: #DBF9BE;
-  --color-vera-sugar: #FEF2E4;
-  --color-vera-pink: #FFD5D8;
-  --color-vera-blue: #B4D2FF;
-  --color-vera-dark: #1A1A1A;
+  --color-vera-green: #dbf9be;
+  --color-vera-sugar: #fef2e4;
+  --color-vera-pink: #ffd5d8;
+  --color-vera-blue: #b4d2ff;
+  --color-vera-dark: #1a1a1a;
   --color-vera-text: #414651;
   --color-vera-text-light: #717680;
   --color-vera-text-tertiary: #535862;
-  --color-vera-heading: #181D27;
+  --color-vera-heading: #181d27;
   --color-vera-body: #535862;
-  --color-vera-gray: #A0A0A0;
-  --color-vera-footer: #2E2E2E;
-  --color-vera-cream: #F5ECDE;
-  --color-vera-label: #2E3626;
-  --color-vera-banner: #FECDCA;
-  --color-vera-highlight: #C5F19E;
-  --color-vera-bg-dark: #2E2E2E;
+  --color-vera-gray: #a0a0a0;
+  --color-vera-footer: #2e2e2e;
+  --color-vera-cream: #f5ecde;
+  --color-vera-label: #2e3626;
+  --color-vera-banner: #fecdca;
+  --color-vera-highlight: #c5f19e;
+  --color-vera-bg-dark: #2e2e2e;
 
   /* ============================================
      FONTS VERA
@@ -135,12 +140,12 @@
   /* ============================================
      TAILLES DE POLICE PERSONNALISÉES
      ============================================ */
-  --text-small: 1rem;        /* 18px */
-  --text-normal: 1.125rem;   /* 20.25px */
-  --text-large: 1.375rem;    /* 24.75px */
-  --text-h1: 4rem;           /* 72px */
-  --text-h2: 3.125rem;       /* 56.25px */
-  --text-h3: 1.5rem;           /* 36px */
+  --text-small: 1rem; /* 18px */
+  --text-normal: 1.125rem; /* 20.25px */
+  --text-large: 1.375rem; /* 24.75px */
+  --text-h1: 4rem; /* 72px */
+  --text-h2: 3.125rem; /* 56.25px */
+  --text-h3: 1.5rem; /* 36px */
 
   /* ============================================
      BREAKPOINTS DESKTOP-FIRST
@@ -159,9 +164,11 @@
   /* ============================================
      SHADOWS VERA
      ============================================ */
-  --shadow-xl-custom: 0 20px 24px -4px rgba(10, 13, 18, 0.08), 0 8px 8px -4px rgba(10, 13, 18, 0.03), 0 3px 3px -1.5px rgba(10, 13, 18, 0.04);
+  --shadow-xl-custom:
+    0 20px 24px -4px rgba(10, 13, 18, 0.08), 0 8px 8px -4px rgba(10, 13, 18, 0.03),
+    0 3px 3px -1.5px rgba(10, 13, 18, 0.04);
   --shadow-notification: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --shadow-image-green: 10px 4px 0 0 #DBF9BE, 10px 12px 0 0 #DBF9BE;
+  --shadow-image-green: 10px 4px 0 0 #dbf9be, 10px 12px 0 0 #dbf9be;
 
   /* ============================================
      SPACING VERA
@@ -186,7 +193,7 @@
 
 /* Gradient CTA */
 .bg-cta-gradient {
-  background: linear-gradient(92deg, #DBF9BE 1.85%, #FFD5D8 103.13%);
+  background: linear-gradient(92deg, #dbf9be 1.85%, #ffd5d8 103.13%);
 }
 
 /* Max width container */
@@ -209,11 +216,16 @@
 
 /* Shadow custom */
 .shadow-xl-custom {
-  box-shadow: 0 20px 24px -4px rgba(10, 13, 18, 0.08), 0 8px 8px -4px rgba(10, 13, 18, 0.03), 0 3px 3px -1.5px rgba(10, 13, 18, 0.04);
+  box-shadow:
+    0 20px 24px -4px rgba(10, 13, 18, 0.08),
+    0 8px 8px -4px rgba(10, 13, 18, 0.03),
+    0 3px 3px -1.5px rgba(10, 13, 18, 0.04);
 }
 
 .shadow-image-green {
-  box-shadow: 10px 4px 0 0 #DBF9BE, 10px 12px 0 0 #DBF9BE;
+  box-shadow:
+    10px 4px 0 0 #dbf9be,
+    10px 12px 0 0 #dbf9be;
 }
 
 .shadow-notification {
@@ -252,33 +264,33 @@
 
 :root {
   /* Couleurs principales */
-  --color-primary: 59 130 246;        /* RGB de primary-500 */
-  --color-primary-dark: 29 78 216;    /* RGB de primary-700 */
+  --color-primary: 59 130 246; /* RGB de primary-500 */
+  --color-primary-dark: 29 78 216; /* RGB de primary-700 */
   --color-primary-light: 147 197 253; /* RGB de primary-300 */
 
   /* Couleurs secondaires */
-  --color-secondary: 217 70 239;      /* RGB de secondary-500 */
+  --color-secondary: 217 70 239; /* RGB de secondary-500 */
   --color-secondary-dark: 162 28 175; /* RGB de secondary-700 */
   --color-secondary-light: 240 171 252; /* RGB de secondary-300 */
 
   /* Couleurs d'accent */
-  --color-accent: 239 68 68;          /* RGB de accent-500 */
-  --color-accent-dark: 185 28 28;     /* RGB de accent-700 */
-  --color-accent-light: 252 165 165;  /* RGB de accent-300 */
+  --color-accent: 239 68 68; /* RGB de accent-500 */
+  --color-accent-dark: 185 28 28; /* RGB de accent-700 */
+  --color-accent-light: 252 165 165; /* RGB de accent-300 */
 
   /* Couleurs de texte */
-  --color-text-primary: 24 24 27;     /* RGB de neutral-900 */
+  --color-text-primary: 24 24 27; /* RGB de neutral-900 */
   --color-text-secondary: 113 113 122; /* RGB de neutral-500 */
-  --color-text-muted: 161 161 170;    /* RGB de neutral-400 */
+  --color-text-muted: 161 161 170; /* RGB de neutral-400 */
 
   /* Couleurs de fond */
-  --color-background: 255 255 255;    /* Blanc */
+  --color-background: 255 255 255; /* Blanc */
   --color-background-alt: 244 244 245; /* RGB de neutral-100 */
-  --color-background-dark: 39 39 42;  /* RGB de neutral-800 */
+  --color-background-dark: 39 39 42; /* RGB de neutral-800 */
 
   /* Bordures */
-  --color-border: 228 228 231;        /* RGB de neutral-200 */
-  --color-border-dark: 63 63 70;      /* RGB de neutral-700 */
+  --color-border: 228 228 231; /* RGB de neutral-200 */
+  --color-border-dark: 63 63 70; /* RGB de neutral-700 */
 
   /* Ombres */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -300,15 +312,20 @@
    STYLES GLOBAUX
    ============================================ */
 
-
 html {
-  font-size: 18px;
+  font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  font-family: 'Fustat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family:
+    'Fustat',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
   color: rgb(var(--color-text-primary));
   background-color: rgb(var(--color-background));
   line-height: 1.5;
